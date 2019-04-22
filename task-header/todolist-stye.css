@@ -200,6 +200,7 @@ button:focus {
 #timeline-task {
     width: 71%;
     height: 10px;
+    cursor: pointer;
     display: inline-block;
     background-color: #80808063;
 }

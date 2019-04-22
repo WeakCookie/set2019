@@ -31,7 +31,7 @@
         <video id="todolist-task-introduce" src="paint.mp4" type="video/mp4">Your browser doesn't support this type of file</video>
         <div id="video-panel">
             <button class="video-button" id="play-task-button" onclick="playVideo()"><img src="https://img.icons8.com/ios-glyphs/30/000000/play.png"></button>
-            <div id="timeline-task">
+            <div id="timeline-task" onmouseover="previewTimeOnHover()" onclick="chooseTime(event)">
                 <div id="watched-bar"></div>
             </div>
             <span id="time-watched">0:00</span>/<span id="video-time">0:00</span>
