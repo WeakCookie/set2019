@@ -180,12 +180,20 @@ function selectYes () {
     item.remove()
     changeColor()
     getStatistic()
+    changeToAddButtonHeader()
+    let taskName = document.getElementById('input-task-name')
+    targetToEdit.innerText = taskName.value
+    taskName.value = ''
 }
 
 function selectNo () {
-    let parent = event.currentTarget.parentElement
+    let containerElement = event.currentTarget.parentElement
 
-    displayButtonByParent(parent)
+    let editButton = containerElement.children[1]
+    editButton.style.display = 'inline-block'
+    
+    let deleteButton = containerElement.children[2]
+    deleteButton.style.display = 'inline-block'
 
     let yesButton = containerElement.children[3]
     yesButton.remove()
@@ -277,7 +285,7 @@ function getStatistic() {
 }
 //video
 var videoPlayer = document.getElementById('video-task')
-var videoScreen = document.getElementById('todolist-task-introduce')
+var videoScreen = document.getElementById('todolist-task-video')
 var videoPanel = document.getElementById('video-panel')
 var timeline = document.getElementById('timeline-task')
 var videoTime = document.getElementById('video-time')
@@ -311,6 +319,7 @@ function playVideo () {
     icon: '<img src="https://img.icons8.com/ios/50/000000/pause-filled.png">',
     replace: 'play-task-button'
   })
+  
 }
 
 function pauseVideo () {
@@ -336,6 +345,7 @@ function renderButton (options) {
 
 function startProgressBar () {  
   timer = setInterval(frame, 100)
+  
   function frame () {
     if (watched >= videoScreen.duration) {
       renderButton({
@@ -349,6 +359,8 @@ function startProgressBar () {
       stopProgressBar()
     } 
     else {
+      alert('run')
+ 
       watched = watched + 0.1;
       timeWatched.innerText = convertToMinute(watched)
       watchedBar.style.width = watched / videoScreen.duration * 100 + '%'
