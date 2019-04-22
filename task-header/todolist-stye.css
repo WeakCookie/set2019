@@ -165,7 +165,7 @@
     margin: 0 auto;
     padding: 40px 30px 40px 30px;
 }
-#todolist-task-introduce {
+#video-task {
     display: block;
     border: 1px solid #DB3340;
     padding: 10px;
@@ -176,7 +176,7 @@
     border: 1px solid #DB3340;
     padding: 10px;
 }
-#content > #todolist-task-introduce {
+#content > #video-task {
     display: none;
 }
 @media only screen and (max-width: 768px) {
@@ -186,10 +186,10 @@
     #content > div {
         display: block;
     } 
-    div > #todolist-task-introduce {
+    div > #video-task {
         display: none;
     }
-    #content > #todolist-task-introduce {
+    #content > #video-task {
         display: block;
         border: 1px solid #DB3340;
     }
@@ -199,7 +199,7 @@ video {
     width: 70%;
 }
 
-.video-task {
+#video-task {
     width: 70%;
 }
 

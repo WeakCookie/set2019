@@ -359,8 +359,6 @@ function startProgressBar () {
       stopProgressBar()
     } 
     else {
-      alert('run')
- 
       watched = watched + 0.1;
       timeWatched.innerText = convertToMinute(watched)
       watchedBar.style.width = watched / videoScreen.duration * 100 + '%'
