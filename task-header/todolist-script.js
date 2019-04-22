@@ -180,12 +180,20 @@ function selectYes () {
     item.remove()
     changeColor()
     getStatistic()
+    changeToAddButtonHeader()
+    let taskName = document.getElementById('input-task-name')
+    targetToEdit.innerText = taskName.value
+    taskName.value = ''
 }
 
 function selectNo () {
-    let parent = event.currentTarget.parentElement
+    let containerElement = event.currentTarget.parentElement
 
-    displayButtonByParent(parent)
+    let editButton = containerElement.children[1]
+    editButton.style.display = 'inline-block'
+    
+    let deleteButton = containerElement.children[2]
+    deleteButton.style.display = 'inline-block'
 
     let yesButton = containerElement.children[3]
     yesButton.remove()
@@ -277,13 +285,21 @@ function getStatistic() {
 }
 //video
 var videoPlayer = document.getElementById('video-task')
-var videoScreen = document.getElementById('todolist-task-introduce')
+var videoScreen = document.getElementById('todolist-task-video')
 var videoPanel = document.getElementById('video-panel')
+var timeline = document.getElementById('timeline-task')
 var videoTime = document.getElementById('video-time')
+let timeWatched = document.getElementById('time-watched')
+let watchedBar = document.getElementById('watched-bar')
 var watched = 0
 var timer
 
 videoScreen.muted = true // for auto-play
+videoScreen.addEventListener('loadedmetadata', function() {
+  videoTime.innerText = convertToMinute(videoScreen.duration)
+  playVideo()    
+}, false);
+
 
 function convertToMinute (length) {
   let minute = Math.floor(length / 60)
@@ -294,8 +310,11 @@ function convertToMinute (length) {
 }
 
 function playVideo () {
+  alert('run')
   videoScreen.play()
+  alert('run')
   startProgressBar()
+  alert('run')
   renderButton({
     function: pauseVideo,
     class: 'video-button',
@@ -303,7 +322,7 @@ function playVideo () {
     icon: '<img src="https://img.icons8.com/ios/50/000000/pause-filled.png">',
     replace: 'play-task-button'
   })
-  videoTime.innerText = convertToMinute(videoScreen.duration)  
+  
 }
 
 function pauseVideo () {
@@ -327,14 +346,11 @@ function renderButton (options) {
   videoPanel.replaceChild(newButton, document.getElementById(options.replace))
 }
 
-function startProgressBar () {
-  let watchedBar = document.getElementById('watched-bar')
-  let length = videoScreen.duration
-  let timeWatched = document.getElementById('time-watched')
-  
+function startProgressBar () {  
   timer = setInterval(frame, 100)
+  
   function frame () {
-    if (watched >= length) {
+    if (watched >= videoScreen.duration) {
       renderButton({
         function: playVideo,
         class: 'video-button',
@@ -348,7 +364,7 @@ function startProgressBar () {
     else {
       watched = watched + 0.1;
       timeWatched.innerText = convertToMinute(watched)
-      watchedBar.style.width = watched / length * 100 + '%';
+      watchedBar.style.width = watched / videoScreen.duration * 100 + '%'
     }
   }
 }
@@ -387,4 +403,12 @@ function toggleFullScreen () {
   else if (videoScreen.webkitRequestFullScreen) {
     videoScreen.webkitRequestFullScreen()
   }  
+}
+
+function chooseTime (event) {
+  let chosenTime = event.offsetX / timeline.offsetWidth * videoScreen.duration
+  videoScreen.currentTime = chosenTime
+  watched = chosenTime
+  timeWatched.innerText = convertToMinute(watched)
+  watchedBar.style.width = watched / videoScreen.duration * 100 + '%';
 }
