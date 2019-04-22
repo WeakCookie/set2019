@@ -153,14 +153,21 @@
     display: block;
     width: 100%;
 }
+#statistic{
+    border: 1px solid;
+    width: 500px;
+    min-height: 20%;
+    margin: 0 auto;
+    padding: 10px;
+}
+#statistic-content{
+    border: 1px solid;
+    margin: 0 auto;
+    padding: 40px 30px 40px 30px;
+}
 #todolist-task-introduce {
     display: block;
     border: 1px solid #DB3340;
-    padding: 10px;
-}
-#statistic-task {
-    display: block;
-    border: 1px solid #28ABE3;
     padding: 10px;
 }
 #content > div {

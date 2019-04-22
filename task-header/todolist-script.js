@@ -8,7 +8,7 @@ function createTask (taskName) {
     taskItem.setAttribute("class", "task-item")
     
     var label = document.createElement('label')
-    label.setAttribute('onclick','changeTaskState(),selectOption()')
+    label.setAttribute('onclick','changeTaskState(),getStatistic(),selectOption()')
     label.innerHTML += '<input type="checkbox" class="input-task-checkbox">'
     var id = 'task' + i
     label.innerHTML += '<div class="title-task-name" id=' + id + '>' + taskName +'</div>'
@@ -179,6 +179,7 @@ function selectYes () {
     let item = event.currentTarget.parentElement
     item.remove()
     changeColor()
+    getStatistic()
 }
 
 function selectNo () {
@@ -192,7 +193,6 @@ function selectNo () {
     let noButton = containerElement.children[3]
     noButton.remove()
 }
-
 function selectOption() {
   let selector = document.getElementById('select-box')
   let selection = selector[selector.selectedIndex].value
@@ -238,7 +238,6 @@ function displayAllTasks() {
       elementToDisplay.style.display = "block"
   }
 }
-
 function displayUndoneTasks() {
   
   let toBeChecked = document.getElementsByClassName('input-task-checkbox')
@@ -254,7 +253,28 @@ function displayUndoneTasks() {
       }
   }
 }
+function getStatistic() {
+  let statisticSpace = document.getElementById('statistic-content')
+  statisticSpace.innerHTML = ''
+  let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
+  let numberOfTasks = tasksCheckers.length
+  let doneRate = 0
+  let undoneRate = 0 
+  for (var i = 0; i < numberOfTasks;i++) {
+      if (tasksCheckers[i].checked) {
+          doneRate = doneRate + 1
+      } else {
+          undoneRate = undoneRate + 1
+      }
+  }
+  if (numberOfTasks != 0) {
+  doneRate = doneRate/numberOfTasks
+  undoneRate = undoneRate/numberOfTasks
+  }
 
+  statisticSpace.innerHTML += '<div>Done:</div>' + '<div>'+ doneRate * 100 + '%' +'</div>'
+  statisticSpace.innerHTML += '<div>Undone:</div>' + '<div>'+ undoneRate * 100 + '%' +'</div>'
+}
 //video
 var videoPlayer = document.getElementById('video-task')
 var videoScreen = document.getElementById('todolist-task-introduce')

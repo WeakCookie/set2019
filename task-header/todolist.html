@@ -7,11 +7,19 @@
     <link href="./todolist-stye.css" rel="stylesheet">
     <title>Document</title>
 </head>
-<body>
+<body onload="getStatistic()">
     <div id="content">
-
         <div id="todolist-task-introduce">
-            div video
+            <video id="todolist-task-introduce" src="paint.mp4" type="video/mp4">Your browser doesn't support this type of file</video>
+            <div id="video-panel">
+                    <button class="video-button" id="play-task-button" onclick="playVideo()"><img src="https://img.icons8.com/ios-glyphs/30/000000/play.png"></button>
+                    <div id="timeline-task">
+                        <div id="watched-bar"></div>
+                    </div>
+                    <span id="time-watched">0:00</span>/<span id="video-time">0:00</span>
+                    <button class="video-button" id="mute-button" onclick="changeVolume()"><img src="https://img.icons8.com/metro/26/000000/no-audio.png"></button>
+                    <button class="video-button" id="full-screen" onclick="toggleFullScreen()"><img src="https://img.icons8.com/metro/26/000000/fit-to-width.png"></button>
+            </div>
         </div>
         <div>
             <div id="task-header">
@@ -44,11 +52,15 @@
                     <button class="video-button" id="full-screen" onclick="toggleFullScreen()"><img src="https://img.icons8.com/metro/26/000000/fit-to-width.png"></button>
                 </div>
             </div>
-            <div id="statistic-task">
+            <div id="statistic">
+                <div id="statistic-content">
+                    <!-- <div id="displayPercentage">
 
+                    </div>                 -->
+                </div>
             </div>
         </div>
-    </div>  
+    </div> 
     <script src="./todolist-script.js"></script>
 </body>
 </html>
