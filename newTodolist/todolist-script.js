@@ -165,9 +165,9 @@ function changeColor () {
         if (task.style.display == 'none') {
           displayNone = displayNone + 1
         } else if ((i + displayNone) % 2 == 0) {
-          task.style.backgroundColor = '#CCCCCC'
+          task.style.backgroundColor = '#cccccc'
         } else {
-          task.style.backgroundColor = '#FFFFFF'
+          task.style.backgroundColor = '#ffffff'
         }
     }
 

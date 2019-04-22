@@ -72,7 +72,7 @@
 }
 
 .task-item:hover {
-    background-color: #ADC4CC;
+    background-color: #adc4cc;
 }
 
 
@@ -117,7 +117,7 @@
     padding: 5px;
     width: 12%;
     font-weight: bold;
-    background-color: #28ABE3;
+    background-color: #28abe3;
     border: none;
     color: #ffffff;
     margin-right: 5px;
@@ -130,7 +130,7 @@
     padding: 5px;
     width: 16%;
     font-weight: bold;
-    background-color: #DB3340;
+    background-color: #db3340;
     border: none;
     color: #ffffff;
 }
@@ -142,7 +142,7 @@
     padding: 5px;
     width: 12%;
     font-weight: bold;
-    background-color: #28ABE3;
+    background-color: #28abe3;
     border: none;
     color: #ffffff;
     margin-right: 5px;
@@ -155,7 +155,7 @@
     padding: 5px;
     width: 12%;
     font-weight: bold;
-    background-color: #DB3340;
+    background-color: #db3340;
     border: none;
     color: #ffffff;
 }
@@ -192,7 +192,7 @@ video {
 }
 
 #video-panel {
-    background-color: #DCDCDC;
+    background-color: #dcdcdc;
     width: 100%;
     padding-top: 3px;
 }
@@ -228,12 +228,12 @@ button:focus {
     height: 10px;
     cursor: pointer;
     display: inline-block;
-    background-color: #A9A9A9;
+    background-color: #a9a9a9;
 }
 
 #watched-bar {
     height: 10px;
-    background-color: #DB3340;
+    background-color: #db3340;
 }
 
 .clear {
