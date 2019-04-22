@@ -310,8 +310,11 @@ function convertToMinute (length) {
 }
 
 function playVideo () {
+  alert('run')
   videoScreen.play()
+  alert('run')
   startProgressBar()
+  alert('run')
   renderButton({
     function: pauseVideo,
     class: 'video-button',
