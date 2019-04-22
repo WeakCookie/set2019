@@ -211,7 +211,6 @@ function selectOption() {
 
   changeColor()
 }
-
 function displayTaskDone() {
   
   let toBeChecked = document.getElementsByClassName('input-task-checkbox')
