@@ -11,8 +11,9 @@ class errorHandler {
     renderError () {
         //type code here
     }
-    throwError () {
-        //type code here
+    static throwError (consoleMessage) {
+        return consoleMessage
     }
 }
+
 module.exports.errorHandler = errorHandler
