@@ -1,5 +1,17 @@
 var i = 0
 var targetToEdit
+var videoPlayer = document.getElementById('video-task')
+var videoScreen = document.getElementById('todolist-task-video')
+var videoPanel = document.getElementById('video-panel')
+var timeline = document.getElementById('timeline-task')
+var videoTime = document.getElementById('video-time')
+let timeWatched = document.getElementById('time-watched')
+let watchedBar = document.getElementById('watched-bar')
+var watched = 0
+var timer
+videoScreen.muted = true // for auto-play
+videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
+
 
 function createTask (taskName) {
     i = i + 1
@@ -8,7 +20,7 @@ function createTask (taskName) {
     taskItem.setAttribute("class", "task-item")
     
     var label = document.createElement('label')
-    label.setAttribute('onclick', 'changeTaskState(),selectOption()')
+    label.setAttribute('onclick', 'changeTaskState(event), selectOption()')
     label.innerHTML += '<input type="checkbox" class="input-task-checkbox">'
     var id = 'task' + i
     label.innerHTML += '<div class="title-task-name" id=' + id + '>' + taskName +'</div>'
@@ -17,13 +29,13 @@ function createTask (taskName) {
 
     var edit = document.createElement('button')
     edit.setAttribute('id', 'edit-task-button')
-    edit.setAttribute('onclick', 'editButtonClick()')
+    edit.setAttribute('onclick', 'editButtonClick(event)')
     edit.innerText = "EDIT"
     taskItem.append(edit)
 
     var del = document.createElement('button')
     del.setAttribute('id', 'del-task-button')
-    del.setAttribute('onclick', 'deleteButtonClick()')
+    del.setAttribute('onclick', 'deleteButtonClick(event)')
     del.innerText = "DELETE"
     taskItem.append(del)
 
@@ -70,7 +82,7 @@ function isEditingTask (doneTask) {
     }
 }
 
-function changeTaskState () {
+function changeTaskState (event) {
     let parent = event.currentTarget.parentElement
     let toBeLined = parent.children[0].children[1]
     let checkbox = parent.children[0].children[0]
@@ -124,7 +136,7 @@ function validate () {
     return true
 }
 
-function editButtonClick () {
+function editButtonClick (event) {
     var item = event.currentTarget.parentElement
     targetToEdit = item.children[0].children[1]
     var inputTaskName = document.getElementById('input-task-name')
@@ -145,13 +157,13 @@ function changeName () {
     changeToAddButtonHeader()
 }
 
-function deleteButtonClick () {
+function deleteButtonClick (event) {
     let item = event.currentTarget.parentElement    
     let toBeLined = item.children[0].children[1]
     removeButtonByParent(item)
     isEditingTask(toBeLined)
-    item.innerHTML += '<button id="yes-button" onclick="selectYes()">YES</button>'  
-    item.innerHTML += '<button id="no-button" onclick="selectNo()">NO</button>'  
+    item.innerHTML += '<button id="yes-button" onclick="selectYes(event)">YES</button>'  
+    item.innerHTML += '<button id="no-button" onclick="selectNo(event)">NO</button>'  
 }
 
 function changeColor () {
@@ -174,14 +186,14 @@ function changeColor () {
     displayNone = 0
 }
 
-function selectYes () {
+function selectYes (event) {
     let item = event.currentTarget.parentElement
     item.remove()
     changeColor()
     getStatistic()
 }
 
-function selectNo () {
+function selectNo (event) {
     let parent = event.currentTarget.parentElement
 
     displayButtonByParent(parent)
@@ -285,18 +297,6 @@ function getStatistic() {
 }
 
 //video
-var videoPlayer = document.getElementById('video-task')
-var videoScreen = document.getElementById('todolist-task-video')
-var videoPanel = document.getElementById('video-panel')
-var timeline = document.getElementById('timeline-task')
-var videoTime = document.getElementById('video-time')
-let timeWatched = document.getElementById('time-watched')
-let watchedBar = document.getElementById('watched-bar')
-var watched = 0
-var timer
-
-videoScreen.muted = true // for auto-play
-videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
 
 function setTimeAndPlayVideo () {
   videoTime.innerText = convertToMinute(videoScreen.duration)
