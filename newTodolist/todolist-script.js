@@ -1,5 +1,17 @@
 var i = 0
 var targetToEdit
+var videoPlayer = document.getElementById('video-task')
+var videoScreen = document.getElementById('todolist-task-video')
+var videoPanel = document.getElementById('video-panel')
+var timeline = document.getElementById('timeline-task')
+var videoTime = document.getElementById('video-time')
+let timeWatched = document.getElementById('time-watched')
+let watchedBar = document.getElementById('watched-bar')
+var watched = 0
+var timer
+videoScreen.muted = true // for auto-play
+videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
+
 
 function createTask (taskName) {
     i = i + 1
@@ -285,18 +297,6 @@ function getStatistic() {
 }
 
 //video
-var videoPlayer = document.getElementById('video-task')
-var videoScreen = document.getElementById('todolist-task-video')
-var videoPanel = document.getElementById('video-panel')
-var timeline = document.getElementById('timeline-task')
-var videoTime = document.getElementById('video-time')
-let timeWatched = document.getElementById('time-watched')
-let watchedBar = document.getElementById('watched-bar')
-var watched = 0
-var timer
-
-videoScreen.muted = true // for auto-play
-videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
 
 function setTimeAndPlayVideo () {
   videoTime.innerText = convertToMinute(videoScreen.duration)
