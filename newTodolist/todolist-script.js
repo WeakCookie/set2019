@@ -8,7 +8,7 @@ function createTask (taskName) {
     taskItem.setAttribute("class", "task-item")
     
     var label = document.createElement('label')
-    label.setAttribute('onclick', 'changeTaskState()')
+    label.setAttribute('onclick', 'changeTaskState(),selectOption()')
     label.innerHTML += '<input type="checkbox" class="input-task-checkbox">'
     var id = 'task' + i
     label.innerHTML += '<div class="title-task-name" id=' + id + '>' + taskName +'</div>'
