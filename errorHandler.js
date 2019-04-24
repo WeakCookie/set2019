@@ -13,7 +13,14 @@ class errorHandler {
         return this.error.constructor.name
     }
     renderError () {
-        //type code here
+        if(this.specifyError() !== "") {
+            let position = 'bottom-right'
+            let timeout = 5
+            let hasDisableButton = true
+            let isStacked = true
+            let errorAlert = new Alert(position,timeout,hasDisableButton,isStacked)
+            errorAlert.showErrorAlert()
+        }
     }
     static throwError (consoleMessage) {
         return consoleMessage
