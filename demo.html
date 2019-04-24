@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+
+  if (setTimeout('confirm("Do you want to exit")', 3000)==true) {
+    return 1;
+  } else {
+    setTimeout('confirm("Do you like freetuts.net")', 5000);
+  }
+}
+</script>
+</body>
+</html>
