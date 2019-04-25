@@ -3,14 +3,12 @@ var c = 0;
 function pop1() {
     var div = document.getElementById('alert-success')
     div.style.display = "block"
-    div.style.zIndex = 1000
     setTimeout(function(){ div.style.display = "none"; }, 3000)
 }
 
 function pop2() {
     var div = document.getElementById('alert')
     div.style.display = "block"
-    div.style.zIndex = 1000
     setTimeout(function(){ div.style.display = "none"; }, 3000);
 }
 
@@ -23,7 +21,6 @@ function pop3() {
 function pop4() {
     var div = document.getElementById('alert-warning')
     div.style.display = "block"
-    div.style.zIndex = 1000
     setTimeout(function(){ div.style.display = "none"; }, 3000);
 }
 
