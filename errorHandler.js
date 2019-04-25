@@ -12,20 +12,21 @@ class errorHandler {
         if(this.specifyError() !== "") {
             let errorAlert = document.createElement('div')
             errorAlert.className = 'error-alert'
+            document.body.appendChild(errorAlert)
+            
             let errorSpecified = document.createElement('span')
             errorSpecified.className = 'error-name'
             errorSpecified.innerText = this.specifyError()
             errorAlert.appendChild(errorSpecified)
-            document.body.appendChild(errorAlert)
-            let position = alert.position.split('-')
             
+            let position = alert.position.split('-')
             //position
             if (position[0] == 'top') {
                 errorAlert.style.top = '10px'
             } else {
                 errorAlert.style.bottom = '10px'
             }
-
+            
             if (position[1] == 'right') {
                 errorAlert.style.right = '10px'
             } else if (position[1] == 'left') {
@@ -33,7 +34,7 @@ class errorHandler {
             } else {
                 errorAlert.style.left = '50%'
             }
-
+            
             //timeout
             let counter = 0
             let timer = setInterval(frame,1000)
