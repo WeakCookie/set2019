@@ -12,15 +12,56 @@ class errorHandler {
     specifyError () {
         return this.error.constructor.name
     }
-    renderError () {
+    renderError (alert) {
         if(this.specifyError() !== "") {
-            let position = 'bottom-right'
-            let timeout = 5
-            let hasDisableButton = true
-            let isStacked = true
-            let errorAlert = new Alert(position,timeout,hasDisableButton,isStacked)
-            errorAlert.showErrorAlert()
-        }
+            let errorAlert = document.createElement('div')
+            errorAlert.className = 'error-alert'
+            let errorSpecified = document.createElement('span')
+            errorSpecified.className = 'error-name'
+            errorSpecified.innerText = this.specifyError()
+            errorAlert.appendChild(errorSpecified)
+            document.body.appendChild(errorAlert)
+            let position = alert.position.split('-')
+            
+            //position
+            if (position[0] == 'top') {
+                errorAlert.style.top = '10px'
+            } else {
+                errorAlert.style.bottom = '10px'
+            }
+
+            if (position[1] == 'right') {
+                errorAlert.style.right = '10px'
+            } else if (position[1] == 'left') {
+                errorAlert.style.left = '10px'
+            } else {
+                errorAlert.style.left = '50%'
+            }
+
+            //timeout
+            let counter = 0
+            let timer = setInterval(frame,1000)
+            function frame () {
+                if(counter == alert.timeout) {
+                    errorAlert.remove()
+                    clearInterval(timer)
+                }
+                counter++
+            }
+
+            //disable button
+            if (alert.hasDisableButton) {
+                let disableButton = document.createElement('button')
+                disableButton.addEventListener('click',function(){errorAlert.remove()})
+                disableButton.id = 'disable-button'
+                disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
+                errorAlert.appendChild(disableButton)
+            }
+
+            //stacked
+            if (alert.isStacked) {
+
+            }
     }
     static throwError (consoleMessage) {
         return consoleMessage
