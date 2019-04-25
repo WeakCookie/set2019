@@ -1,6 +1,10 @@
 class errorHandler {
     constructor (e) {
-        this.error = e
+        if (e instanceof Error) {
+            this.error = e
+        } else {
+            this.error = undefined
+        }
     }
     createErrorMessage () {
         //type code here
@@ -11,8 +15,13 @@ class errorHandler {
     renderError () {
         //type code here
     }
-    throwError () {
-        //type code here
+    static throwError (consoleMessage) {
+        return consoleMessage
     }
 }
+
+let a = new errorHandler(232)
+
+a.renderError()
+
 module.exports.errorHandler = errorHandler
