@@ -1,13 +1,13 @@
 class Alert {
-    constructor(){
+    constructor () {
         this.warn = "red"
         this.warningColor = '#ff0000'
         this.position = "top-right"
         this.timeout = 2
         this.isStacked = false
-        this.hasDisabledButton = false
+        this.hasDisabledButton = true
     }
-    setPosition(position){
+    setPosition (position) {
         switch (position) {
             case "top-right" :
                 this.position = position
@@ -31,7 +31,7 @@ class Alert {
                 break;
         }
     }
-    getPostion(){
+    getPostion () {
         let positionDescription = this.position.split('-')
         let outPosition = ['10%', '10%']
         if (positionDescription[1] == 'center') {
@@ -39,21 +39,22 @@ class Alert {
         }
         return outPosition        
     }
-    setTimeout(time){
+    setTimeout (time) {
         if (typeof time != 'number') {
             this.timeout = undefined
         } else {
             this.timeout = time
         }
     }
-    setStacked(canBeStacked){
+    setStacked (canBeStacked) {
         if (typeof canBeStacked != 'boolean') {
             this.isStacked = undefined
         } else {
             this.isStacked = canBeStacked
         }
     }
-    setWarnColor(color){
+
+    setWarnColor (color) {
         switch(color) {
             case "red":
                 this.warn = 'red'
@@ -70,10 +71,12 @@ class Alert {
 
         }
     }
-    setDisabledButton(){
+
+    setDisabledButton () {
         this.hasDisabledButton = true
     }
-    shutDisabledButton(){
+
+    shutDisabledButton () {
         this.hasDisabledButton = false
     }
 }
@@ -88,9 +91,11 @@ class errorHandler {
     createErrorMessage () {
         return this.error.message
     }
+
     specifyError () {
         return this.error.constructor.name
     }
+
     renderError (alert) {
         if(this.specifyError() !== "") {
             let errorAlert = document.createElement('div')
@@ -119,7 +124,7 @@ class errorHandler {
             }
             if (alert.hasDisableButton) {
                 let disableButton = document.createElement('button')
-                disableButton.addEventListener('click',function(){errorAlert.remove()})
+                disableButton.addEventListener('click', function(){errorAlert.remove()})
                 disableButton.id = 'disable-button'
                 disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
                 errorAlert.appendChild(disableButton)
@@ -127,12 +132,12 @@ class errorHandler {
             return errorAlert
         }
     }
-    static throwError (consoleMessage) {
+    static throwError(consoleMessage) {
         return consoleMessage
     }
 }
 
-function aaa(){
+function testRender () {
     let ele = document.getElementsByTagName('body')
     try {
         alert (a + b)
@@ -143,4 +148,5 @@ function aaa(){
         ele.appendChild(aa)
     }
 }
+
 module.exports.errorHandler = errorHandler
