@@ -54,14 +54,24 @@ class errorHandler {
                 disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
                 errorAlert.appendChild(disableButton)
             }
-
-            //stacked
-            if (alert.isStacked) {
-
-            }
+            return errorAlert
+        }
     }
     throwError () {
         //type code here
+    }
+}
+
+function aaa(){
+    let ele = document.getElementsByTagName('body')
+    try {
+        alert (a + b)
+    } catch (e) {
+        let checker = new errorHandler(e)
+        alert('run')
+        let ale = new alert()
+        let aa = checker.renderError(ale)
+        ele.appendChild(aa)
     }
 }
 module.exports.errorHandler = errorHandler
