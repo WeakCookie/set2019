@@ -1,5 +1,8 @@
+let bb = require('./Alert')
+
 class errorHandler {
     constructor (e) {
+        alert('run')
         if (e instanceof Error) {
             this.error = e
         } else {
@@ -71,11 +74,13 @@ function aaa(){
     try {
         alert (a + b)
     } catch (e) {
-        let checker = new errorHandler(e)
+        // alert(e instanceof Error)
+        var checker = new errorHandler()
         alert('run')
-        let ale = new alert()
+        let ale = new bb.alert()
         let aa = checker.renderError(ale)
         ele.appendChild(aa)
     }
 }
+
 module.exports.errorHandler = errorHandler
