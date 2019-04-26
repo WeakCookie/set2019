@@ -7,10 +7,10 @@ class errorHandler {
         }
     }
     createErrorMessage () {
-        //type code here
+        return this.error.message
     }
     specifyError () {
-        //type code here
+        return this.error.constructor.name
     }
     renderError () {
         //type code here
