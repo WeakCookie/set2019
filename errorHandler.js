@@ -117,19 +117,6 @@ class errorHandler {
             } else {
                 errorAlert.style.left = '50%'
             }
-            
-            //timeout
-            let counter = 0
-            let timer = setInterval(frame,1000)
-            function frame () {
-                if(counter == alert.timeout) {
-                    errorAlert.remove()
-                    clearInterval(timer)
-                }
-                counter++
-            }
-
-            //disable button
             if (alert.hasDisableButton) {
                 let disableButton = document.createElement('button')
                 disableButton.addEventListener('click',function(){errorAlert.remove()})
