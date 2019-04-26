@@ -4,8 +4,11 @@
     position:fixed;
     background-color: #e41c1c8c;
     border-radius: 3px; 
-    transition: all 1s;
+    transition: left 1s;
     text-align: center;
+    animation-name: error-render;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
 }
 
 #disable-button {
@@ -17,4 +20,15 @@
 #disable-button img {
     width: 30px;
     height: 30px;
+}
+@keyframes error-render {
+    0% {
+        right: -50px;
+    }
+    50% {
+        right: 40px;
+    }
+    100% {
+        right: -150px;
+    }
 }
