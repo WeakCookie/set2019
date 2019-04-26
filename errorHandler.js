@@ -74,13 +74,11 @@ function aaa(){
     try {
         alert (a + b)
     } catch (e) {
-        // alert(e instanceof Error)
-        var checker = new errorHandler()
+        let checker = new errorHandler(e)
         alert('run')
-        let ale = new bb.alert()
+        let ale = new alert()
         let aa = checker.renderError(ale)
         ele.appendChild(aa)
     }
 }
-
 module.exports.errorHandler = errorHandler
