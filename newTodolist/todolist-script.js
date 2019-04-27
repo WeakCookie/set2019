@@ -116,8 +116,16 @@ function addTask () {
     var taskInput = document.getElementById('input-task-name')
     var taskName = taskInput.value.trim()
     var taskList = document.getElementById('task-list')
+    var taskItem = createTask(taskName)
 
-    taskList.appendChild(createTask(taskName))
+    let selector = document.getElementById('select-box')
+    let selection = selector[selector.selectedIndex].value
+
+    if (selection == 'done') {
+      taskItem.style.display = 'none'
+    }
+
+    taskList.appendChild(taskItem)
     taskInput.value = ''
 
     getStatistic()
@@ -414,4 +422,16 @@ function chooseTime (event) {
   watched = chosenTime
   timeWatched.innerText = convertToMinute(watched)
   watchedBar.style.width = watched / videoScreen.duration * 100 + '%';
+}
+
+//transition
+
+function activatePanel() {
+  let videoPanel = document.getElementById("video-panel")
+  videoPanel.className = 'hide transition'
+}
+
+function hidePanel() {
+  let videoPanel = document.getElementById("video-panel")
+  videoPanel.className = 'hide'
 }

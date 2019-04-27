@@ -10,28 +10,30 @@
 <body>
     <div id="container">
         <div id="video-task">
-            <div id="video-panel">
-                <button class="video-button" id="play-task-button" onclick="playVideo()">
-                    <img src="https://img.icons8.com/ios-glyphs/30/000000/play.png">
-                </button>
-                <div id="progress-bar">
-                    <div id="timeline-task" onclick="chooseTime(event)">
-                        <div id="watched-bar"></div>
-                    </div>
-                    <div id="time-display">
-                        <span id="time-watched">0:00</span>
-                        <span>/</span>
-                        <span id="video-time">0:00</span>
-                    </div>
-                </div>            
-                <button class="video-button" id="mute-button" onclick="changeVolume()">
-                    <img src="https://img.icons8.com/metro/26/000000/no-audio.png">
-                </button>
-                <button class="video-button" id="full-screen" onclick="toggleFullScreen()">
-                    <img src="https://img.icons8.com/metro/26/000000/fit-to-width.png">
-                </button>
-            </div>                
-            <video id="todolist-task-video" src="todoist.mp4" type="video/mp4"></video>
+            <div id="panel-container" onmouseover="activatePanel()" onmouseout="hidePanel()">
+                <div id="video-panel" class="hide">
+                    <button class="video-button" id="play-task-button" onclick="playVideo()">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/play.png">
+                    </button>
+                    <div id="progress-bar">
+                        <div id="timeline-task" onclick="chooseTime(event)">
+                            <div id="watched-bar"></div>
+                        </div>
+                        <div id="time-display">
+                            <span id="time-watched">0:00</span>
+                            <span>/</span>
+                            <span id="video-time">0:00</span>
+                        </div>
+                    </div>            
+                    <button class="video-button" id="mute-button" onclick="changeVolume()">
+                        <img src="https://img.icons8.com/metro/26/000000/no-audio.png">
+                    </button>
+                    <button class="video-button" id="full-screen" onclick="toggleFullScreen()">
+                        <img src="https://img.icons8.com/metro/26/000000/fit-to-width.png">
+                    </button>
+                </div>
+            </div>            
+            <video id="todolist-task-video" src="todoist.mp4" type="video/mp4" onmouseover="activatePanel()" onmouseout="hidePanel()"></video>
         </div>
 
         <div id="content">
