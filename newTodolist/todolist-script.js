@@ -13,7 +13,7 @@ let doneRateContainer = {
   doneRate : 0
 }
 let undoneRateContainer = {
-  undoneRate = 0
+  undoneRate : 0
 }
 
 videoScreen.muted = true // for auto-play
@@ -108,7 +108,6 @@ function changeTaskState (event) {
 }
 
 function modifyTask () {
-    alert('run')
     if (validate()) {
       addTask()
       changeColor()
@@ -278,7 +277,8 @@ function displayUndoneTasks () {
 }
 
 function getStatistic() {
-
+  let done = document.getElementById('done')
+  let undone = document.getElementById('undone')
   let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
   let numberOfTasks = tasksCheckers.length
   let doneTasks = 0
@@ -294,25 +294,39 @@ function getStatistic() {
   }
 
   if (numberOfTasks != 0) {
-    doneTasks = doneTasks / numberOfTasks
-    undoneTasks = undoneTasks / numberOfTasks
+    // doneTasks = doneTasks / numberOfTasks
+    // undoneTasks = undoneTasks / numberOfTasks
+    runTweenValue(doneTasks, undoneTasks)
+  } else {
+    done.innerText = 'Done: ' + doneRateContainer.doneRate * 100 + '%'
+    undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate * 100 + '%'
   }
-  runTweenValue()
 }
 
 function runTweenValue (doneTasks, undoneTasks) {
   let numberOfTasks = doneTasks + undoneTasks
   let donePercentage = doneTasks / numberOfTasks
-  let undonePercentage = undoneTasks / numberOfTasks
+  let undonePercentage = undoneTasks / numberOfTasks // divide by 0
+  donePercentage = getSign(doneRateContainer.doneRate, donePercentage)
+  undonePercentage = getSign(undoneRateContainer.undoneRate, undonePercentage)
+  // first param of TweenLite has problem need to handle
+  alert(undonePercentage)
   TweenLite.to(doneRateContainer, 5, {doneRate : donePercentage, onUpdate:updateDoneHandler, ease:Power4.easeOut, y: -500})
-  TweenLite.to(undoneRateContainer, 5, {undoneRate : undonePercentage, onUpdate:updateUndoneHandler, ease:Power4.easeOut, y: -500})
+  TweenLite.to(undoneRateContainer, 5, {undoneRate : undonePercentage, onUpdate : updateUndoneHandler, ease : Power4.easeOut, y: -500})
 }
-
+function getSign (a, b) {
+  if (a > b) {
+    return '+=' + (a-b).toString()
+  } else {
+    return '-=' + (b-a).toString()
+  }
+}
 function updateDoneHandler () {
   let done = document.getElementById('done')
   done.innerText = 'Done: ' + doneRateContainer.doneRate * 100 + '%'
 }
 function updateUndoneHandler () {
+  alert(undoneRateContainer.undoneRate)
   let undone = document.getElementById('undone')
   undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate * 100 + '%'
 }
