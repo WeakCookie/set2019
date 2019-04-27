@@ -2,12 +2,9 @@
     width:14%;
     height:12%;
     position:fixed;
-    background-color: #e41c1c8c;
+    background-color: #e61919;
     border-radius: 3px; 
-    transition: left 1s;
     text-align: center;
-    animation-name: error-render-right;
-    animation-duration: 2s;
     animation-fill-mode: forwards;
 }
 
@@ -16,7 +13,7 @@
         bottom: -10px;
         opacity: 0;
     }
-    50% {
+    20% {
         bottom: 10px;
         opacity: 1;
     }
@@ -31,7 +28,7 @@
         top: -10px;
         opacity: 0;
     }
-    50% {
+    20% {
         top: 10px;
         opacity: 1;
     }
@@ -46,7 +43,7 @@
         left: -20px;
         opacity:0;
     }
-    50% {
+    20% {
         left: 20px;
         opacity: 1;
     }
@@ -61,7 +58,7 @@
         right: -20px;
         opacity:0;
     }
-    50% {
+    20% {
         right: 20px;
         opacity: 1;
     }
@@ -75,9 +72,10 @@
     border:none;
     background-color: #00000000;
     position: absolute;
+    left: 0;
 }
 
 #disable-button img {
-    width: 30px;
-    height: 30px;
+    width: 15px;
+    height: 15px;
 }

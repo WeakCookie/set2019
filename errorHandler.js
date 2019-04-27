@@ -1,21 +1,11 @@
 class Alert {
-<<<<<<< Updated upstream
-    constructor () {
-        this.warn = "red"
-        this.warningColor = '#ff0000'
-        this.position = "top-right"
-        this.timeout = 2
-        this.isStacked = false
-        this.hasDisabledButton = true
-=======
-    constructor(position,timeout,isStacked,hasDisableButton){
+    constructor(position,timeout,hasDisableButton,isStacked){
         this.warn = "red"
         this.warningColor = '#ff0000'
         this.position = position
         this.timeout = timeout
+        this.hasDisableButton = hasDisableButton
         this.isStacked = isStacked
-        this.hasDisabledButton = hasDisableButton
->>>>>>> Stashed changes
     }
     setPosition (position) {
         switch (position) {
@@ -107,56 +97,18 @@ class errorHandler {
         return this.error.constructor.name
     }
 
-    renderError (alert) {
-<<<<<<< Updated upstream
-        if(this.specifyError() !== "") {
-            let errorAlert = document.createElement('div')
-            errorAlert.className = 'error-alert'
-            document.body.appendChild(errorAlert)
-            
-            let errorSpecified = document.createElement('span')
-            errorSpecified.className = 'error-name'
-            errorSpecified.innerText = this.specifyError()
-            errorAlert.appendChild(errorSpecified)
-            
-            let position = alert.position.split('-')
-            //position
-            if (position[0] == 'top') {
-                errorAlert.style.top = '10px'
-            } else {
-                errorAlert.style.bottom = '10px'
-            }
-            
-            if (position[1] == 'right') {
-                errorAlert.style.right = '10px'
-            } else if (position[1] == 'left') {
-                errorAlert.style.left = '10px'
-            } else {
-                errorAlert.style.left = '50%'
-            }
-            if (alert.hasDisableButton) {
-                let disableButton = document.createElement('button')
-                disableButton.addEventListener('click', function(){errorAlert.remove()})
-                disableButton.id = 'disable-button'
-                disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
-                errorAlert.appendChild(disableButton)
-            }
-            return errorAlert
-        }
-    }
-    static throwError(consoleMessage) {
-=======
+    renderError (options) {
         let errorAlert = document.createElement('div')
         errorAlert.className = 'error-alert'
         document.body.appendChild(errorAlert)
         
         let errorSpecified = document.createElement('span')
         errorSpecified.className = 'error-name'
-        errorSpecified.innerText = this.specifyError()
+        errorSpecified.innerHTML = '<img width="20px" height="20px" src="https://img.icons8.com/color/48/000000/high-importance.png"> ' + this.specifyError()
         errorAlert.appendChild(errorSpecified)
         
-        let position = alert.position.split('-')
         //position
+        let position = options.position.split('-')
         if (position[0] == 'top') {
             errorAlert.style.top = '10px'
         } else {
@@ -175,33 +127,35 @@ class errorHandler {
                 errorAlert.style.animationName = 'error-render-center-bottom'
         }
 
-        errorAlert.style.animationDuration = alert.timeout + 's'
+        //timeout
+        errorAlert.style.animationDuration = (options.timeout + 3) + 's'
+        setTimeout(function(){errorAlert.remove()},(options.timeout + 3) * 1000)
 
-        if (alert.hasDisableButton) {
+        //disable button
+        if (options.hasDisableButton) {
             let disableButton = document.createElement('button')
             disableButton.addEventListener('click',function(){errorAlert.remove()})
             disableButton.id = 'disable-button'
             disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
             errorAlert.appendChild(disableButton)
         }
+
+        //stack
+        if(options.isStacked) {
+
+        }
     }
 
     static throwError (consoleMessage) {
->>>>>>> Stashed changes
         return consoleMessage
     }
 }
 
-<<<<<<< Updated upstream
-function testRender () {
-    let ele = document.getElementsByTagName('body')
-=======
 function testAlert() {
->>>>>>> Stashed changes
     try {
         adddlert (a + b)
     } catch (e) {
-        let alertOptions = new Alert("top-right",4,true,true)
+        let alertOptions = new Alert("bottom-left",4,true,true)
         let checker = new errorHandler(e)
         checker.renderError(alertOptions)
     }
