@@ -9,6 +9,13 @@ let timeWatched = document.getElementById('time-watched')
 let watchedBar = document.getElementById('watched-bar')
 var watched = 0
 var timer
+let doneRateContainer = {
+  doneRate : 0
+}
+let undoneRateContainer = {
+  undoneRate = 0
+}
+
 videoScreen.muted = true // for auto-play
 videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
 
@@ -101,6 +108,7 @@ function changeTaskState (event) {
 }
 
 function modifyTask () {
+    alert('run')
     if (validate()) {
       addTask()
       changeColor()
@@ -119,7 +127,7 @@ function addTask () {
 
     taskList.appendChild(createTask(taskName))
     taskInput.value = ''
-
+  
     getStatistic()
 }
 
@@ -268,34 +276,46 @@ function displayUndoneTasks () {
       }
   }
 }
-  
+
 function getStatistic() {
 
   let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
   let numberOfTasks = tasksCheckers.length
-  let done = document.getElementById('done')
-  let undone = document.getElementById('undone')
-  let doneRate = 0
-  let undoneRate = 0
+  let doneTasks = 0
+  let undoneTasks = 0
 
   for (var i = 0; i < numberOfTasks; i++) {
     let task = tasksCheckers[i]
     if (task.checked) {
-        doneRate = doneRate + 1
+        doneTasks = doneTasks + 1
     } else {
-        undoneRate = undoneRate + 1
+        undoneTasks = undoneTasks + 1
     }
   }
 
   if (numberOfTasks != 0) {
-    doneRate = doneRate / numberOfTasks
-    undoneRate = undoneRate / numberOfTasks
+    doneTasks = doneTasks / numberOfTasks
+    undoneTasks = undoneTasks / numberOfTasks
   }
-
-  done.innerText = 'Done: ' + doneRate * 100 + '%'
-  undone.innerText = 'Undone: ' + undoneRate * 100 + '%'
+  runTweenValue()
 }
 
+function runTweenValue (doneTasks, undoneTasks) {
+  let numberOfTasks = doneTasks + undoneTasks
+  let donePercentage = doneTasks / numberOfTasks
+  let undonePercentage = undoneTasks / numberOfTasks
+  TweenLite.to(doneRateContainer, 5, {doneRate : donePercentage, onUpdate:updateDoneHandler, ease:Power4.easeOut, y: -500})
+  TweenLite.to(undoneRateContainer, 5, {undoneRate : undonePercentage, onUpdate:updateUndoneHandler, ease:Power4.easeOut, y: -500})
+}
+
+function updateDoneHandler () {
+  let done = document.getElementById('done')
+  done.innerText = 'Done: ' + doneRateContainer.doneRate * 100 + '%'
+}
+function updateUndoneHandler () {
+  let undone = document.getElementById('undone')
+  undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate * 100 + '%'
+}
 //video
 
 function setTimeAndPlayVideo () {
