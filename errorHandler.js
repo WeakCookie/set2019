@@ -1,4 +1,5 @@
 class Alert {
+<<<<<<< Updated upstream
     constructor () {
         this.warn = "red"
         this.warningColor = '#ff0000'
@@ -6,6 +7,15 @@ class Alert {
         this.timeout = 2
         this.isStacked = false
         this.hasDisabledButton = true
+=======
+    constructor(position,timeout,isStacked,hasDisableButton){
+        this.warn = "red"
+        this.warningColor = '#ff0000'
+        this.position = position
+        this.timeout = timeout
+        this.isStacked = isStacked
+        this.hasDisabledButton = hasDisableButton
+>>>>>>> Stashed changes
     }
     setPosition (position) {
         switch (position) {
@@ -88,6 +98,7 @@ class errorHandler {
             this.error = undefined
         }
     }
+
     createErrorMessage () {
         return this.error.message
     }
@@ -97,6 +108,7 @@ class errorHandler {
     }
 
     renderError (alert) {
+<<<<<<< Updated upstream
         if(this.specifyError() !== "") {
             let errorAlert = document.createElement('div')
             errorAlert.className = 'error-alert'
@@ -133,19 +145,65 @@ class errorHandler {
         }
     }
     static throwError(consoleMessage) {
+=======
+        let errorAlert = document.createElement('div')
+        errorAlert.className = 'error-alert'
+        document.body.appendChild(errorAlert)
+        
+        let errorSpecified = document.createElement('span')
+        errorSpecified.className = 'error-name'
+        errorSpecified.innerText = this.specifyError()
+        errorAlert.appendChild(errorSpecified)
+        
+        let position = alert.position.split('-')
+        //position
+        if (position[0] == 'top') {
+            errorAlert.style.top = '10px'
+        } else {
+            errorAlert.style.bottom = '10px'
+        }
+        
+        if (position[1] == 'right') {
+            errorAlert.style.animationName = 'error-render-right'
+        } else if (position[1] == 'left') {
+            errorAlert.style.animationName = 'error-render-left'
+        } else if(position[1] == 'center') {
+            errorAlert.style.left = '43%'
+            if(position[0] == 'top')
+                errorAlert.style.animationName = 'error-render-center-top'
+            else
+                errorAlert.style.animationName = 'error-render-center-bottom'
+        }
+
+        errorAlert.style.animationDuration = alert.timeout + 's'
+
+        if (alert.hasDisableButton) {
+            let disableButton = document.createElement('button')
+            disableButton.addEventListener('click',function(){errorAlert.remove()})
+            disableButton.id = 'disable-button'
+            disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
+            errorAlert.appendChild(disableButton)
+        }
+    }
+
+    static throwError (consoleMessage) {
+>>>>>>> Stashed changes
         return consoleMessage
     }
 }
 
+<<<<<<< Updated upstream
 function testRender () {
     let ele = document.getElementsByTagName('body')
+=======
+function testAlert() {
+>>>>>>> Stashed changes
     try {
-        alert (a + b)
+        adddlert (a + b)
     } catch (e) {
+        let alertOptions = new Alert("top-right",4,true,true)
         let checker = new errorHandler(e)
-        let ale = new Alert()
-        let aa = checker.renderError(ale)
-        ele.appendChild(aa)
+        checker.renderError(alertOptions)
     }
 }
 
