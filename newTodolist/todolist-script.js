@@ -268,7 +268,7 @@ function displayUndoneTasks () {
       }
   }
 }
-
+  
 function getStatistic() {
 
   let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
