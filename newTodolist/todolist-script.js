@@ -207,6 +207,11 @@ function moveTaskItemUp (index) {
     for(let i = index; i < taskItems.length; i++) {
       taskItems[i].style.animationName = 'move-up-task-item'
     }
+    setTimeout(function(){
+      for(let i = index; i < taskItems.length; i++) {
+        taskItems[i].style.animationName = ''
+      }
+    },1000)
 }
 
 function selectNo (event) {
