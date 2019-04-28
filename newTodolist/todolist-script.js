@@ -294,8 +294,6 @@ function getStatistic() {
   }
 
   if (numberOfTasks != 0) {
-    // doneTasks = doneTasks / numberOfTasks
-    // undoneTasks = undoneTasks / numberOfTasks
     runTweenValue(doneTasks, undoneTasks)
   } else {
     done.innerText = 'Done: ' + doneTasks * 100 + '%'
@@ -309,28 +307,24 @@ function runTweenValue (doneTasks, undoneTasks) {
   let undonePercentage = undoneTasks / numberOfTasks // divide by 0
   donePercentage = getSign(doneRateContainer.doneRate, donePercentage)
   undonePercentage = getSign(undoneRateContainer.undoneRate, undonePercentage)
-  // first param of TweenLite has problem need to handle
-  if (doneTasks != 0) {
+  
   TweenMax.to(doneRateContainer, 5, {doneRate:donePercentage, onUpdate:updateDoneHandler, ease:Power4.easeOut, y: -500})
-  }
-  if (undoneTasks != 0) {
   TweenLite.to(undoneRateContainer, 5, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, ease:Power4.easeOut, y: -500})
-  }
 }
 function getSign (a, b) {
   if (b >= a) {
-    return '+=' + ((b-a) * 100).toString()
+    return '+=' + ((b-a)).toString()
   } else {
-    return '-=' + ((a-b) * 100).toString()
+    return '+=' + ((b-a)).toString()
   }
 }
 function updateDoneHandler () {
   let done = document.getElementById('done')
-  done.innerText = 'Done: ' + doneRateContainer.doneRate + '%'
+  done.innerText = 'Done: ' + doneRateContainer.doneRate * 100 + '%'
 }
 function updateUndoneHandler () {
   let undone = document.getElementById('undone')
-  undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate + '%'
+  undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate * 100 + '%'
 }
 //video
 
