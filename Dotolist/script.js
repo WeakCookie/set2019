@@ -1,3 +1,6 @@
+var initialUndone = 0
+var initialDone = 0
+
 function add() {
     var check = document.getElementById('header-taskname')
     if (check.value.trim() != '') {
@@ -257,13 +260,37 @@ function undoneShow() {
     doneList.style.display = 'none'
     buttonText[0].innerText = 'Undone'
 }
+
+function animateValue(id, start, end, duration, type) {
+    var obj = document.getElementById(id);
+    var range = end - start;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var startTime = new Date().getTime();
+    var endTime = startTime + duration;
+    var timer;
+    function run() {
+        var now = new Date().getTime();
+        var remaining = Math.max((endTime - now) / duration, 0);
+        var value = Math.round(end - (remaining * range));
+        obj.innerHTML = type + value + "%";
+        if (value == end) {
+            clearInterval(timer);
+        }
+    }
+    timer = setInterval(run, stepTime);
+    run();
+}
+
 function statisticCounter() {
     var doneCounter = document.getElementById("done-list").childElementCount
     var undoneCounter = document.getElementById("task-list").childElementCount
-    var doneView = document.getElementById("done-task-percentage")
-    var undoneView = document.getElementById("undone-task-percentage")
-    doneView.innerHTML = "Done: " + (doneCounter/(doneCounter+undoneCounter))*100 + "%"
-    undoneView.innerHTML = "Undone: " + (undoneCounter/(doneCounter+undoneCounter))*100 + "%"
+    doneRatio = (doneCounter/(doneCounter+undoneCounter))*100
+    undoneRatio = (undoneCounter/(doneCounter+undoneCounter))*100
+    animateValue("done-task-percentage", initialDone, doneRatio, 500, "Done: ")
+    animateValue("undone-task-percentage", initialUndone, undoneRatio, 500, "Undone: ")
+    initialDone = doneRatio
+    initialUndone = undoneRatio
+    
 }
 
 // video
