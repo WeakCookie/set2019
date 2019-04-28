@@ -186,11 +186,27 @@ function changeColor () {
     displayNone = 0
 }
 
+
 function selectYes (event) {
     let item = event.currentTarget.parentElement
-    item.remove()
-    changeColor()
+    item.style.animationName = 'delete-task-item' 
+
+    var taskItems = document.getElementsByClassName('task-item')
+    var index = [].indexOf.call(taskItems, item)
+
     getStatistic()
+    setTimeout(function(){
+      item.remove()
+      moveTaskItemUp(index)
+      changeColor()
+    },1000)
+}
+
+function moveTaskItemUp (index) {
+    var taskItems = document.getElementsByClassName('task-item')
+    for(let i = index; i < taskItems.length; i++) {
+      taskItems[i].style.animationName = 'move-up-task-item'
+    }
 }
 
 function selectNo (event) {

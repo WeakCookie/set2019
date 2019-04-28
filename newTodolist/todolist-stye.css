@@ -69,6 +69,19 @@
     margin-bottom: 2px;
     word-wrap: break-word;
     position: relative;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    transition:all 1s;
+}
+
+@keyframes delete-task-item {
+    from {left:0px; opacity: 1;}
+    to   {left:-20px; opacity: 0;}
+}
+
+@keyframes move-up-task-item {
+    from {top:34px;}
+    to   {top:0px;}
 }
 
 .task-item:hover {
