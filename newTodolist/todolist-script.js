@@ -110,9 +110,22 @@ function modifyTask () {
     if (validate()) {
       addTask()
       changeColor()
+      popSuccessAdd()
     }
+    popFailAdd()
 }
-
+function popSuccessAdd() {
+  let alertSuccess = document.createElement('div')
+  alertSuccess.setAttribute('id','alert-pop')
+  alertSuccess.innerText="Add successfully"
+}
+function popFailAdd() {
+  let alertFail = document.createElement('div')
+  alertFail.setAttribute('id', 'alert-pop')
+  // alert('run')//chạy hàm run k? run nãy giờ
+  alertFail.innerText = "Please enter something in the input field"
+  alert('run')
+}
 function clearAllInforms () {
     let validateField = document.getElementById('validate-task-name')
     validateField.innerText = ""
@@ -384,7 +397,7 @@ function enableButtons () {
   for (var i = 0; i < tasks.length;i++) {
     tasks[i].children[0].children[0].style.display = 'inline-block'
     tasks[i].children[0].children[1].style.display = 'inline-block'
-     tasks[i].children[1].disabled = false
+    tasks[i].children[1].disabled = false
     tasks[i].children[2].disabled = false
     tasks[i].children[1].style.backgroundColor = '#1fda9a'
     tasks[i].children[2].style.backgroundColor = '#db3340'

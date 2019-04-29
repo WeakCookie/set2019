@@ -313,3 +313,24 @@ button:focus {
         float: none;
     }
 }
+#alert-pop {
+    width: 150px;
+    height: 75px;
+    position: fixed;
+    border-radius: 3px;
+    top: 20px;
+    animation-name: pop-alert;    ;
+    animation-duration: 3s; 
+    animation-fill-mode: forwards;
+}
+@keyframes pop-alert {
+    0% {
+        right: -100px;
+    }
+    50% {
+        right: 200px;
+    }
+    100% {
+        right: -100px;
+    }
+}
