@@ -376,7 +376,6 @@ function disableButtons () {
  }
   labelDisabler = true
   addButton.disabled = true
-  alert('Disable successfully')
 }
 function enableButtons () {
   let addButton = document.getElementById('add-task-button')
@@ -392,7 +391,6 @@ function enableButtons () {
   }
   labelDisabler = false
   addButton.disabled = false
-  alert('Enable successfully')
 }
 function getSign (a, b) {
   if (b >= a) {
