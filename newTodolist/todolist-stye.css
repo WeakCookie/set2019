@@ -1,19 +1,7 @@
 * {
     font-size: 16px;
 }
-li{
-    animation-name : flash;
-    animation-duration: 2s; 
-    animation-delay: 5s;
-}
-@keyframes undonetask{ 
-    0%{
-        width: 50px;
-    }
-    100%{
-        width: 100px;
-    }
-}
+
 #container {
     width: 1044px;
     border: 1px solid;
@@ -75,10 +63,19 @@ li{
 #taskList li {
     list-style-type: none;
     padding: 2px;
-    animation-name: flash;
+    animation-name: undonetask;
     animation-duration: 2s;
+    animation-delay: 5s;
 }
 
+@keyframes undonetask{ 
+    0%{
+        width: 50px;
+    }
+    100%{
+        width: 100px;
+    }
+}
 .task-item {
     margin-top: 2px;
     margin-bottom: 2px;
