@@ -66,6 +66,9 @@
     margin-bottom: 2px;
     word-wrap: break-word;
     position: relative;
+    animation-name: slide-from-left;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     transition:all 1s;
@@ -89,9 +92,6 @@
 @keyframes move-down-task-item {
     from {top:0px;}
     to   {top:-34px;}
-    animation-name: slide-from-left;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
 }
 
 .task-item:hover {
