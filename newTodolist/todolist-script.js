@@ -110,9 +110,23 @@ function modifyTask () {
     if (validate()) {
       addTask()
       changeColor()
+      popSuccessAdd()
+      return
     }
+    popFailAdd()
 }
-
+function popSuccessAdd() {
+  let alerts = document.getElementsByClassName('alerts')
+  let alertSuccess = alerts[1]
+  alertSuccess.setAttribute('id', 'alert-pop')
+  alertSuccess.style.backgroundColor = '#00ff00'
+}
+function popFailAdd() {
+  let alerts = document.getElementsByClassName('alerts')
+  let alertFail = alerts[0]
+  alertFail.setAttribute('id', 'alert-pop')
+  alertFail.style.backgroundColor = '#ff0000'
+}
 function clearAllInforms () {
     let validateField = document.getElementById('validate-task-name')
     validateField.innerText = ""
@@ -368,8 +382,11 @@ function disableButtons () {
   for (var i = 0; i < tasks.length;i++) {
     tasks[i].children[0].children[0].style.display = 'none'
     tasks[i].children[0].children[1].style.display = 'none'
-    tasks[i].children[1].style.display = 'none'
-    tasks[i].children[2].style.display = 'none'
+    tasks[i].children[1].disabled = true
+    tasks[i].children[2].disabled = true
+    tasks[i].children[1].style.backgroundColor = '#c0c0c0'
+    tasks[i].children[2].style.backgroundColor = '#c0c0c0'
+
  }
   labelDisabler = true
   addButton.disabled = true
@@ -381,8 +398,10 @@ function enableButtons () {
   for (var i = 0; i < tasks.length;i++) {
     tasks[i].children[0].children[0].style.display = 'inline-block'
     tasks[i].children[0].children[1].style.display = 'inline-block'
-    tasks[i].children[1].style.display = 'inline-block'
-    tasks[i].children[2].style.display = 'inline-block'
+    tasks[i].children[1].disabled = false
+    tasks[i].children[2].disabled = false
+    tasks[i].children[1].style.backgroundColor = '#1fda9a'
+    tasks[i].children[2].style.backgroundColor = '#db3340'
   }
   labelDisabler = false
   addButton.disabled = false
