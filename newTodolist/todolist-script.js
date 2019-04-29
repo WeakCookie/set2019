@@ -194,11 +194,32 @@ function changeColor () {
     displayNone = 0
 }
 
+
 function selectYes (event) {
     let item = event.currentTarget.parentElement
-    item.remove()
-    changeColor()
+    item.style.animationName = 'delete-task-item' 
+
+    var taskItems = document.getElementsByClassName('task-item')
+    var index = [].indexOf.call(taskItems, item)
+
     getStatistic()
+    setTimeout(function(){
+      item.remove()
+      moveTaskItemUp(index)
+      changeColor()
+    },1000)
+}
+
+function moveTaskItemUp (index) {
+    var taskItems = document.getElementsByClassName('task-item')
+    for(let i = index; i < taskItems.length; i++) {
+      taskItems[i].style.animationName = 'move-up-task-item'
+    }
+    setTimeout(function(){
+      for(let i = index; i < taskItems.length; i++) {
+        taskItems[i].style.animationName = ''
+      }
+    },1000)
 }
 
 function selectNo (event) {
@@ -242,12 +263,19 @@ function displayTaskDone () {
       let task = toBeChecked[i]
       if (!task.checked) {
           let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "none"
+          elementToDisplay.style.animationName = 'delete-task-item'
+          setTimeout(function(){elementToDisplay.style.display = "none"},1000)
       } else {
         let elementToDisplay = task.parentElement.parentElement
-        elementToDisplay.style.display = "block"
+        elementToDisplay.style.animationName = 'move-up-task-item'
       }
   }
+
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
 }
 
 function displayAllTasks () {
@@ -257,8 +285,15 @@ function displayAllTasks () {
   for (var i = 0; i < numberOfTasks; i++) {
       let task = toBeChecked[i]
       let elementToDisplay = task.parentElement.parentElement
-      elementToDisplay.style.display = "block"
+      elementToDisplay.style.animationName = 'retrieve-task-item'
+      setTimeout(function(){elementToDisplay.style.display = "block"},1000)
   }
+
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
 }
 
 function displayUndoneTasks () {
@@ -269,14 +304,22 @@ function displayUndoneTasks () {
       let task = toBeChecked[i]
       if (task.checked) {
           let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "none"
+          elementToDisplay.style.animationName = 'delete-task-item'
+          setTimeout(function(){elementToDisplay.style.display = "none"},1000)
       } else {
         let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "block"
+        elementToDisplay.style.animationName = 'retrieve-task-item'
+        setTimeout(function(){elementToDisplay.style.display = "block"},1000)
       }
   }
-}
 
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
+}
+  
 function getStatistic() {
 
   let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
