@@ -9,45 +9,12 @@
     <link href="style.css" type="text/css" rel="stylesheet" >
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
-
 <body>
-    <a onclick="pop1()" class="success-button">Show Box</a>
-    <a onclick="pop2()" class="error-button">Show Box</a>
-    <a onclick="pop3()" class="info-button">Show Box</a>
-    <a onclick="pop4()" class="warn-button">Show Box</a>
-
-    <div id="alert-success">
-        <span class="close-button">
-            <img src="https://img.icons8.com/material/24/000000/delete-sign.png">
-        </span>
-        <img class="check-icon" src="https://img.icons8.com/cotton/64/000000/checkmark.png">
-        <h1>Success !!</h1>
-    </div>
-
-    <div id="alert">
-        <span class="close-button">
-            <img src="https://img.icons8.com/material/24/000000/delete-sign.png">
-        </span>
-        <img class="cross-icon" src="https://img.icons8.com/flat_round/64/000000/delete-sign.png">
-        <h1>Error !!</h1>
-    </div>
-
-    <div id="alert-info">
-        <span class="close-button">
-            <img src="https://img.icons8.com/material/24/000000/delete-sign.png">
-        </span>
-        <img class="info-icon" src="https://img.icons8.com/flat_round/64/000000/question-mark.png">
-        <h1>Infomation ??</h1>
-    </div>
-
-    <div id="alert-warning">
-        <span class="close-button">
-            <img src="https://img.icons8.com/material/24/000000/delete-sign.png">
-        </span>
-        <img class="warning-icon" src="https://img.icons8.com/color/48/000000/error.png">
-        <h1>Warning !!</h1>
-    </div>
-
+    <button class="testSucces" onclick = "renderSuccess()">testSuccess</button>
+    <button class="testSucces" onclick = "renderError()">testError</button>
+    <button class="testSucces" onclick = "renderWarning()">testWarning</button>
+    <button class="testSucces" onclick = "renderInfo()">testInfo</button>
+    <div id="pop-up"></div> 
     <script src="script.js"></script>
 </body>
 </html>
