@@ -12,12 +12,6 @@ var stringCheck = ''
 var counting2 = 0
 var initialUndone = 0
 var initialDone = 0
-var video = document.querySelector('.videoplayer')
-var progress = document.querySelector('.timeline-progress')
-var playOrPauseBtn = document.getElementById('play-pause')
-var volumeBtn = document.getElementById('mute-unmute')
-var timeline = document.getElementById('timeline')
-video.muted = true
 
 function add() {
 
@@ -522,18 +516,22 @@ function statisticCounter() {
     initialUndone = undoneRatio
 }
 
+var video = document.querySelector('.videoplayer')
+var progress = document.querySelector('.timeline-progress')
+var playOrPauseBtn = document.getElementById('play-pause')
+var volumeBtn = document.getElementById('mute-unmute')
+var timeline = document.getElementById('timeline')
+video.muted = true
+
 
 function playOrPause() {
     if(video.paused) {
         playOrPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'
-        alert(playOrPauseBtn.innerHTML)
         video.play();
     }
     else {
         playOrPauseBtn.innerHTML = '<i class="fas fa-play"></i>'
-        alert(playOrPauseBtn.innerHTML)
         video.pause();
-
     }
 }
 
@@ -555,6 +553,7 @@ function timeChooser() {
     video.currentTime = chosenTime
 }
 
+
 function muteOrUnmute() {
     if (video.muted) {
         volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
@@ -565,26 +564,15 @@ function muteOrUnmute() {
         video.muted = true
     }
 }
-
 function screenCustomize() {
     var fullscreen = video.webkitRequestFullscreen || video.mozRequestFullScreen || video.msRequestFullscreen;
     fullscreen.call(video);
 }
-
 video.addEventListener('volumechange',function(e){
     if (this.muted) {
         volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
     }
     else {
         volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
-    }
-}, false)
-
-video.addEventListener('pause',function(e){
-    if (this.paused) {
-        playOrPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'  
-    }
-    else {
-        playOrPauseBtn.innerHTML = '<i class="fas fa-play"></i>'   
     }
 }, false)
