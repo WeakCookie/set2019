@@ -27,9 +27,10 @@ function add() {
         item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
         changeBackgroundColorTask(item)
         check.setAttribute('class','animation-input')
+        alert.popSuccess("Add successfully!!")
         setTimeout(function() {
             taskList.append(item)
-            alert.popSuccess("Add successfully!!")
+            statisticCounter()
             item.setAttribute('class','animation-li')
             setTimeout(function() {
                 check.value = ''
@@ -37,7 +38,7 @@ function add() {
                 item.removeAttribute('class')
             }, 1000)
         },1000)
-        statisticCounter()
+        
     }
 } 
 function changeBackgroundColorTask(item) {
