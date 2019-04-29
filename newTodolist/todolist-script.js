@@ -91,7 +91,6 @@ function isEditingTask (doneTask) {
 }
 
 function changeTaskState (event) {
-  if (!labelDisabler) {
     let parent = event.currentTarget.parentElement
     let toBeLined = parent.children[0].children[1]
     let checkbox = parent.children[0].children[0]
@@ -105,7 +104,6 @@ function changeTaskState (event) {
       displayButtonByParent(parent)
     }
     getStatistic()
-  }
 }
 
 function modifyTask () {
@@ -309,18 +307,18 @@ function runTweenValue (doneTasks, undoneTasks) {
   donePercentage = getSign(doneRateContainer.doneRate, donePercentage)
   undonePercentage = getSign(undoneRateContainer.undoneRate, undonePercentage)
   disableButtons()
-  TweenLite.to(doneRateContainer, 1, {doneRate:donePercentage, onUpdate:updateDoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
-  TweenLite.to(undoneRateContainer, 1, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+  TweenLite.to(doneRateContainer, 3, {doneRate:donePercentage, onUpdate:updateDoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+  TweenLite.to(undoneRateContainer, 3, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
 }
 function disableButtons () {
   let addButton = document.getElementById('add-task-button')
   let tasks = document.getElementsByClassName('task-item')
-  
+  addButton.style.backgroundColor = '#c0c0c0'
   for (var i = 0; i < tasks.length;i++) {
-    tasks[i].children[0].removeAttribute('onclick')
     tasks[i].children[0].children[0].style.display = 'none'
-    tasks[i].children[1].disabled = true
-    tasks[i].children[2].disabled = true
+    tasks[i].children[0].children[1].style.display = 'none'
+    tasks[i].children[1].style.display = 'none'
+    tasks[i].children[2].style.display = 'none'
  }
   labelDisabler = true
   addButton.disabled = true
@@ -328,11 +326,12 @@ function disableButtons () {
 function enableButtons () {
   let addButton = document.getElementById('add-task-button')
   let tasks = document.getElementsByClassName('task-item')
+  addButton.style.backgroundColor = '#28abe3'
   for (var i = 0; i < tasks.length;i++) {
-    tasks[i].children[0].setAttribute('onclick', 'changeTaskState(event), selectOption()')
     tasks[i].children[0].children[0].style.display = 'inline-block'
-    tasks[i].children[1].disabled = false
-    tasks[i].children[2].disabled = false
+    tasks[i].children[0].children[1].style.display = 'inline-block'
+    tasks[i].children[1].style.display = 'inline-block'
+    tasks[i].children[2].style.display = 'inline-block'
   }
   labelDisabler = false
   addButton.disabled = false
