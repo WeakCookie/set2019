@@ -1,7 +1,19 @@
 * {
     font-size: 16px;
 }
-
+li{
+    animation-name : flash;
+    animation-duration: 2s; 
+    animation-delay: 5s;
+}
+@keyframes undonetask{ 
+    0%{
+        width: 50px;
+    }
+    100%{
+        width: 100px;
+    }
+}
 #container {
     width: 1044px;
     border: 1px solid;
