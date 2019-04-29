@@ -43,14 +43,14 @@ function add() {
 } 
 function changeBackgroundColorTask(item) {
     if (done == 1)
-            item.style.display = 'none'
+        item.style.display = 'none'
     if (undone == 1)
         changeBackgroundColor(item, countUndone)
     if (task == 1)
         changeBackgroundColor(item, countTask)
 }
 function changeBackgroundColor(item, count) {
-    if ( count%2 == 1)
+    if (count % 2 == 1)
         item.style.backgroundColor = '#d9d9d9'
     else
         item.style.backgroundColor = '#F1F1F1'
@@ -89,7 +89,6 @@ function deleteItem(event) {
 }
 
 function deleteForever(event) {
-    
     var listTask = document.getElementById('task-list')
     var item = event.currentTarget.parentElement
     var headerDisplay = document.getElementById('header')
@@ -98,7 +97,6 @@ function deleteForever(event) {
     counting = 0
     while( contentItem != listTask.childNodes[counting].innerHTML )
         counting++
-    
     if (header.style.display == 'none') {
         checkDisplay(headerDisplay,item)
     }
@@ -113,6 +111,7 @@ function deleteForever(event) {
             recoverList(listTask)
         }, 1000)    
     }, 1000);  
+    alert.popSuccess("Delete successfully!!")
     statisticCounter()
 }
 function animationBottomToTop() {
@@ -768,5 +767,4 @@ function disable(event) {
    var ChosenPop = event.currentTarget.parentElement
    ChosenPop.remove();
 }
-
 let alert = new Alert('bottom-right',5000,true,false)
