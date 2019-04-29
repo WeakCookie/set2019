@@ -1,5 +1,4 @@
  class Alert {
-    
     constructor (position,timeout,hasDisableClick,isStacked)
     {   
         this.timeout = timeout
@@ -8,178 +7,204 @@
         this.hasDisableClick = hasDisableClick
     }
    
-    popSuccess() {
+    popSuccess(str) {
         var div = document.createElement('div')
         div.className = "alert-success"
+        div.id = "popUp"
+        var currentPosition ='top'
         div.innerHTML += '<i class="fas fa-check-circle"></i>'
         for (var i in this.positions) {
-            if (this.positions[i]==='top') {
-                div.style.top = "2vh"
-            }
             if (this.positions[i]==='right') {
-                div.style.left = "75vh"
+                div.style.left = "77%"
             }
             if (this.positions[i]==='left') {
-                div.style.left = "2vh"
-            }
-            if (this.positions[i]==='bottom') {
-                div.style.top = "69vh"
+                div.style.left = "2%"
             }
             if (this.positions[i]==='center') {
                 div.style.left = "40%"
             }
+            if (this.positions[i]==='bottom') {
+                div.style.top = "73vh"
+                currentPosition = 'bottom'
+            }
         }
-        if (this.isStacked) {
-           div.style.position = "relative"
-        }
-        else {
-            div.style.position = "absolute"
-        }
+        popsitionModifier.bind(this)(currentPosition);
         if (this.hasDisableClick) {
            div.innerHTML += '<i class="fas fa-times" id="close-button" onclick="disable(event)"></i>'
         }
-        div.innerHTML += "<h1>Success!!</h1>"
+       
+        div.innerHTML+= "<h3>"+ str +"</h3>"
         document.getElementById('pop-up').appendChild(div)
-        setTimeout(function() { 
-            document.getElementById('pop-up').removeChild(div)
-        }, this.timeout)
+        setTimeout (function() {
+            div.style.animationName = "fadeOut" 
+        },this.timeout)
+        setTimeout (function() {
+            div.remove(); 
+        },this.timeout + 1000)
     }
 
-   popError() {
+   popError(str) {
     var div = document.createElement('div')
     div.className = "alert-error"
+    div.id = "popUp"
+    var currentPosition ='top'
     div.innerHTML += '<i class="fas fa-times-circle"></i>'
     for (var i in this.positions) {
-        if (this.positions[i]==='top') {
-            div.style.top = "2vh"
-        }
         if (this.positions[i]==='right') {
-            div.style.left =  "75vh"
+            div.style.left =  "77%"
         }
         if (this.positions[i]==='left') {
-            div.style.left = "2vh"
-        }
-        if (this.positions[i]==='bottom') {
-            div.style.top = "69vh"
+            div.style.left = "2%"
         }
         if (this.positions[i]==='center') {
             div.style.left = "40%"
         }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
     }
-    if (this.isStacked) {
-        div.style.position = "relative"
-    }
-    else {
-        div.style.position = "absolute"
-    }
+    popsitionModifier.bind(this)(currentPosition);
     if (this.hasDisableClick) {
        div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
     }
-    div.innerHTML += "<h1>Error!!</h1>"
+    div.innerHTML += "<h3>"+ str +"</h3>"
     document.getElementById('pop-up').appendChild(div)
-    setTimeout(function() { 
-        document.getElementById('pop-up').removeChild(div)
-    }, this.timeout)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
    }
 
-   popInfo() {
+   popInfo(str) {
     var div = document.createElement('div')
     div.className = "alert-info"
+    div.id = "popUp"
+    var currentPosition ='top'
     div.innerHTML += '<i class="fas fa-info-circle"></i>'
     for (var i in this.positions) {
-        if (this.positions[i]==='top') {
-            div.style.top = "2vh"
-        }
         if (this.positions[i]==='right') {
-            div.style.left = "75vh"
+            div.style.left = "77%"
         }
         if (this.positions[i]==='left') {
-            div.style.left = "2vh"
-        }
-        if (this.positions[i]==='bottom') {
-            div.style.top = "69vh"
+            div.style.left = "2%"
         }
         if (this.positions[i]==='center') {
             div.style.left = "40%"
         }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
     }
-    if (this.isStacked) {
-        div.style.position = "relative"
-    }
-    else {
-        div.style.position = "absolute"
-    }
+    popsitionModifier.bind(this)(currentPosition);
     if (this.hasDisableClick) {
        div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
     }
-    div.innerHTML += "<h1>Info!!</h1>"
+    div.innerHTML += "<h3>"+ str +"</h3>"
     document.getElementById('pop-up').appendChild(div)
-    setTimeout(function() { 
-        document.getElementById('pop-up').removeChild(div)
-    }, this.timeout)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
    }
 
-   popWarning() {
+   popWarning(str) {
     var div = document.createElement('div')
     div.className = "alert-warning"
+    div.id = "popUp"
+    var currentPosition ='top'
     div.innerHTML += '<i class="fas fa-exclamation-circle"></i>'
     for (var i in this.positions) {
-        if (this.positions[i]==='top') {
-            div.style.top = "2vh"
-        }
         if (this.positions[i]==='right') {
-            div.style.left = "75vh"
+            div.style.left = "77%"
         }
         if (this.positions[i]==='left') {
-            div.style.left = "2vh"
-        }
-        if (this.positions[i]==='bottom') {
-            div.style.top = "69vh"
+            div.style.left = "2%"
         }
         if (this.positions[i]==='center') {
             div.style.left = "40%"
         }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
     }
-    if (this.isStacked) {
-        div.style.position = "relative"
-    }
-    else {
-        div.style.position = "absolute"
-    }
+    popsitionModifier.bind(this)(currentPosition);
     if (this.hasDisableClick) {
        div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
     }
-    div.innerHTML += "<h1>Warning!!</h1>"
+    div.innerHTML += "<h3>"+ str +"</h3>"
     document.getElementById('pop-up').appendChild(div)
-    setTimeout(function() { 
-        document.getElementById('pop-up').removeChild(div)
-    }, this.timeout)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+    
    }
+}
+
+function popsitionModifier(position) {
+var pops = document.querySelectorAll("#popUp")
+  if(position === 'top') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  (countNumberOfPops-1)*22 + "vh"
+            pops[j].style.animation = "moveDown 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
+  if(position === 'bottom') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  73 - (countNumberOfPops-1)*22 + "vh"
+            pops[j].style.animation = "moveUp 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
 }
 
 function disable(event) {
-    var pop = event.currentTarget.parentElement
-    pop.remove(); 
+   var ChosenPop = event.currentTarget.parentElement
+   ChosenPop.remove();
 }
 
 // test using Alert class using render error
-let position = 'top-center'
-let timeout = 5000
-let hasDisableCLick = true
-let isStacked = true
-let alert = new Alert(position,timeout,hasDisableCLick,isStacked)
+// first declare an error message and its features
+// Ex : var YourAlertBox = new Alert(position,timeOut,hasDisableClick,isStacked)
+// YouralertBox then can be used by typing alert.KindOfPop("message")
+//for example:
+let alert = new Alert('bottom-center',20000,true,true)
 
 function renderWarning() {
-    alert.popWarning();
+    alert.popWarning("Your message");
 }
 
 function renderSuccess() {
-    alert.popSuccess();
+    alert.popSuccess("Your message");
 }
 function renderError() {
-    alert.popError();
+    alert.popError("your message");
 }
 
 function renderInfo() {
-    alert.popInfo();
+    alert.popInfo("this is a message");
 }

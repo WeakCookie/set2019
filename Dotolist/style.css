@@ -370,7 +370,7 @@ ul {
         bottom: 20px;
     }
 }
-
+/* video css */
 #video-container {
     width: 100%;
     height:100%;
@@ -393,6 +393,7 @@ ul {
     z-index: 1;
     display: flex;
     animation: controllerMoveUp 0.7s forwards;
+
 }
 
 video {
@@ -442,10 +443,11 @@ video {
 .timeline-progress {
     height: 5px;
     width: 0%;
-    background-color: rgba(255, 178, 107,0.7);
+    background-color: rgba(223, 90, 37, 0.7);
     border-radius: 3px;
-}
-@keyframes controllerMoveDown {
+  }
+  /* animation for video-chau */
+  @keyframes controllerMoveDown {
     from {
        transform: translateY(-100%);
     }
