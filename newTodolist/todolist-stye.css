@@ -6,6 +6,7 @@
     width: 1044px;
     border: 1px solid;
     margin: auto;
+    background-color: #ffffff;
 }
 
 #content {
@@ -60,10 +61,6 @@
     margin-left: -5px;
 }
 
-#taskList li {
-    list-style-type: none;
-}
-
 .task-item {
     margin-top: 2px;
     margin-bottom: 2px;
@@ -92,6 +89,9 @@
 @keyframes move-down-task-item {
     from {top:0px;}
     to   {top:-34px;}
+    animation-name: slide-from-left;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
 }
 
 .task-item:hover {
@@ -214,6 +214,10 @@ video {
     float: right;
 }
 
+#panel-container {
+    height: 30px;
+}
+
 #video-panel {
     background-color: #dcdcdc;
     width: 100%;
@@ -261,6 +265,34 @@ button:focus {
 
 .clear {
     clear: both;
+}
+
+.hide {
+    position: relative;
+    transition: all 1s;
+    top: -10px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.hide.transition {
+    top: 0;
+    opacity: 1;
+    visibility: visible;
+}
+
+@keyframes slide-from-left {
+    from {
+        left: -20px;
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    to {
+        left: 0;
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 @media screen and (max-width: 768px) {
