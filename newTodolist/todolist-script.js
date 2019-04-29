@@ -9,6 +9,7 @@ let timeWatched = document.getElementById('time-watched')
 let watchedBar = document.getElementById('watched-bar')
 var watched = 0
 var timer
+let labelDisabler = false
 let doneRateContainer = {
   doneRate : 0
 }
@@ -90,10 +91,10 @@ function isEditingTask (doneTask) {
 }
 
 function changeTaskState (event) {
+  if (!labelDisabler) {
     let parent = event.currentTarget.parentElement
     let toBeLined = parent.children[0].children[1]
     let checkbox = parent.children[0].children[0]
-
     if (checkbox.checked) {
       toBeLined.style.textDecoration = 'line-through'
       isEditingTask(toBeLined)
@@ -103,8 +104,8 @@ function changeTaskState (event) {
       toBeLined.style.textDecoration = 'none'
       displayButtonByParent(parent)
     }
-
     getStatistic()
+  }
 }
 
 function modifyTask () {
@@ -307,9 +308,34 @@ function runTweenValue (doneTasks, undoneTasks) {
   let undonePercentage = undoneTasks / numberOfTasks // divide by 0
   donePercentage = getSign(doneRateContainer.doneRate, donePercentage)
   undonePercentage = getSign(undoneRateContainer.undoneRate, undonePercentage)
+  disableButtons()
+  TweenLite.to(doneRateContainer, 1, {doneRate:donePercentage, onUpdate:updateDoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+  TweenLite.to(undoneRateContainer, 1, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+}
+function disableButtons () {
+  let addButton = document.getElementById('add-task-button')
+  let tasks = document.getElementsByClassName('task-item')
   
-  TweenMax.to(doneRateContainer, 5, {doneRate:donePercentage, onUpdate:updateDoneHandler, ease:Power4.easeOut, y: -500})
-  TweenLite.to(undoneRateContainer, 5, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, ease:Power4.easeOut, y: -500})
+  for (var i = 0; i < tasks.length;i++) {
+    tasks[i].children[0].removeAttribute('onclick')
+    tasks[i].children[0].children[0].style.display = 'none'
+    tasks[i].children[1].disabled = true
+    tasks[i].children[2].disabled = true
+ }
+  labelDisabler = true
+  addButton.disabled = true
+}
+function enableButtons () {
+  let addButton = document.getElementById('add-task-button')
+  let tasks = document.getElementsByClassName('task-item')
+  for (var i = 0; i < tasks.length;i++) {
+    tasks[i].children[0].setAttribute('onclick', 'changeTaskState(event), selectOption()')
+    tasks[i].children[0].children[0].style.display = 'inline-block'
+    tasks[i].children[1].disabled = false
+    tasks[i].children[2].disabled = false
+  }
+  labelDisabler = false
+  addButton.disabled = false
 }
 function getSign (a, b) {
   if (b >= a) {
