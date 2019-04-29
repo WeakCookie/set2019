@@ -313,24 +313,30 @@ button:focus {
         float: none;
     }
 }
+.alerts {
+    visibility: hidden;
+    width: 0px;
+    height: 0px;
+}
 #alert-pop {
-    width: 150px;
+    visibility: visible;
+    width: 100px;
     height: 75px;
     position: fixed;
+    text-align: center;
     border-radius: 3px;
-    top: 20px;
+    right: 50%;
     animation-name: pop-alert;    ;
-    animation-duration: 3s; 
+    animation-duration: 5s; 
     animation-fill-mode: forwards;
 }
 @keyframes pop-alert {
     0% {
-        right: -100px;
+        top: -75px;
     }
     50% {
-        right: 200px;
+        top: 50px;
     }
     100% {
-        right: -100px;
-    }
+        top: -75px;
 }

@@ -111,20 +111,21 @@ function modifyTask () {
       addTask()
       changeColor()
       popSuccessAdd()
+      return
     }
     popFailAdd()
 }
 function popSuccessAdd() {
-  let alertSuccess = document.createElement('div')
-  alertSuccess.setAttribute('id','alert-pop')
-  alertSuccess.innerText="Add successfully"
+  let alerts = document.getElementsByClassName('alerts')
+  let alertSuccess = alerts[1]
+  alertSuccess.setAttribute('id', 'alert-pop')
+  alertSuccess.style.backgroundColor = '#00ff00'
 }
 function popFailAdd() {
-  let alertFail = document.createElement('div')
+  let alerts = document.getElementsByClassName('alerts')
+  let alertFail = alerts[0]
   alertFail.setAttribute('id', 'alert-pop')
-  // alert('run')//chạy hàm run k? run nãy giờ
-  alertFail.innerText = "Please enter something in the input field"
-  alert('run')
+  alertFail.style.backgroundColor = '#ff0000'
 }
 function clearAllInforms () {
     let validateField = document.getElementById('validate-task-name')
