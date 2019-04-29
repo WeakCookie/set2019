@@ -326,7 +326,8 @@ button:focus {
     text-align: center;
     border-radius: 3px;
     right: 50%;
-    animation-name: pop-alert;    ;
+    z-index: 5;
+    animation-name: pop-alert;
     animation-duration: 5s; 
     animation-fill-mode: forwards;
 }
