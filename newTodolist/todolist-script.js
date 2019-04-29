@@ -255,12 +255,19 @@ function displayTaskDone () {
       let task = toBeChecked[i]
       if (!task.checked) {
           let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "none"
+          elementToDisplay.style.animationName = 'delete-task-item'
+          setTimeout(function(){elementToDisplay.style.display = "none"},1000)
       } else {
         let elementToDisplay = task.parentElement.parentElement
-        elementToDisplay.style.display = "block"
+        elementToDisplay.style.animationName = 'move-up-task-item'
       }
   }
+
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
 }
 
 function displayAllTasks () {
@@ -270,8 +277,15 @@ function displayAllTasks () {
   for (var i = 0; i < numberOfTasks; i++) {
       let task = toBeChecked[i]
       let elementToDisplay = task.parentElement.parentElement
-      elementToDisplay.style.display = "block"
+      elementToDisplay.style.animationName = 'retrieve-task-item'
+      setTimeout(function(){elementToDisplay.style.display = "block"},1000)
   }
+
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
 }
 
 function displayUndoneTasks () {
@@ -282,12 +296,20 @@ function displayUndoneTasks () {
       let task = toBeChecked[i]
       if (task.checked) {
           let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "none"
+          elementToDisplay.style.animationName = 'delete-task-item'
+          setTimeout(function(){elementToDisplay.style.display = "none"},1000)
       } else {
         let elementToDisplay = task.parentElement.parentElement
-          elementToDisplay.style.display = "block"
+        elementToDisplay.style.animationName = 'retrieve-task-item'
+        setTimeout(function(){elementToDisplay.style.display = "block"},1000)
       }
   }
+
+  setTimeout(function(){
+    for (var i = 0; i < numberOfTasks; i++) {
+      elementToDisplay.style.animationName = ''
+    }
+  })
 }
   
 function getStatistic() {
