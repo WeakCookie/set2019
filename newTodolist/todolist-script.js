@@ -9,6 +9,14 @@ let timeWatched = document.getElementById('time-watched')
 let watchedBar = document.getElementById('watched-bar')
 var watched = 0
 var timer
+let labelDisabler = false
+let doneRateContainer = {
+  doneRate : 0
+}
+let undoneRateContainer = {
+  undoneRate : 0
+}
+
 videoScreen.muted = true // for auto-play
 videoScreen.addEventListener('loadedmetadata', setTimeAndPlayVideo, false);
 
@@ -86,7 +94,6 @@ function changeTaskState (event) {
     let parent = event.currentTarget.parentElement
     let toBeLined = parent.children[0].children[1]
     let checkbox = parent.children[0].children[0]
-
     if (checkbox.checked) {
       toBeLined.style.textDecoration = 'line-through'
       isEditingTask(toBeLined)
@@ -96,7 +103,6 @@ function changeTaskState (event) {
       toBeLined.style.textDecoration = 'none'
       displayButtonByParent(parent)
     }
-
     getStatistic()
 }
 
@@ -127,7 +133,7 @@ function addTask () {
 
     taskList.appendChild(taskItem)
     taskInput.value = ''
-
+  
     getStatistic()
 }
 
@@ -321,32 +327,81 @@ function displayUndoneTasks () {
 }
   
 function getStatistic() {
-
-  let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
-  let numberOfTasks = tasksCheckers.length
   let done = document.getElementById('done')
   let undone = document.getElementById('undone')
-  let doneRate = 0
-  let undoneRate = 0
+  let tasksCheckers = document.getElementsByClassName('input-task-checkbox')
+  let numberOfTasks = tasksCheckers.length
+  let doneTasks = 0
+  let undoneTasks = 0
 
   for (var i = 0; i < numberOfTasks; i++) {
     let task = tasksCheckers[i]
     if (task.checked) {
-        doneRate = doneRate + 1
+        doneTasks = doneTasks + 1
     } else {
-        undoneRate = undoneRate + 1
+        undoneTasks = undoneTasks + 1
     }
   }
 
   if (numberOfTasks != 0) {
-    doneRate = doneRate / numberOfTasks
-    undoneRate = undoneRate / numberOfTasks
+    runTweenValue(doneTasks, undoneTasks)
+  } else {
+    done.innerText = 'Done: ' + doneTasks * 100 + '%'
+    undone.innerText = 'Undone: ' + undoneTasks * 100 + '%'
   }
-
-  done.innerText = 'Done: ' + doneRate * 100 + '%'
-  undone.innerText = 'Undone: ' + undoneRate * 100 + '%'
 }
 
+function runTweenValue (doneTasks, undoneTasks) {
+  let numberOfTasks = doneTasks + undoneTasks
+  let donePercentage = doneTasks / numberOfTasks
+  let undonePercentage = undoneTasks / numberOfTasks // divide by 0
+  donePercentage = getSign(doneRateContainer.doneRate, donePercentage)
+  undonePercentage = getSign(undoneRateContainer.undoneRate, undonePercentage)
+  disableButtons()
+  TweenLite.to(doneRateContainer, 3, {doneRate:donePercentage, onUpdate:updateDoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+  TweenLite.to(undoneRateContainer, 3, {undoneRate:undonePercentage, onUpdate:updateUndoneHandler, onComplete: enableButtons, ease:Power4.easeOut, y: -500})
+}
+function disableButtons () {
+  let addButton = document.getElementById('add-task-button')
+  let tasks = document.getElementsByClassName('task-item')
+  addButton.style.backgroundColor = '#c0c0c0'
+  for (var i = 0; i < tasks.length;i++) {
+    tasks[i].children[0].children[0].style.display = 'none'
+    tasks[i].children[0].children[1].style.display = 'none'
+    tasks[i].children[1].style.display = 'none'
+    tasks[i].children[2].style.display = 'none'
+ }
+  labelDisabler = true
+  addButton.disabled = true
+}
+function enableButtons () {
+  let addButton = document.getElementById('add-task-button')
+  let tasks = document.getElementsByClassName('task-item')
+  addButton.style.backgroundColor = '#28abe3'
+  for (var i = 0; i < tasks.length;i++) {
+    tasks[i].children[0].children[0].style.display = 'inline-block'
+    tasks[i].children[0].children[1].style.display = 'inline-block'
+    tasks[i].children[1].style.display = 'inline-block'
+    tasks[i].children[2].style.display = 'inline-block'
+  }
+  labelDisabler = false
+  addButton.disabled = false
+}
+function getSign (a, b) {
+  if (b >= a) {
+    return '+=' + ((b-a)).toString()
+  } else {
+    return '+=' + ((b-a)).toString()
+  }
+}
+function updateDoneHandler () {
+  let done = document.getElementById('done')
+  done.innerText = 'Done: ' + doneRateContainer.doneRate * 100 + '%'
+}
+function updateUndoneHandler () {
+  let undone = document.getElementById('undone')
+  undone.innerText = 'Undone: ' + undoneRateContainer.undoneRate * 100 + '%'
+}
 //video
 
 function setTimeAndPlayVideo () {
