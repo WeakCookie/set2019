@@ -520,10 +520,5 @@ function disable(event) {
    ChosenPop.remove();
 }
 
-// test using Alert class using render error
-// first declare an error message and its features
-// Ex : var YourAlertBox = new Alert(position,timeOut,hasDisableClick,isStacked)
-// YouralertBox then can be used by typing alert.KindOfPop("message")
-//for example:
-let alert = new Alert('top-right',20000,true,true)
+let alert = new Alert('bottom-right',5000,true,false)
 
