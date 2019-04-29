@@ -62,6 +62,9 @@
 
 #taskList li {
     list-style-type: none;
+    padding: 2px;
+    animation-name: flash;
+    animation-duration: 2s;
 }
 
 .task-item {

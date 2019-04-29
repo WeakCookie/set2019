@@ -116,7 +116,7 @@ function addTask () {
     var taskInput = document.getElementById('input-task-name')
     var taskName = taskInput.value.trim()
     var taskList = document.getElementById('task-list')
-
+    
     taskList.appendChild(createTask(taskName))
     taskInput.value = ''
 
