@@ -71,3 +71,472 @@ function statisticCounter() {
     initialUndone = undoneRatio
     
 }
+
+
+var video = document.querySelector('.videoplayer')
+var progress = document.querySelector('.timeline-progress')
+var playOrPauseBtn = document.getElementById('play-pause')
+var volumeBtn = document.getElementById('mute-unmute')
+var timeline = document.getElementById('timeline')
+video.muted = true
+
+
+function playOrPause() {
+    if(video.paused) {
+        playOrPauseBtn.innerHTML = '<i class="fas fa-pause"></i>'
+        video.play();
+    }
+    else {
+        playOrPauseBtn.innerHTML = '<i class="fas fa-play"></i>'
+        video.pause();
+    }
+}
+
+
+video.addEventListener('timeupdate', function() {
+    var timeposition = video.currentTime/video.duration;
+    progress.style.width = timeposition * 100 + "%";
+    if (video.ended) {
+        playOrPauseBtn.innerHTML = '<i class="fas fa-play"></i>'
+    }
+})
+
+video.addEventListener('click',function() {
+    playOrPause();
+})
+
+function timeChooser() {
+    var chosenTime = event.offsetX / timeline.offsetWidth * video.duration
+    video.currentTime = chosenTime
+}
+
+
+function muteOrUnmute() {
+    if (video.muted) {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
+        video.muted = false
+    }
+    else {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
+        video.muted = true
+    }
+}
+function screenCustomize() {
+    var fullscreen = video.webkitRequestFullscreen || video.mozRequestFullScreen || video.msRequestFullscreen;
+    fullscreen.call(video);
+}
+video.addEventListener('volumechange',function(e){
+    if (this.muted) {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'
+    }
+    else {
+        volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
+    }
+}, false)
+
+
+
+<div id='instruction-video'>
+        <div id='video-container'>
+            <video class="videoplayer" src="./instruction.mp4" autoplay muted></video>
+            <div id="control-container">
+                <button id="play-pause" onclick="playOrPause()"><i class="fas fa-pause"></i></button>
+                <div id="timeline" onclick="timeChooser(event)">
+                    <div class="timeline-progress"></div>
+                </div>
+                <button id="mute-unmute" onclick="muteOrUnmute()"><i class="fas fa-volume-mute"></i></button>
+                <button id="fullscreen" onclick="screenCustomize()"><i class="fas fa-expand"></i></button>   
+            </div>
+        </div>
+    </div>
+
+<div id="pop-up"></div> 
+var checkValidate = document.getElementById('header-taskname')
+    if (checkValidate.value.trim() == '') {
+        document.getElementById('valid').style.display = 'block'
+        alert.popWarning("Please input somthing")
+    }
+
+    alert.popSuccess("Add successfully!!")
+    alert.popWarning("Please input somthing")
+
+
+     class Alert {
+    constructor (position,timeout,hasDisableClick,isStacked)
+    {   
+        this.timeout = timeout
+        this.isStacked = isStacked
+        this.positions = position.split('-')
+        this.hasDisableClick = hasDisableClick
+    }
+   
+    popSuccess(str) {
+        var div = document.createElement('div')
+        div.className = "alert-success"
+        div.id = "popUp"
+        var currentPosition ='top'
+        div.innerHTML += '<i class="fas fa-check-circle"></i>'
+        for (var i in this.positions) {
+            if (this.positions[i]==='right') {
+                div.style.left = "77%"
+            }
+            if (this.positions[i]==='left') {
+                div.style.left = "2%"
+            }
+            if (this.positions[i]==='center') {
+                div.style.left = "40%"
+            }
+            if (this.positions[i]==='bottom') {
+                div.style.top = "73vh"
+                currentPosition = 'bottom'
+            }
+        }
+        popsitionModifier.bind(this)(currentPosition);
+        if (this.hasDisableClick) {
+           div.innerHTML += '<i class="fas fa-times" id="close-button" onclick="disable(event)"></i>'
+        }
+       
+        div.innerHTML+= "<h3>"+ str +"</h3>"
+        document.getElementById('pop-up').appendChild(div)
+        setTimeout (function() {
+            div.style.animationName = "fadeOut" 
+        },this.timeout)
+        setTimeout (function() {
+            div.remove(); 
+        },this.timeout + 1000)
+    }
+
+   popError(str) {
+    var div = document.createElement('div')
+    div.className = "alert-error"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-times-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left =  "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+   }
+
+   popInfo(str) {
+    var div = document.createElement('div')
+    div.className = "alert-info"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-info-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left = "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+   }
+
+   popWarning(str) {
+    var div = document.createElement('div')
+    div.className = "alert-warning"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-exclamation-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left = "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+    
+   }
+}
+
+function popsitionModifier(position) {
+var pops = document.querySelectorAll("#popUp")
+  if(position === 'top') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  (countNumberOfPops-1)*13 + "vh"
+            pops[j].style.animation = "moveDown 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
+  if(position === 'bottom') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  73 - (countNumberOfPops-1)*13 + "vh"
+            pops[j].style.animation = "moveUp 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
+}
+
+function disable(event) {
+   var ChosenPop = event.currentTarget.parentElement
+   ChosenPop.remove();
+}
+
+let alert = new Alert('bottom-right',5000,true,false)
+
+
+
+/*alert */
+#pop-up {
+    width: 100%;
+    font-family: sans-serif;
+    position: fixed;
+    z-index: 1000;
+}
+
+/* success */
+.alert-success {
+    width: 20%;
+    height: 100px;
+    background: #4beb46;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 3px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    animation: popUp 1s forwards;    
+}
+
+.alert-success h3 {
+    color: #ffffff;
+    white-space: wrap;
+}
+
+.alert-success i {
+    position: relative;
+    background: none;
+    border : 0;
+    outline: 0;
+    top: 10px;
+    font-size: 30px;
+    color: #ffffff
+}
+
+
+/* error */
+
+.alert-error {
+    width: 20%;
+    height: 100px;
+    background: #f44336;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 3px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    animation: popUp 1s forwards;    
+}
+
+.alert-error h3 {
+    color: #ffffff;
+    white-space: wrap;
+}
+
+.alert-error i {
+    position: relative;
+    background: none;
+    border : 0;
+    outline: 0;
+    top: 10px;
+    font-size: 30px;
+    color: #ffffff
+}
+
+/* info */
+.alert-info {
+    width: 20%;
+    height: 100px;
+    background: #2196f3;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 3px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    animation: popUp 1s forwards;    
+    white-space: wrap;
+}
+
+.alert-info h3{
+    color:#ffffff;
+}
+
+.alert-info i {
+    position: relative;
+    background: none;
+    border : 0;
+    outline: 0;
+    top: 10px;
+    font-size: 30px;
+    color: #ffffff
+}
+
+/* warn */
+.alert-warning {
+    width: 20%;
+    height: 100px;
+    background: #ff9800;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 3px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    animation: popUp 1s forwards;    
+}
+
+.alert-warning h3 {
+    color: #ffffff;
+    white-space: wrap;
+}
+
+.alert-warning i {
+    position: relative;
+    background: none;
+    border : 0;
+    outline: 0;
+    top: 10px;
+    font-size: 30px;
+    color: #ffffff;
+}
+/* close button */
+#close-button {
+    position: absolute;
+    cursor: pointer;
+    color: #ffffff;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12x;
+    width: 8%;
+    -webkit-font-smoothing: antialiased;
+    padding: 5px;
+}
+
+#close-button:hover {
+    color: #f0efeffb;
+}
+
+#alert {
+    width: 100%;
+    height: 100%;
+}
+/* animations */
+@keyframes popUp {
+    from {
+    opacity: 0;
+    transform: translate(0%,-10%);
+    }
+    to {
+    opacity: 1;
+    transform: translate(0%,0%);
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translate(0%,10%);
+    }
+    to {
+        opacity: 0;
+        transform: translate(0%,20%);
+    }
+}
+
+@keyframes moveUp {
+   from {
+       transform: translate(0%,80%)
+   }
+   to {
+       transform: translate(0%,0%)
+   }
+}
+
+@keyframes moveDown {
+    from {
+        transform: translate(0%,-80%)
+    }
+    to {
+        transform: translate(0%,0%)
+    }
+ }
