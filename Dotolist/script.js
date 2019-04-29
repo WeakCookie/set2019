@@ -8,6 +8,7 @@ function add() {
         item.innerHTML += '<button class="delete-button" onclick="deleteItem(event)">Delete</button>'
         item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
         taskList.append(item)
+        alert.popSuccess("Add successfully!!")
         document.getElementById('header-taskname').value = ''
         statisticCounter()
     }
@@ -17,7 +18,7 @@ function validate() {
     var checkValidate = document.getElementById('header-taskname')
     if (checkValidate.value.trim() == '') {
         document.getElementById('valid').style.display = 'block'
-        document.getElementById('valid').innerText = '*this field is madatory'
+        alert.popWarning("Please input somthing")
     }
 }
 
@@ -102,6 +103,7 @@ function saveTask() {
         document.getElementById('header').style.display = 'block'
         document.getElementById('save-edit').style.display = 'none'
         document.getElementById('valid-edit').style.display = 'none'
+        alert.popSuccess("Edit successfully")
     }
 }
 
@@ -118,7 +120,7 @@ function validateEdit() {
     var checkValidate = document.getElementById('header-taskname-edit')
     if (checkValidate.value.trim() == '') {
         document.getElementById('valid-edit').style.display = 'block'
-        document.getElementById('valid-edit').innerText = '*this field is madatory'
+        alert.popWarning("Please edit somehting")
     }
 }
 
@@ -132,7 +134,7 @@ function deleteAttentionEdit() {
 
 function editTaskName(event) {
     if (document.getElementById('header').style.display == 'none') {
-        alert('Have to save before edit next')
+        alert.popWarning('Have to save befor edit next')
     }
     else {
         var item = event.currentTarget.parentElement
@@ -327,3 +329,202 @@ video.addEventListener('volumechange',function(e){
         volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
     }
 }, false)
+
+//alert
+
+ class Alert {
+    constructor (position,timeout,hasDisableClick,isStacked)
+    {   
+        this.timeout = timeout
+        this.isStacked = isStacked
+        this.positions = position.split('-')
+        this.hasDisableClick = hasDisableClick
+    }
+   
+    popSuccess(str) {
+        var div = document.createElement('div')
+        div.className = "alert-success"
+        div.id = "popUp"
+        var currentPosition ='top'
+        div.innerHTML += '<i class="fas fa-check-circle"></i>'
+        for (var i in this.positions) {
+            if (this.positions[i]==='right') {
+                div.style.left = "77%"
+            }
+            if (this.positions[i]==='left') {
+                div.style.left = "2%"
+            }
+            if (this.positions[i]==='center') {
+                div.style.left = "40%"
+            }
+            if (this.positions[i]==='bottom') {
+                div.style.top = "73vh"
+                currentPosition = 'bottom'
+            }
+        }
+        popsitionModifier.bind(this)(currentPosition);
+        if (this.hasDisableClick) {
+           div.innerHTML += '<i class="fas fa-times" id="close-button" onclick="disable(event)"></i>'
+        }
+       
+        div.innerHTML+= "<h3>"+ str +"</h3>"
+        document.getElementById('pop-up').appendChild(div)
+        setTimeout (function() {
+            div.style.animationName = "fadeOut" 
+        },this.timeout)
+        setTimeout (function() {
+            div.remove(); 
+        },this.timeout + 1000)
+    }
+
+   popError(str) {
+    var div = document.createElement('div')
+    div.className = "alert-error"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-times-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left =  "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+   }
+
+   popInfo(str) {
+    var div = document.createElement('div')
+    div.className = "alert-info"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-info-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left = "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+   }
+
+   popWarning(str) {
+    var div = document.createElement('div')
+    div.className = "alert-warning"
+    div.id = "popUp"
+    var currentPosition ='top'
+    div.innerHTML += '<i class="fas fa-exclamation-circle"></i>'
+    for (var i in this.positions) {
+        if (this.positions[i]==='right') {
+            div.style.left = "77%"
+        }
+        if (this.positions[i]==='left') {
+            div.style.left = "2%"
+        }
+        if (this.positions[i]==='center') {
+            div.style.left = "40%"
+        }
+        if (this.positions[i]==='bottom') {
+            div.style.top = "73vh"
+            currentPosition = 'bottom'
+        }
+    }
+    popsitionModifier.bind(this)(currentPosition);
+    if (this.hasDisableClick) {
+       div.innerHTML += '<i class="fas fa-times" id="close-button"  onclick="disable(event)"></i>'
+    }
+    div.innerHTML += "<h3>"+ str +"</h3>"
+    document.getElementById('pop-up').appendChild(div)
+    setTimeout (function() {
+        div.style.animationName = "fadeOut" 
+    },this.timeout)
+    setTimeout (function() {
+        div.remove(); 
+    },this.timeout + 1000)
+    
+   }
+}
+
+function popsitionModifier(position) {
+var pops = document.querySelectorAll("#popUp")
+  if(position === 'top') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  (countNumberOfPops-1)*13 + "vh"
+            pops[j].style.animation = "moveDown 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
+  if(position === 'bottom') {
+    if (this.isStacked) {
+        for (var j = pops.length-1; j >= 0; j--) {
+            var countNumberOfPops = pops.length - j + 1;
+            pops[j].style.top =  73 - (countNumberOfPops-1)*13 + "vh"
+            pops[j].style.animation = "moveUp 1s forwards"
+        }
+    }
+    else {
+        for (var j = pops.length-1; j >= 0; j--) {
+            pops[j].remove(); 
+        }
+    }
+  }
+}
+
+function disable(event) {
+   var ChosenPop = event.currentTarget.parentElement
+   ChosenPop.remove();
+}
+
+// test using Alert class using render error
+// first declare an error message and its features
+// Ex : var YourAlertBox = new Alert(position,timeOut,hasDisableClick,isStacked)
+// YouralertBox then can be used by typing alert.KindOfPop("message")
+//for example:
+let alert = new Alert('top-right',20000,true,true)
+
