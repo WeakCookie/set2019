@@ -329,7 +329,6 @@ video.addEventListener('volumechange',function(e){
         volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>'
     }
 }, false)
-
 //alert
 
  class Alert {
