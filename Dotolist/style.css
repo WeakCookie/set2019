@@ -100,10 +100,10 @@ li {
 }
 @keyframes flash-input {
     from {
-      color: black;
+      color: #000000;
     }
     to {
-      color: white;
+      color: #ffffff;
     }
 }
 .edit-button {
@@ -163,12 +163,12 @@ li {
     to { top: -32px; }
 }
 @keyframes disable-color {
-    from {background: red; }
-    to { background: blue; }
+    from {background:#ffffff; }
+    to { background: #668cff; }
 }
 @-moz-keyframes disable-color {
-    from {background: red; }
-    to { background: blue; }
+    from {background:#ffffff ; }
+    to { background:#668cff; }
 }
 .gradient1-color {
     animation-name: disable-color;
