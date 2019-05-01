@@ -5,5 +5,5 @@ function getRequest() {
     deleteItems()
 }
 function displayInformation() {
-    
+        
 }
