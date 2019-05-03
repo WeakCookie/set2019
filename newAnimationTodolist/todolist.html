@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="./todolist-stye.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <div id="video-task">
+            <div id="panel-container" onmouseover="activatePanel()" onmouseout="hidePanel()">
+                <div id="video-panel" class="hidden-panel">
+                    <button class="video-button" id="play-task-button" onclick="playVideo()">
+                        <img src="https://img.icons8.com/ios-glyphs/30/000000/play.png">
+                    </button>
+                    <div id="progress-bar">
+                        <div id="timeline-task" onclick="chooseTime(event)">
+                            <div id="watched-bar"></div>
+                        </div>
+                        <div id="time-display">
+                            <span id="time-watched">0:00</span>
+                            <span>/</span>
+                            <span id="video-time">0:00</span>
+                        </div>
+                    </div>            
+                    <button class="video-button" id="mute-button" onclick="changeVolume()">
+                        <img src="https://img.icons8.com/metro/26/000000/no-audio.png">
+                    </button>
+                    <button class="video-button" id="full-screen" onclick="toggleFullScreen()">
+                        <img src="https://img.icons8.com/metro/26/000000/fit-to-width.png">
+                    </button>
+                </div>
+            </div>            
+            <video id="todolist-task-video" src="todoist.mp4" type="video/mp4" onmouseover="activatePanel()" onmouseout="hidePanel()"></video>
+        </div>
+
+        <div id="content">
+            <div id="task-header">
+                <input id="input-task-name" placeholder="Task name" onchange="clearAllInforms()">
+                <button id="add-task-button" onclick="addTask()" >ADD</button>
+                <button id="edit-name-button" onclick="changeName()">EDIT</button>
+                <div id="validate-task-name"></div>
+            </div>
+            <div id="task-list-container">
+                <div id="task-list">
+
+                </div>       
+            </div>
+            <select id="select-box" onchange="selectOption()">
+                <option value="all">All</option>
+                <option value="done">Done</option>
+                <option value="undone">Undone</option>
+            </select>
+        </div>
+
+        <div id="statistic">
+            <div id="statistic-content">                
+                <div id="statistic-title">Statistic</div>
+                <div id="undone">Undone: <span id="undone-rate">0</span>%</div>
+                <div id="done">Done: <span id="done-rate">0</span>%</div>
+            </div>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    <script src="./todolist-script.js"></script>
+</body>
+</html>
