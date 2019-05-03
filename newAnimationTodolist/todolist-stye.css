@@ -83,6 +83,11 @@
     }
 }
 
+@keyframes delete-task-item {
+    from {left:0px; opacity: 1;}
+    to   {left:-20px; opacity: 0;}
+}
+
 @keyframes hidden-task {
     from {
         opacity: 1;

@@ -192,8 +192,11 @@ function deleteButtonClick (event) {
 
 function selectYes (event) {
   let item = event.currentTarget.parentElement
-  item.remove()
-  changeColor()
+  item.style.animationName = 'delete-task-item' 
+  setTimeout(function(){
+    item.remove()
+    changeColor()
+  },1000)
   getStatistic()
 }
 
@@ -324,10 +327,6 @@ function getStatistic () {
     newDoneRate = Math.floor(newDoneRate / numberOfTasks * 100)
     newUndoneRate = Math.ceil(newUndoneRate / numberOfTasks * 100)
   }
-
-  console.log(newDoneRate)
-  console.log(newUndoneRate)
-
   runStatistic(newDoneRate, newUndoneRate)
 }
 
