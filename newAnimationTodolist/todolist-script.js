@@ -150,7 +150,7 @@ function addTask () {
 function validate () {
   let inputTaskName = document.getElementById('input-task-name')
 
-  if (inputTaskName.value == '') {
+  if (inputTaskName.value.trim() == '') {
     let annoucement = document.getElementById('validate-task-name')
     annoucement.innerText = '* This field is mandatory'
     annoucement.style.color = 'red'
@@ -192,12 +192,12 @@ function deleteButtonClick (event) {
 
 function selectYes (event) {
   let item = event.currentTarget.parentElement
-  item.style.animationName = 'delete-task-item' 
-  setTimeout(function(){
+  hideTask(item)  
+  setTimeout(function () {
     item.remove()
     changeColor()
-  },1000)
-  getStatistic()
+    getStatistic()
+  }, 1500)  
 }
 
 function selectNo (event) {
