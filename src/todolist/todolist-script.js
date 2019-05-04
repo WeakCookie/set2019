@@ -1,7 +1,6 @@
+import Alert from "../../utils/alert class/Alert"
 var taskIndex = 0
 var targetToEdit
-let alertInfor = require('../../utils/alert class/alert')
-
 var changeDoneRate
 var changeUndoneRate
 var htmlDoneRate = document.getElementById('done-rate')
@@ -124,11 +123,11 @@ function clearAllInforms () {
 }
 
 function renderSuccesfulAlert() {
-  let alertStyle = new alertInfor.Alert()
+  let alertStyle = new Alert()
 }
 
 function renderFailAlert() {
-  let alertStyle = new alertInfor.Alert()
+  let alertStyle = new Alert()
 }
 
 function addTask () {
@@ -352,7 +351,6 @@ function runStatistic (newDoneRate, newUndoneRate) {
 
 function displayDoneRate (newDoneRate) {
   let doneRate = Number(htmlDoneRate.innerText)
-  alert('run')
   if (doneRate > newDoneRate) {
     doneRate = doneRate - 1
     htmlDoneRate.innerText = doneRate

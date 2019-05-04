@@ -1,4 +1,4 @@
-class Alert {
+export default class {
 
     constructor(position,timeout,isStacked,hasDisableButton){
         this.warn = "red"
@@ -96,4 +96,3 @@ class Alert {
         this.hasDisabledButton = false
     }
 }
-module.exports.Alert = Alert
