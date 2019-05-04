@@ -5,22 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="Animation.css">
 </head>
 <body>
     <div class="body">
         <div class="top-header">
-          <p>Star war walkthrought</p>
+          <h1>Star war walkthrought</h1>
         </div>
         
-        <div class="select-to-display">
-        <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="dropdown-content">
-          <a href="#home">test1</a>
-          <a href="#about">test2</a>
-          <a href="#contact">test3</a>
+        <div id="select-to-display">
+        <select>
+            <optgroup label="Information">
+                <option value="name">Name</option>
+                <option value="age">Age</option>
+            </optgroup>
+            <optgroup label="Hobby">
+                <option value="Readding">Readding</option>
+                <option value="Car">Car</option>
+            </optgroup>
+        </select>
         </div>
-      </div>
-        
+
         <div id="item-container">
           <div class="item">
             
