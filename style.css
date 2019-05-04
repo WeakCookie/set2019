@@ -1,0 +1,8 @@
+ul.item li {
+    display: none;
+}
+
+button img {
+    width:10px;
+    height:10px;
+}
