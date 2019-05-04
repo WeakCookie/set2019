@@ -35,9 +35,24 @@ class Alert {
     getPostion () {
         let positionDescription = this.position.split('-')
         let outPosition = ['10%', '10%']
+
+        if (positionDescription[1] == 'left') {
+            outPosition[1] = '10%'
+        } 
         if (positionDescription[1] == 'center') {
-            outPosition[1] = '50%'
-        }
+            outPosition[1] = '43%'
+        } 
+        if (positionDescription[1] == 'right') {
+            outPosition[1] = '90%'
+        } 
+        
+        if (positionDescription[0] == 'top') {
+            outPosition[0] = '10%'
+        } 
+        if (positionDescription[0] == 'bottm') {
+            outPosition[0] = '80%'
+        } 
+        
         return outPosition        
     }
     setTimeout (time) {

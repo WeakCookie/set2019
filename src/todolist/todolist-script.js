@@ -1,5 +1,6 @@
 var taskIndex = 0
 var targetToEdit
+let alertInfor = require('../../utils/alert class/alert')
 
 var changeDoneRate
 var changeUndoneRate
@@ -122,6 +123,14 @@ function clearAllInforms () {
   validateField.innerText = ""
 }
 
+function renderSuccesfulAlert() {
+  let alertStyle = new alertInfor.Alert()
+}
+
+function renderFailAlert() {
+  let alertStyle = new alertInfor.Alert()
+}
+
 function addTask () {
   if (!validate()) {
     return false
@@ -142,7 +151,6 @@ function addTask () {
 
   taskList.appendChild(taskItem)
   taskInput.value = ''
-
   changeColor()
   getStatistic()  
 }
@@ -322,7 +330,6 @@ function getStatistic () {
       newUndoneRate = newUndoneRate + 1
     }
   }
-
   if (numberOfTasks != 0) {
     newDoneRate = Math.floor(newDoneRate / numberOfTasks * 100)
     newUndoneRate = Math.ceil(newUndoneRate / numberOfTasks * 100)
@@ -332,7 +339,6 @@ function getStatistic () {
 
 function runStatistic (newDoneRate, newUndoneRate) {
   disableMouse()
-
   changeDoneRate = setInterval(function () {
     displayDoneRate(newDoneRate)
   }, 10)
@@ -346,7 +352,7 @@ function runStatistic (newDoneRate, newUndoneRate) {
 
 function displayDoneRate (newDoneRate) {
   let doneRate = Number(htmlDoneRate.innerText)
-
+  alert('run')
   if (doneRate > newDoneRate) {
     doneRate = doneRate - 1
     htmlDoneRate.innerText = doneRate
