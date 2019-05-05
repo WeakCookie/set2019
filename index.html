@@ -9,15 +9,17 @@
 </head>
 <body>
     <h4>Star war walkthrough</h4>
-    <select onchange="getRequest()">
-        <option value="people">people</option>
-        <option value="vehicles">vehicles</option>
-        <option value="starships">starships</option>
-        <option value="species">species</option>
-        <option value="planets">planets</option>
-        <option value="people">people</option>
+    <select id="select-to-display" onchange="getRequest()">
+        <option hidden disabled selected value>--Choose--</option>
+        <option >People</option>
+        <option >Films</option>
+        <option >Species</option>
+        <option >Planets</option>
+        <option >Vehicles</option>
     </select>
-    <div id="item-container"></div>
+    <div id="item-container">
+
+    </div>
     <script src="./script.js"></script>
 </body>
 </html>
