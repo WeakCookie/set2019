@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <style rel="stylesheet" type="text/css" href="./style.css"></style>
+    <link rel="stylesheet" type="text/css" href="./style.css"></link>
 </head>
 <body>
-    <h4>Star war walkthrough</h4>
-    <select onchange="getRequest()">
-        <option value="people">people</option>
-        <option value="vehicles">vehicles</option>
-        <option value="starships">starships</option>
-        <option value="species">species</option>
-        <option value="planets">planets</option>
-        <option value="people">people</option>
-    </select>
-    <div id="item-container"></div>
+    <div class="top-header">
+        <h1>Star war walkthrought</h1>
+    </div>
+    <div id="select-to-display">
+        <select onchange="getRequest()">
+            <option value="people">people</option>
+            <option value="vehicles">vehicles</option>
+            <option value="starships">starships</option>
+            <option value="species">species</option>
+            <option value="planets">planets</option>
+            <option value="people">people</option>
+        </select>
+    </div>
+    <div id="item-container">
+
+    </div>
     <script src="./script.js"></script>
 </body>
 </html>
