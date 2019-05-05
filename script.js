@@ -1,8 +1,13 @@
-function deleteItems() {
+let listObject = []
+let id = 0
+let dropDownButton = '<button onclick="dropDownInfo(event)"><img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img></button>'
 
+function deleteItems() {
+    listObject = []
+    document.getElementById('item-container').innerHTML = ""
 }
 function getRequest() {
-    let selector = document.getElementById('select-to-display')
+    let selector = document.getElementById('select-box')
     let selection = selector[selector.selectedIndex].value
     if (selection == 'People') {  
        createList("people",87)
@@ -23,23 +28,13 @@ function getRequest() {
     if (selection == 'Vehicles') {
         createList("vehicles",20)
     }
-
-function getRequest(link) {
-    let request = new XMLHttpRequest()
-    request.open('GET',link)
-    request.send()
-
-    request.onload = function(event) {
-        let data = JSON.parse(event.currentTarget.responseText)
-        displayInformation(data)
-    }
 }
-function request(url, options, callback) {
+function request(url, options) {
     var request = new XMLHttpRequest()
     request.onload = function (event) {
         if(this.status == "200") {
             var data =JSON.parse(event.currentTarget.responseText)
-            callback(data)
+            displayInformation(data)
             console.log(data)
         }
     }
@@ -47,26 +42,12 @@ function request(url, options, callback) {
     request.send()
 }
 function createList(selected,length) {
-    listObject = []
-    document.getElementById('item-container').innerHTML = ""
+    deleteItems()
     for(var i = 1; i <= length; i++) {
         let url = "https://swapi.co/api/" + selected + '/' + i 
-        request(url,{method: 'GET'},(data) => {
-            listObject.push(data)
-            if (data.name == undefined) {
-            document.getElementById('item-container').innerHTML += data.title + '<br>'
-            }
-            else {
-                document.getElementById('item-container').innerHTML += data.name + '<br>'
-            }
-        })    
+        request(url,{method: 'GET'})    
     }
 }
-function displayInformation() {
-
-let id = 0
-let dropDownButton = '<button onclick="dropDownInfo(event)"><img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img></button>'
-
 function createItem (data) {
     let item = document.createElement('ul')
     item.className = 'item'
@@ -87,7 +68,9 @@ function displayInformation (data) {
     
     Object.keys(data).forEach(key => {
         if(!(data[key] instanceof Array)) {
-            if (data[key].includes('http')) {
+            let valueHolder = data[key]
+            let urlChecker = valueHolder.indexOf("http")
+            if (urlChecker == -1) {
                 let subItem = document.createElement('ul') 
                 subItem.innerHTML += dropDownButton             
                 item.appendChild(subItem)
@@ -96,15 +79,13 @@ function displayInformation (data) {
             let text = document.createTextNode(`${key} : ${data[key]}`)
             property.appendChild(text)
             item.appendChild(property)
-        } else  {
-            for (var i in data[key]) {
-
-            }
-        }
+        } 
     })
 
     document.getElementById('item-container').appendChild(item)
 }
+
+
 
 function dropDownInfo (event) {
     let parentId = event.currentTarget.parentElement.id
@@ -117,5 +98,3 @@ function dropDownInfo (event) {
         }
     }
 }
-
-
