@@ -10,6 +10,18 @@
     animation-duration: 2s;
     animation-fill-mode: forwards;
 }
+.success-alert {
+    width:14%;
+    height:12%;
+    position:fixed;
+    background-color: #19e04b8c;
+    border-radius: 3px; 
+    transition: left 1s;
+    text-align: center;
+    animation-name: error-render-right;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
 
 @keyframes error-render-center-bottom {
     0% {
@@ -58,15 +70,15 @@
 
 @keyframes error-render-right {
     0% {
-        right: -20px;
+        left: 100%;
         opacity:0;
     }
     50% {
-        right: 20px;
+        left: 85%;
         opacity: 1;
     }
     100% {
-        right: -20px;
+        left: 100%;
         opacity:0;
     }
 }

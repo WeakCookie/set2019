@@ -1,4 +1,4 @@
-export default class {
+class Alert {
 
     constructor(position,timeout,isStacked,hasDisableButton){
         this.warn = "red"

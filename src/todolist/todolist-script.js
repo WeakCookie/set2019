@@ -1,4 +1,3 @@
-import Alert from "../../utils/alert class/Alert"
 var taskIndex = 0
 var targetToEdit
 var changeDoneRate
@@ -122,12 +121,44 @@ function clearAllInforms () {
   validateField.innerText = ""
 }
 
-function renderSuccesfulAlert() {
+function renderSuccesfulAlert(message) {
   let alertStyle = new Alert()
+  let position = alertStyle.getPostion()
+  let alertSuccess = document.createElement('div')
+  alertSuccess.className = 'success-alert'
+  document.body.appendChild(alertSuccess)
+  alertSuccess.innerText = message
+  alertSuccess.style.top = position[0]
+  alertSuccess.style.left = position[1]
+  alertStyle.setDisabledButton(true)
+  alertSuccess.style.animationDuration = alertStyle.timeout + 's'
+  if (alertStyle.hasDisabledButton) {
+    let disableButton = document.createElement('button')
+    disableButton.addEventListener('click',function(){errorAlert.remove()})
+    disableButton.id = 'disable-button'
+    disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
+    alertSuccess.appendChild(disableButton)    
+  }
 }
 
-function renderFailAlert() {
+function renderFailAlert(message) {
   let alertStyle = new Alert()
+  let position = alertStyle.getPostion()
+  let alertFail = document.createElement('div')
+  alertFail.className = 'error-alert'
+  document.body.appendChild(alertFail)
+  alertFail.innerText = message
+  alertFail.style.top = position[0]
+  alertFail.style.left = position[1]
+  alertStyle.setDisabledButton(true)
+  alertFail.style.animationDuration = alertStyle.timeout + 's'
+  if (alertStyle.hasDisabledButton) {
+    let disableButton = document.createElement('button')
+    disableButton.addEventListener('click',function(){errorAlert.remove()})
+    disableButton.id = 'disable-button'
+    disableButton.innerHTML = '<img src="https://img.icons8.com/metro/26/000000/multiply.png"></img>'
+    alertFail.appendChild(disableButton)    
+  }
 }
 
 function addTask () {
@@ -152,6 +183,7 @@ function addTask () {
   taskInput.value = ''
   changeColor()
   getStatistic()  
+  renderSuccesfulAlert('Add task successfully')
 }
 
 function validate () {
@@ -161,6 +193,7 @@ function validate () {
     let annoucement = document.getElementById('validate-task-name')
     annoucement.innerText = '* This field is mandatory'
     annoucement.style.color = 'red'
+    renderFailAlert('Please enter something in the input field')
     return false
   }
 
@@ -186,6 +219,7 @@ function changeName () {
   taskName.value = ''
 
   changeToAddButtonHeader()
+  renderSuccesfulAlert('edit successfully')
 }
 
 function deleteButtonClick (event) {
@@ -205,6 +239,7 @@ function selectYes (event) {
     changeColor()
     getStatistic()
   }, 1500)  
+  renderSuccesfulAlert('Delete Successfully')
 }
 
 function selectNo (event) {
@@ -521,4 +556,102 @@ function enableMouse () {
 
   let taskList = document.getElementById('task-list')
   taskList.style.pointerEvents = 'auto'
+}
+class Alert {
+
+  constructor(position,timeout,isStacked,hasDisableButton){
+      this.warn = "red"
+      this.warningColor = '#ff0000'
+      this.position = 'top-right'
+      this.timeout = 2
+      this.isStacked = false
+      this.hasDisabledButton = false
+ }
+  setPosition (position) {
+      switch (position) {
+          case "top-right" :
+              this.position = position
+              break;
+          case "top-left" :
+              this.position = position
+              break;
+          case "top-center" :
+              this.position = position
+              break;
+          case "bottom-right" :
+              this.position = position
+              break;
+          case "bottom-left" :
+              this.position = position
+              break;
+          case "bottom-center" :
+              this.position = position
+              break;
+          default :
+              break;
+      }
+  }
+  getPostion () {
+      let positionDescription = this.position.split('-')
+      let outPosition = ['10%', '10%']
+
+      if (positionDescription[1] == 'left') {
+          outPosition[1] = '10%'
+      } 
+      if (positionDescription[1] == 'center') {
+          outPosition[1] = '43%'
+      } 
+      if (positionDescription[1] == 'right') {
+          outPosition[1] = '90%'
+      } 
+      
+      if (positionDescription[0] == 'top') {
+          outPosition[0] = '10%'
+      } 
+      if (positionDescription[0] == 'bottom') {
+          outPosition[0] = '80%'
+      } 
+      
+      return outPosition        
+  }
+  setTimeout (time) {
+      if (typeof time != 'number') {
+          this.timeout = undefined
+      } else {
+          this.timeout = time
+      }
+  }
+  setStacked (canBeStacked) {
+      if (typeof canBeStacked != 'boolean') {
+          this.isStacked = undefined
+      } else {
+          this.isStacked = canBeStacked
+      }
+  }
+
+  setWarnColor (color) {
+      switch(color) {
+          case "red":
+              this.warn = 'red'
+              this.warningColor = '#ff0000'
+              break;
+          case "green":
+              this.warn = 'green'
+              this.warningColor = '#00ff00'
+              break;
+          case "yellow":
+              this.warn = 'yello'
+              this.warningColor = '#ffff00'
+              break;
+
+      }
+  }
+
+  setDisabledButton () {
+      this.hasDisabledButton = true
+  }
+
+  shutDisabledButton () {
+      this.hasDisabledButton = false
+  }
 }
