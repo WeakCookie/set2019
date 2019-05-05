@@ -98,7 +98,7 @@ function dropDownInfo (item) {
     for (let i = 0; i < listItems.length; i++) {
         if(listItems[i].style.display == 'none') {
             listItems[i].style.display = 'block'
-        } else {
+        } else if(listItems[i].style.display == 'block') {
             listItems[i].style.display = 'none'
         }
     }
