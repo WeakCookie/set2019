@@ -63,9 +63,10 @@ function createItem (data) {
     return item
 }
 
-function renderInformation (item,data,button) {
+function renderInformation (item,data) {
     Object.keys(data).forEach(key => {
         let property = document.createElement('li')
+        property.style.display = 'none'
         
         if(typeof data[key] == 'string' && !data[key].includes('http')) {
             property.innerText = `${key} : ${data[key]}`
@@ -98,7 +99,7 @@ function dropDownInfo (item) {
     for (let i = 0; i < listItems.length; i++) {
         if(listItems[i].style.display == 'none') {
             listItems[i].style.display = 'block'
-        } else if(listItems[i].style.display == 'block') {
+        } else {
             listItems[i].style.display = 'none'
         }
     }
