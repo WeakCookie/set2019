@@ -68,9 +68,7 @@ function displayInformation (data) {
     
     Object.keys(data).forEach(key => {
         if(!(data[key] instanceof Array)) {
-            let valueHolder = data[key]
-            let urlChecker = valueHolder.indexOf("http")
-            if (urlChecker == -1) {
+            if (containHTTP(data[key])) {
                 let subItem = document.createElement('ul') 
                 subItem.innerHTML += dropDownButton             
                 item.appendChild(subItem)
@@ -84,7 +82,16 @@ function displayInformation (data) {
 
     document.getElementById('item-container').appendChild(item)
 }
-
+function containHTTP(item) {
+    if (typeof item != "string") {
+        return false
+    }
+    item = item.slice(0, 4)
+    if (item == "http") {
+        return true
+    }
+    return false
+}
 
 
 function dropDownInfo (event) {
