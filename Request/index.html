@@ -7,17 +7,20 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="people/1">
-        <button onclick="requestPeople(event)">click 1</button>
-        <p>Luke Skywalker</p>
+    <div class="container">
+        <select id="select-box" onchange="selectOption()">
+            <option hidden disabled selected value>--Choose--</option>
+            <option>People</option>
+            <option>Films</option>
+            <option>Species</option>
+            <option>Planets</option>
+            <option>Vehicles</option>
+        </select>
     </div>
-    <div id="people/2">
-        <button onclick="requestPeople(event)">click 2</button>
-        <p>C-3PO</p>
+
+    <div id = "out-put">
+
     </div>
-    <p id="height">
-        height: 
-    </p>
 </body>
 <script src="./script.js"></script>
 </html>
