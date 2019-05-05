@@ -30,23 +30,69 @@ requestPeople();
 
 
 function requestPlanets(callback) {
-
+  let planetsRequest = new XMLHttpRequest()
+  planetsRequest.open('GET','https://swapi.co/api/planets')
+  planetsRequest.onload = function() {
+    let planetsRequest = JSON.parse(planetsRequest.responseText)
+    displayPeople(planetsRequest)
+  }
+  planetsRequest.onerror = function() {
+    alert('No internet connection')
+  }
+  planetsRequest.send()
 }
 
 function requestFilms(callback) {
-
+  let filmsRequest = new XMLHttpRequest()
+  filmsRequest.open('GET','https://swapi.co/api/films')
+  filmsRequest.onload = function() {
+    let filmsRequest = JSON.parse(filmsRequest.responseText)
+    displayPeople(filmsRequest)
+  }
+  filmsRequest.onerror = function() {
+    alert('No internet connection')
+  }
+  filmsRequest.send()
 }
 
 function requestSpecies(callback) {
-
+  let speciesRequest = new XMLHttpRequest()
+  speciesRequest.open('GET','https://swapi.co/api/species')
+  speciesRequest.onload = function() {
+    let speciesRequest = JSON.parse(speciesRequest.responseText)
+    displayPeople(speciesRequest)
+  }
+  speciesRequest.onerror = function() {
+    alert('No internet connection')
+  }
+  speciesRequest.send()
 }
 
-function requestVehicles(callback) {
 
+function requestVehicles(callback) {
+  let vehiclesRequest = new XMLHttpRequest()
+  vehiclesRequest.open('GET','https://swapi.co/api/vehicles/')
+  vehiclesRequest.onload = function() {
+    let vehiclesRequest = JSON.parse(vehiclesRequest.responseText)
+    displayPeople(vehiclesRequest)
+  }
+  vehiclesRequest.onerror = function() {
+    alert('No internet connection')
+  }
+  vehiclesRequest.send()
 }
 
 function requestStarShips(callback) {
-
+  let starShipsRequest = new XMLHttpRequest()
+  starShipsRequest.open('GET','https://swapi.co/api/starships/')
+  starShipsRequest.onload = function() {
+    let starShipsRequest = JSON.parse(starShipsRequest.responseText)
+    displayPeople(starShipsRequest)
+  }
+  starShipsRequest.onerror = function() {
+    alert('No internet connection')
+  }
+  starShipsRequest.send()
 }
 
 function pagesRequest(url) {
