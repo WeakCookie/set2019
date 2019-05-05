@@ -1,12 +1,13 @@
+
 class Alert {
 
     constructor(position,timeout,isStacked,hasDisableButton){
         this.warn = "red"
         this.warningColor = '#ff0000'
-        this.position = position
-        this.timeout = timeout
-        this.isStacked = isStacked
-        this.hasDisabledButton = hasDisableButton
+        this.position = 'top-right'
+        this.timeout = 2
+        this.isStacked = false
+        this.hasDisabledButton = false
    }
     setPosition (position) {
         switch (position) {
@@ -35,7 +36,7 @@ class Alert {
     getPostion () {
         let positionDescription = this.position.split('-')
         let outPosition = ['10%', '10%']
-
+  
         if (positionDescription[1] == 'left') {
             outPosition[1] = '10%'
         } 
@@ -49,7 +50,7 @@ class Alert {
         if (positionDescription[0] == 'top') {
             outPosition[0] = '10%'
         } 
-        if (positionDescription[0] == 'bottm') {
+        if (positionDescription[0] == 'bottom') {
             outPosition[0] = '80%'
         } 
         
@@ -69,7 +70,7 @@ class Alert {
             this.isStacked = canBeStacked
         }
     }
-
+  
     setWarnColor (color) {
         switch(color) {
             case "red":
@@ -84,15 +85,15 @@ class Alert {
                 this.warn = 'yello'
                 this.warningColor = '#ffff00'
                 break;
-
+  
         }
     }
-
+  
     setDisabledButton () {
         this.hasDisabledButton = true
     }
-
+  
     shutDisabledButton () {
         this.hasDisabledButton = false
     }
-}
+  }
