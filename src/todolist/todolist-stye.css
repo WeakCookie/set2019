@@ -22,7 +22,7 @@
 #task-list-container {
     margin-bottom: 10px;
     height: 350px;
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 #input-task-name {
@@ -66,12 +66,21 @@
     margin-bottom: 2px;
     word-wrap: break-word;
     position: relative;
-    animation-name: slide-from-left;
-    animation-duration: 2s;
+    animation-name: start-up;
+    animation-duration: 1.5s;
     animation-fill-mode: forwards;
-    animation-duration: 1s;
-    animation-fill-mode: forwards;
-    transition:all 1s;
+}
+
+@keyframes start-up {
+    from {
+        left: -20px; 
+        opacity: 0;
+    }
+
+    to {
+        left: 0; 
+        opacity: 1;
+    }
 }
 
 @keyframes delete-task-item {
@@ -79,25 +88,33 @@
     to   {left:-20px; opacity: 0;}
 }
 
-@keyframes retrieve-task-item {
-    from {left:-20px; opacity: 0;}
-    to   {left:0px; opacity: 1;}
+@keyframes hidden-task {
+    from {
+        opacity: 1;
+        max-height: 100px;
+    }
+
+    to {
+        max-height: 0;
+        opacity: 0;
+    }
 }
 
-@keyframes move-up-task-item {
-    from {top:34px;}
-    to   {top:0px;}
-}
+@keyframes active-task {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
 
-@keyframes move-down-task-item {
-    from {top:0px;}
-    to   {top:-34px;}
+    to {
+        max-height: 100px; 
+        opacity: 1;
+    }
 }
 
 .task-item:hover {
-    background-color: #adc4cc;
+    background-color: #adc4cc !important
 }
-
 
 .input-task-checkbox {
     -webkit-appearance: none;
@@ -143,7 +160,7 @@
     background-color: #28abe3;
     border: none;
     color: #ffffff;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 #del-task-button {
@@ -156,6 +173,7 @@
     background-color: #db3340;
     border: none;
     color: #ffffff;
+    margin-left: 5px;
 }
 
 #yes-button {
@@ -168,7 +186,7 @@
     background-color: #28abe3;
     border: none;
     color: #ffffff;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 #no-button {
@@ -181,6 +199,7 @@
     background-color: #db3340;
     border: none;
     color: #ffffff;
+    margin-left: 5px;
 }
  
 #select-box {
@@ -239,6 +258,10 @@ button:focus {
     outline: 0;
 }
 
+input:focus {
+    outline: 0;
+}
+
 #time-display {
     display: inline-block;
 }
@@ -267,33 +290,19 @@ button:focus {
     clear: both;
 }
 
-.hide {
+.hidden-panel {
     position: relative;
-    transition: all 1s;
+    transition: all 0.5s;
     top: -10px;
     opacity: 0;
-    visibility: hidden;
 }
 
-.hide.transition {
+.active-panel {
     top: 0;
     opacity: 1;
-    visibility: visible;
 }
 
-@keyframes slide-from-left {
-    from {
-        left: -20px;
-        opacity: 0;
-        visibility: hidden;
-    }
 
-    to {
-        left: 0;
-        opacity: 1;
-        visibility: visible;
-    }
-}
 
 @media screen and (max-width: 768px) {
     #container {
@@ -312,32 +321,4 @@ button:focus {
     #statistic {
         float: none;
     }
-}
-.alerts {
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
-}
-#alert-pop {
-    visibility: visible;
-    width: 100px;
-    height: 75px;
-    position: fixed;
-    text-align: center;
-    border-radius: 3px;
-    right: 50%;
-    z-index: 5;
-    animation-name: pop-alert;
-    animation-duration: 5s; 
-    animation-fill-mode: forwards;
-}
-@keyframes pop-alert {
-    0% {
-        top: -75px;
-    }
-    50% {
-        top: 50px;
-    }
-    100% {
-        top: -75px;
 }

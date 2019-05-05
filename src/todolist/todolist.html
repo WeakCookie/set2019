@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="./todolist-stye.css" rel="stylesheet">
+    <link href="../../utils/alert class/errorHandler.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <div class="alerts">Please enter task name</div>
-    <div class="alerts">Task added successfully</div>
     <div id="container">
         <div id="video-task">
             <div id="panel-container" onmouseover="activatePanel()" onmouseout="hidePanel()">
-                <div id="video-panel" class="hide">
+                <div id="video-panel" class="hidden-panel">
                     <button class="video-button" id="play-task-button" onclick="playVideo()">
                         <img src="https://img.icons8.com/ios-glyphs/30/000000/play.png">
                     </button>
@@ -35,13 +34,13 @@
                     </button>
                 </div>
             </div>            
-            <video id="todolist-task-video" src="todoist.mp4" type="video/mp4" onmouseover="activatePanel()" onmouseout="hidePanel()"></video>
+            <video id="todolist-task-video" src="../../utils/videos/todoist.mp4" type="video/mp4" onmouseover="activatePanel()" onmouseout="hidePanel()"></video>
         </div>
 
         <div id="content">
             <div id="task-header">
                 <input id="input-task-name" placeholder="Task name" onchange="clearAllInforms()">
-                <button id="add-task-button" onclick="modifyTask()" >ADD</button>
+                <button id="add-task-button" onclick="addTask()" >ADD</button>
                 <button id="edit-name-button" onclick="changeName()">EDIT</button>
                 <div id="validate-task-name"></div>
             </div>
@@ -60,15 +59,14 @@
         <div id="statistic">
             <div id="statistic-content">                
                 <div id="statistic-title">Statistic</div>
-                <div id="undone">Undone: 0%</div>
-                <div id="done">Done: 0%</div>
+                <div id="undone">Undone: <span id="undone-rate">0</span>%</div>
+                <div id="done">Done: <span id="done-rate">0</span>%</div>
             </div>
         </div>
 
         <div class="clear"></div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.0/TweenMax.min.js"></script>
+    <script src="../../utils/alert class/alert.js"></script>
     <script src="./todolist-script.js"></script>
-    <script src="jquery-3.3.1.min.js"></script>
 </body>
 </html>
