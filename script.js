@@ -40,11 +40,15 @@ function request(url, options, callback) {
     request.open(options.method || "GET", url)
     request.send()
 }
+
 function createList(selected,length) {
-    deleteItems()
+    let container = document.getElementById('item-container')
     for(var i = 1; i <= length; i++) {
         let url = "https://swapi.co/api/" + selected + '/' + i 
-        request(url,{method: 'GET'})    
+        request(url, {method: 'GET'}, (data) => {
+            let item = createItem(data)
+            container.appendChild(item)
+        })    
     }
 }
 function createItem (data) {
@@ -52,15 +56,16 @@ function createItem (data) {
     item.className = 'item'
     item.id = 'id' + id
     id++
-    item.innerHTML += dropDownButton
-    // let dropDownButton = document.createElement('button')
-    // dropDownButton.addEventListener('click',dropDownInfo)
-    // dropDownButton.innerHTML = '<img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img>'
-    // item.appendChild(dropDownButton)
+
+    let dropDownButton = document.createElement('button')
+    item.appendChild(dropDownButton)
+    dropDownButton.innerHTML = '<img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img>'
+    dropDownButton.innerHTML += data.name || data.title
+    dropDownButton.addEventListener('click', function() {renderInformation(item,data)}, {once : true})
+    dropDownButton.addEventListener('click',function() {dropDownInfo(item)})
     
-    item.innerHTML += data.name || data.title
     return item
-} 
+}
 
 function renderInformation (item,data) {
     Object.keys(data).forEach(key => {
@@ -70,25 +75,31 @@ function renderInformation (item,data) {
         if(typeof data[key] == 'string' && !data[key].includes('http')) {
             property.innerText = `${key} : ${data[key]}`
         } 
+        
+        else if(typeof data[key] == 'string' && data[key].includes('http') && key != 'url') {
+            property.innerText += `${key} : `
+            getRequest(data[key], {method : 'GET'}, (data) => {
+                let subItem = createItem(data)
+                property.appendChild(subItem)
+            })
+        }
+
+        else {
+            property.innerText += `${key} : `
+            for (var element in data[key]) {
+                getRequest(data[key][element], {method : 'GET'}, (data) => {
+                    let subItem = createItem(data)
+                    property.appendChild(subItem)
+                })
+            }
+        }
+
+        item.appendChild(property)
     })
-
-    document.getElementById('item-container').appendChild(item)
 }
-// function containHTTP(item) {
-//     if (typeof item != "string") {
-//         return false
-//     }
-//     item = item.slice(0, 4)
-//     if (item == "http") {
-//         return true
-//     }
-//     return false
-// }
 
-
-function dropDownInfo (event) {
-    let parentId = event.currentTarget.parentElement.id
-    let listItems = document.querySelectorAll('#' + parentId + ' li');
+function dropDownInfo (item) {
+    let listItems = document.querySelectorAll('#' + item.id + ' li');
     for (let i = 0; i < listItems.length; i++) {
         if(listItems[i].style.display == 'none') {
             listItems[i].style.display = 'block'
