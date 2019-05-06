@@ -63,20 +63,13 @@ function createItem (data) {
     return item
 } 
 
-function displayInformation (data) {
-    let item = createItem(data)
-    
+function renderInformation (item,data) {
     Object.keys(data).forEach(key => {
-        if(!(data[key] instanceof Array)) {
-            if (containHTTP(data[key])) {
-                let subItem = document.createElement('ul') 
-                subItem.innerHTML += dropDownButton             
-                item.appendChild(subItem)
-            }
-            let property = document.createElement('li')
-            let text = document.createTextNode(`${key} : ${data[key]}`)
-            property.appendChild(text)
-            item.appendChild(property)
+        let property = document.createElement('li')
+        property.style.display = 'none'
+        
+        if(typeof data[key] == 'string' && !data[key].includes('http')) {
+            property.innerText = `${key} : ${data[key]}`
         } 
     })
 

@@ -50,3 +50,11 @@
     margin: 5px 10px 5px 10px;
     background-color: #f8f8f8;
   }
+ul.item {
+    list-style: none;
+}
+
+button img {
+    width:10px;
+    height:10px;
+}
