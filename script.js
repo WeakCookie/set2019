@@ -50,7 +50,7 @@ function createList(selected,length) {
             container.appendChild(item)
         })    
     }
-}
+}   
 function createItem (data) {
     let item = document.createElement('ul')
     item.className = 'item'
