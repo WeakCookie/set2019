@@ -29,13 +29,12 @@ function getRequest() {
         createList("vehicles",20)
     }
 }
-function request(url, options) {
+function request(url, options, callback) {
     var request = new XMLHttpRequest()
     request.onload = function (event) {
         if(this.status == "200") {
             var data =JSON.parse(event.currentTarget.responseText)
-            displayInformation(data)
-            console.log(data)
+            callback(data)
         }
     }
     request.open(options.method || "GET", url)
@@ -75,16 +74,16 @@ function renderInformation (item,data) {
 
     document.getElementById('item-container').appendChild(item)
 }
-function containHTTP(item) {
-    if (typeof item != "string") {
-        return false
-    }
-    item = item.slice(0, 4)
-    if (item == "http") {
-        return true
-    }
-    return false
-}
+// function containHTTP(item) {
+//     if (typeof item != "string") {
+//         return false
+//     }
+//     item = item.slice(0, 4)
+//     if (item == "http") {
+//         return true
+//     }
+//     return false
+// }
 
 
 function dropDownInfo (event) {
