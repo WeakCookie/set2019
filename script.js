@@ -1,6 +1,5 @@
 let id = 0
 let dropDownButton = '<button onclick="dropDownInfo(event)"><img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img></button>'
-
 function deleteItems() {
     document.getElementById('item-container').innerHTML = ""
 }
@@ -72,15 +71,27 @@ function createItem (data) {
     dropDownButton.appendChild(itemTitleContainer)
     dropDownButton.addEventListener('click', function() {renderInformation(item,data)}, {once : true})
     dropDownButton.addEventListener('click',function() {dropDownInfo(item)})
-    
+    dropDownButton.addEventListener('click',rotateButton )
     return item
+}   
+function rotateButton(event) {
+    let toBeTurned = event.currentTarget.children[0]
+    if (toBeTurned.getAttribute('class') == 'rotate-down') {
+        toBeTurned.setAttribute('class', 'rotate-up')
+        toBeTurned.style.animationName = 'rotate-up'
+        toBeTurned.style.animationDuration = '2s'
+        toBeTurned.style.animationFillMode = 'forwards'
+    } else {
+        toBeTurned.setAttribute('class', 'rotate-down')
+        toBeTurned.style.animationName = 'rotate-down'
+        toBeTurned.style.animationDuration = '2s'
+        toBeTurned.style.animationFillMode = 'forwards'
+    }
 }
-
 function renderInformation (item,data) {
     Object.keys(data).forEach(key => {
         let property = document.createElement('li')
         property.style.display = 'none'
-        
         if(typeof data[key] == 'string' && !data[key].includes('http')) {
             property.innerText = `${key} : ${data[key]}`
         } 
@@ -110,16 +121,40 @@ function renderInformation (item,data) {
 }
 
 function dropDownInfo (item) {
+    let dropdown = true
     let listItems = document.querySelectorAll('#' + item.id + ' li');
     for (let i = 0; i < listItems.length; i++) {
         if(listItems[i].style.display == 'none') {
             listItems[i].style.display = 'block'
+            setAnimationItem(listItems[i])
         } else {
-            listItems[i].style.display = 'none'
+            dropdown = false
+            break
         }
+    }
+    if (dropdown) {
+        setAnimationDropdown(item)
+    } else {
+        setAnimationDropup(item)
+        setTimeout(function () {
+            for (let i = 0; i < listItems.length; i++) {
+               listItems[i].style.display = 'none'
+            }
+        } , 3000)
+        
     }
 }
 function setAnimationItem (item) {
     item.style.animationName = 'animation-sliding'
     item.style.animationDuration = '2s'
+}
+function setAnimationDropdown(item) {
+    item.style.animationName = 'animation-dropdown'
+    item.style.animationDuration = '3s'
+    item.style.animationFillMode = 'forwards'
+}
+function setAnimationDropup(item) {
+    item.style.animationName = 'animation-dropup'
+    item.style.animationDuration = '3s'
+    item.style.animationFillMode = 'forwards'
 }

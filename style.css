@@ -46,20 +46,20 @@
     box-sizing: border-box;
     width: 92.7%;
     height: auto;
+    max-height: 50px;
     border: 1px solid black;
     padding: 10px;
     margin: 5px 10px 5px 10px;
     background-color: #f8f8f8;
-
+    transition: transform 0.3s ease-out;
   }
 ul.item {
     list-style: none;
-    /* animation here */
 }
 
 button img {
-    width:10px;
-    height:10px;
+    width:20px;
+    height:20px;
 }
 @keyframes animation-sliding {
   from {
@@ -69,5 +69,35 @@ button img {
   to {
     opacity: 1;
     margin-left: 0px;
+  }
+}
+@keyframes animation-dropdown {
+  from {
+    max-height: 50px;
+  }
+  to {
+    max-height: 20000px;;
+  }
+}
+@keyframes animation-dropup {
+  from {
+    max-height: 20000px;
+  }
+  to {
+    max-height: 50px;
+  }
+}
+@keyframes rotate-up {
+  from {
+    transform: rotate(90deg);
+  } to {
+    transform: rotate(0deg);
+  }
+}
+@keyframes rotate-down {
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(90deg)
   }
 }
