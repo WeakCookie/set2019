@@ -41,7 +41,8 @@
     background-color: #f8f8f8;
   }
   .item{
-    position: fixed;
+    /* position: fixed; */
+    display: inline-block;
     box-sizing: border-box;
     width: 92.7%;
     height: auto;
