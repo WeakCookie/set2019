@@ -65,7 +65,7 @@ function createItem (data) {
     dropDownButton.addEventListener('click',function() {dropDownInfo(item)})
     
     return item
-}
+}   
 
 function renderInformation (item,data) {
     Object.keys(data).forEach(key => {
