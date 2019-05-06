@@ -78,7 +78,7 @@ function renderInformation (item,data) {
         
         else if(typeof data[key] == 'string' && data[key].includes('http') && key != 'url') {
             property.innerText += `${key} : `
-            getRequest(data[key], {method : 'GET'}, (data) => {
+            request(data[key], {method : 'GET'}, (data) => {
                 let subItem = createItem(data)
                 property.appendChild(subItem)
             })
@@ -87,7 +87,7 @@ function renderInformation (item,data) {
         else {
             property.innerText += `${key} : `
             for (var element in data[key]) {
-                getRequest(data[key][element], {method : 'GET'}, (data) => {
+                request(data[key][element], {method : 'GET'}, (data) => {
                     let subItem = createItem(data)
                     property.appendChild(subItem)
                 })
