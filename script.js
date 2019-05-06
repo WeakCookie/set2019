@@ -1,12 +1,11 @@
-let listObject = []
 let id = 0
 let dropDownButton = '<button onclick="dropDownInfo(event)"><img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img></button>'
 
 function deleteItems() {
-    listObject = []
     document.getElementById('item-container').innerHTML = ""
 }
 function getRequest() {
+    deleteItems()
     let selector = document.getElementById('select-box')
     let selection = selector[selector.selectedIndex].value
     if (selection == 'People') {  
@@ -47,10 +46,12 @@ function createList(selected,length) {
         let url = "https://swapi.co/api/" + selected + '/' + i 
         request(url, {method: 'GET'}, (data) => {
             let item = createItem(data)
+            setAnimationItem(item)
             container.appendChild(item)
         })    
     }
-}
+}   
+
 function createItem (data) {
     let item = document.createElement('ul')
     item.className = 'item'
@@ -59,8 +60,16 @@ function createItem (data) {
 
     let dropDownButton = document.createElement('button')
     item.appendChild(dropDownButton)
-    dropDownButton.innerHTML = '<img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img>'
-    dropDownButton.innerHTML += data.name || data.title
+    let arrowDownImage = document.createElement('div')
+    arrowDownImage.innerHTML = '<img src="https://img.icons8.com/ios-glyphs/26/000000/sort-right.png"></img>'
+    arrowDownImage.setAttribute('id', 'arrowDownImage')
+    arrowDownImage.style.display = 'inline'
+    dropDownButton.appendChild(arrowDownImage) 
+    let itemTitleContainer = document.createElement('div')
+    let title = data.name || data.title
+    itemTitleContainer.innerHTML = title
+    itemTitleContainer.style.display = 'inline'
+    dropDownButton.appendChild(itemTitleContainer)
     dropDownButton.addEventListener('click', function() {renderInformation(item,data)}, {once : true})
     dropDownButton.addEventListener('click',function() {dropDownInfo(item)})
     
@@ -78,8 +87,9 @@ function renderInformation (item,data) {
         
         else if(typeof data[key] == 'string' && data[key].includes('http') && key != 'url') {
             property.innerText += `${key} : `
-            getRequest(data[key], {method : 'GET'}, (data) => {
+            request(data[key], {method : 'GET'}, (data) => {
                 let subItem = createItem(data)
+                setAnimationItem(subItem)
                 property.appendChild(subItem)
             })
         }
@@ -87,8 +97,9 @@ function renderInformation (item,data) {
         else {
             property.innerText += `${key} : `
             for (var element in data[key]) {
-                getRequest(data[key][element], {method : 'GET'}, (data) => {
+                request(data[key][element], {method : 'GET'}, (data) => {
                     let subItem = createItem(data)
+                    setAnimationItem(subItem)
                     property.appendChild(subItem)
                 })
             }
@@ -107,4 +118,8 @@ function dropDownInfo (item) {
             listItems[i].style.display = 'none'
         }
     }
+}
+function setAnimationItem (item) {
+    item.style.animationName = 'animation-sliding'
+    item.style.animationDuration = '2s'
 }

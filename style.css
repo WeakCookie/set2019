@@ -39,9 +39,10 @@
     padding: 10px;
     margin: 70px 10px 0px 10px;
     background-color: #f8f8f8;
+    overflow-y: scroll; 
   }
   .item{
-    position: fixed;
+    display: inline-block;
     box-sizing: border-box;
     width: 92.7%;
     height: auto;
@@ -49,12 +50,24 @@
     padding: 10px;
     margin: 5px 10px 5px 10px;
     background-color: #f8f8f8;
+
   }
 ul.item {
     list-style: none;
+    /* animation here */
 }
 
 button img {
     width:10px;
     height:10px;
+}
+@keyframes animation-sliding {
+  from {
+    opacity: 0.2;
+    margin-left: -20px;
+  }
+  to {
+    opacity: 1;
+    margin-left: 0px;
+  }
 }
