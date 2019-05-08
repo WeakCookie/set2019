@@ -1,3 +1,4 @@
+var combineArr = []
 var list = document.getElementById("item-container")
 var requestInfo = (url) => {
 return new Promise( function (resolve,reject) {
@@ -20,36 +21,28 @@ function display(url) {
   .then((data) => {
     list.innerHTML = ""
     for(let i = 0; i < data.results.length; i++) {
-      let objectDetail = document.createElement('div')
-      objectDetail.setAttribute('class', 'title-detail-tag')
-      let tickButton = createCheckBox({
-        'class': 'checkbox-to-combine',
-        'onclick': getCombineDetails
-      })
-      if(data.results[i].name === undefined) {
-        objectDetail.appendChild(tickButton)
-        objectDetail.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].title + '</button>'
-        objectDetail.innerHTML += "<div id='details'></div>"
-        list.appendChild(objectDetail)
-      }
-      else {
-        objectDetail.appendChild(tickButton)
-        objectDetail.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].name + '</button>'
-        objectDetail.innerHTML += "<div id='details'></div>"
-        list.appendChild(objectDetail)
-      }
+    if(data.results[i].name === undefined) {
+      list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +
+      ',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].title + '<input type="checkbox" id="outter-check-box" onclick="getCombinedArr()" ></button>'
+      list.innerHTML += "<div id='details'></div>"
+    }
+    else {
+      list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +
+      ',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].name + '<input type="checkbox" id="outter-check-box" onclick="getCombinedArr()"></button>'
+      list.innerHTML += "<div id='details'></div>"
+    } 
     }
     if (data.previous !== null) {
       objectDetail.innerHTML += '<button id="previous-page" onclick="display(' + "'" + data.previous + "'" +')">previous</button>'
       list.appendChild(objectDetail)
     }
     if (data.next !== null) {
-      list.innerHTML += '<button id="next-page" onclick="display(' + "'" + data.next + "'" +')">Next</button>'
+    list.innerHTML += '<button id="next-page" onclick="display(' + "'" + data.next + "'" +')">Next</button>'
     }
     collapseAnimation (list)
   })
   .catch((data) => console.log(data))
-}
+  }
 
 function detailsRequest(url, event) {
   var detailsContent = event.currentTarget.nextElementSibling
@@ -88,16 +81,12 @@ function displayDetails(data, currentElement) {
       detailsContent.appendChild(objectDetail)
     }
     else if(key !== 'url' && key !== 'episode_id' && data[key].indexOf('https') === 0 ) {
-      objectDetail.appendChild(tickButton)
-      objectDetail.innerHTML += "<button id='collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' +", event)'> <i class='fas fa-chevron-right'></i> " + "<strong>" + key + "</strong>" + "</button>" + "</input>"
-      objectDetail.innerHTML += "<div id='details'></div>"
-      detailsContent.appendChild(objectDetail)
+      detailsContent.innerHTML += "<button id='inner-collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' + ", event)'> <i class='fas fa-chevron-right'></i> " + key + "</button>"
+      detailsContent.innerHTML += "<div id='details'></div>"
     }
     else if (typeof data[key] === "object") {
-      objectDetail.appendChild(tickButton)
-      objectDetail.innerHTML += "<button id='collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' +", event)'> <i class='fas fa-chevron-right'></i> " + "<strong>" + key + "</strong>" + "</button>" + "</input>"
-      objectDetail.innerHTML += "<div id='details'></div>"
-      detailsContent.appendChild(objectDetail)
+      detailsContent.innerHTML += "<button id='inner-collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' + ", event)'> <i class='fas fa-chevron-right'></i> " + key + "</button>"
+      detailsContent.innerHTML += "<div id='details'></div>"
     } 
     else {
       objectDetail.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": " + data[key] +"</p>"
@@ -105,32 +94,6 @@ function displayDetails(data, currentElement) {
     }
   }
   collapseAnimation (detailsContent)
-}
-
-function changeUrlIntoName(url, content, key) {
-  let request = new XMLHttpRequest()
-  request.open('GET', url)
-  request.send()
-  request.onload = function() {
-    let data = JSON.parse(request.responseText)
-    content.innerHTML += "<p>" + "<strong>" + key + "</strong>" + ": " + data.name +"</p>"
-  }
-  request.onerror = function() {
-  alert('No internet connection')
-  }
-} 
-
-function changeUrlIntoTitle(url, content, key) {
-  let request = new XMLHttpRequest()
-  request.open('GET', url)
-  request.send()
-  request.onload = function() {
-    let data = JSON.parse(request.responseText)
-    content.innerHTML += "<p>" + "<strong>" + key + "</strong>" + ": " + data.title +"</p>"
-  }
-  request.onerror = function() {
-    alert('No internet connection')
-  }
 }
 
 function displaymore(urls ,event) {
@@ -155,6 +118,7 @@ function displaymore(urls ,event) {
         detailsContent.innerHTML += '<p>'+ data[i].name +'</p>'
       }
     }
+    detailsContent.previousElementSibling.innerHTML += "<input type='checkbox' id='check-box' onclick='getCombinedArr()'></input>"
     collapseAnimation(detailsContent)
   })
   .catch((results) => console.log(results))
@@ -169,36 +133,46 @@ function collapseAnimation (detailsContent) {
     detailsContent.style.maxHeight = detailsContent.scrollHeight + "px"
   } 
 }
-function createCheckBox(options){
-  let tickButton = document.createElement('input')
-  tickButton.setAttribute('type', 'checkbox')
-  for (var atrribute in options) {
-    let eventChecker = atrribute.indexOf('on')
-    if (eventChecker == -1){
-      tickButton.setAttribute(atrribute, options[atrribute])
-    } else {
-      let eventToBeAdded = atrribute.slice(2, atrribute.length)
-      tickButton.addEventListener(eventToBeAdded, options[atrribute])
+
+function getSmallerCombinedArr(innercheckboxs, tempArr) {
+  for(var i = 0 ; i < innercheckboxs.length ; i++) {
+    if(innercheckboxs[i].checked == true) {
+      var content = innercheckboxs[i].parentElement.nextElementSibling.innerText 
+      tempArr.push(content.split('\n\n')) 
+    } 
+  }
+}
+
+function getCombinedArr() {
+  combineArr = []
+  var outterCheckBoxs = document.querySelectorAll('#outter-check-box')
+  for ( var i = 0 ; i < outterCheckBoxs.length ; i++) {
+    if(outterCheckBoxs[i].checked == true) {
+      var currentcontent = outterCheckBoxs[i].parentElement.nextElementSibling
+      var currentButtonName = outterCheckBoxs[i].parentElement.innerText
+      var innercheckboxs = currentcontent.querySelectorAll('#check-box')
+      var tempArr = [currentButtonName]
+      getSmallerCombinedArr(innercheckboxs, tempArr)
+      combineArr.push(tempArr)
     }
   }
-  return tickButton
+  console.log(combineArr)
+  console.log(combineArr[0])
 }
-function getCombineDetails(event) {
-  alert('run')
-  let toBeChecked = event.currentTarget
-  if(toBeChecked.checked) {
-    alert('testing')
-  } else{
-    
-  }
-}
-function combineSelectedItems() {
-  let itemsToCombine = document.getElementsByClassName('title-detail-tag')
-  let numberOfItems = itemsToCombine.length
- for (var i = 0; i < numberOfItems;i++) {
-    let checkbox = itemsToCombine[i].children[0]
-    if(checkbox.checked) {
-      alert(i)
+
+
+
+function showCombinedResult() {
+  var str = ""
+  for (var i = 0 ; i < combineArr.length; i++) {
+    str += combineArr[i][0] + "/"
+    for (var j = 1 ; j < combineArr[i].length; j++) {
+      for(var k = 0 ; k < combineArr[i][j].length; k++) {
+         str += combineArr[i][j][k] + "/"
+      }
     }
+    console.log(str)
+    str = ""
   }
 }
+

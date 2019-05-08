@@ -9,11 +9,19 @@
   font-size: 15px;
   font-family: sans-serif;
 }
-.title-detail-tag {
+
+#inner-collapsible {
   position: relative;
   background-color: #e6e3e3;
+  color: #2a658d;
+  cursor: pointer;
   padding: 18px;
   width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  font-family: sans-serif;
 }
 #statistic {
   position: relative;
@@ -29,6 +37,10 @@
 }
 
 #collapsible:hover {
+  background-color: #f1f1f1;
+}
+
+#inner-collapsible:hover {
   background-color: #f1f1f1;
 }
 
@@ -156,14 +168,27 @@ h1 {
 .dropdown:hover .dropbtn {
   background-color: #2e75a5;
 }
-.checkbox-to-combine {
-  display: inline;
+  
+#check-box {
+  border: none;
+  float : right;
 }
+
+#outter-check-box {
+  border: none;
+  float : right;
+}
+
 #combine-button {
-  position: relative;
-  margin: auto;
-  background-color: #e6e3e3;
-  color: blue;
-  display: block;
-  font-size: 20px;
+  background-color: #d88639;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 18px;
+  width: 20%;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 15px;
+  position: absolute;
+  left: 80%;
 }
