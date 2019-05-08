@@ -1,3 +1,4 @@
+var combineArr = []
 var list = document.getElementById("item-container")
 var requestInfo = (url) => {
 return new Promise( function (resolve,reject) {
@@ -19,25 +20,27 @@ function display(url) {
   .then((data) => {
     list.innerHTML = ""
     for(let i = 0; i < data.results.length; i++) {
-      if(data.results[i].name === undefined) {
-        list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].title + '</button>'
-        list.innerHTML += "<div id='details'></div>"
-      }
-      else {
-        list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].name + '</button>'
-        list.innerHTML += "<div id='details'></div>"
-      }
+    if(data.results[i].name === undefined) {
+      list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +
+      ',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].title + '<input type="checkbox" id="outter-check-box" onclick="getCombinedArr()" ></button>'
+      list.innerHTML += "<div id='details'></div>"
+    }
+    else {
+      list.innerHTML += '<button id="collapsible" onclick="detailsRequest('+ "'" + data.results[i].url +"'" +
+      ',event)"> <i class="fas fa-chevron-right"></i> '+ data.results[i].name + '<input type="checkbox" id="outter-check-box" onclick="getCombinedArr()"></button>'
+      list.innerHTML += "<div id='details'></div>"
+    } 
     }
     if (data.previous !== null) {
       list.innerHTML += '<button id="previous-page" onclick="display(' + "'" + data.previous + "'" +')">previous</button>'
     }
     if (data.next !== null) {
-      list.innerHTML += '<button id="next-page" onclick="display(' + "'" + data.next + "'" +')">Next</button>'
+    list.innerHTML += '<button id="next-page" onclick="display(' + "'" + data.next + "'" +')">Next</button>'
     }
     collapseAnimation (list)
   })
   .catch((data) => console.log(data))
-}
+  }
 
 function detailsRequest(url, event) {
   var detailsContent = event.currentTarget.nextElementSibling
@@ -69,11 +72,11 @@ function displayDetails(data, currentElement) {
       detailsContent.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": none</p>"
     }
     else if(key !== 'url' && key !== 'episode_id' && data[key].indexOf('https') === 0 ) {
-      detailsContent.innerHTML += "<button id='collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' +", event)'> <i class='fas fa-chevron-right'></i> " + "<strong>" + key + "</strong>" + "</button>"
+      detailsContent.innerHTML += "<button id='inner-collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' + ", event)'> <i class='fas fa-chevron-right'></i> " + key + "</button>"
       detailsContent.innerHTML += "<div id='details'></div>"
     }
     else if (typeof data[key] === "object") {
-      detailsContent.innerHTML += "<button id='collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' +", event)'> <i class='fas fa-chevron-right'></i> " + "<strong>" + key + "</strong>" + "</button>"
+      detailsContent.innerHTML += "<button id='inner-collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' + ", event)'> <i class='fas fa-chevron-right'></i> " + key + "</button>"
       detailsContent.innerHTML += "<div id='details'></div>"
     } 
     else {
@@ -81,32 +84,6 @@ function displayDetails(data, currentElement) {
     }
   }
   collapseAnimation (detailsContent)
-}
-
-function changeUrlIntoName(url, content, key) {
-  let request = new XMLHttpRequest()
-  request.open('GET', url)
-  request.send()
-  request.onload = function() {
-    let data = JSON.parse(request.responseText)
-    content.innerHTML += "<p>" + "<strong>" + key + "</strong>" + ": " + data.name +"</p>"
-  }
-  request.onerror = function() {
-  alert('No internet connection')
-  }
-} 
-
-function changeUrlIntoTitle(url, content, key) {
-  let request = new XMLHttpRequest()
-  request.open('GET', url)
-  request.send()
-  request.onload = function() {
-    let data = JSON.parse(request.responseText)
-    content.innerHTML += "<p>" + "<strong>" + key + "</strong>" + ": " + data.title +"</p>"
-  }
-  request.onerror = function() {
-    alert('No internet connection')
-  }
 }
 
 function displaymore(urls ,event) {
@@ -131,6 +108,7 @@ function displaymore(urls ,event) {
         detailsContent.innerHTML += '<p>'+ data[i].name +'</p>'
       }
     }
+    detailsContent.previousElementSibling.innerHTML += "<input type='checkbox' id='check-box' onclick='getCombinedArr()'></input>"
     collapseAnimation(detailsContent)
   })
   .catch((results) => console.log(results))
@@ -145,3 +123,46 @@ function collapseAnimation (detailsContent) {
     detailsContent.style.maxHeight = detailsContent.scrollHeight + "px"
   } 
 }
+
+function getSmallerCombinedArr(innercheckboxs, tempArr) {
+  for(var i = 0 ; i < innercheckboxs.length ; i++) {
+    if(innercheckboxs[i].checked == true) {
+      var content = innercheckboxs[i].parentElement.nextElementSibling.innerText 
+      tempArr.push(content.split('\n\n')) 
+    } 
+  }
+}
+
+function getCombinedArr() {
+  combineArr = []
+  var outterCheckBoxs = document.querySelectorAll('#outter-check-box')
+  for ( var i = 0 ; i < outterCheckBoxs.length ; i++) {
+    if(outterCheckBoxs[i].checked == true) {
+      var currentcontent = outterCheckBoxs[i].parentElement.nextElementSibling
+      var currentButtonName = outterCheckBoxs[i].parentElement.innerText
+      var innercheckboxs = currentcontent.querySelectorAll('#check-box')
+      var tempArr = [currentButtonName]
+      getSmallerCombinedArr(innercheckboxs, tempArr)
+      combineArr.push(tempArr)
+    }
+  }
+  console.log(combineArr)
+  console.log(combineArr[0])
+}
+
+
+
+function showCombinedResult() {
+  var str = ""
+  for (var i = 0 ; i < combineArr.length; i++) {
+    str += combineArr[i][0] + "/"
+    for (var j = 1 ; j < combineArr[i].length; j++) {
+      for(var k = 0 ; k < combineArr[i][j].length; k++) {
+         str += combineArr[i][j][k] + "/"
+      }
+    }
+    console.log(str)
+    str = ""
+  }
+}
+
