@@ -1,10 +1,8 @@
-#collapsible {
-  position: relative;
+#collapsible{
   background-color: #e6e3e3;
   color: #2a658d;
   cursor: pointer;
-  padding: 18px;
-  width: 100%;
+  width: 90%;
   border: none;
   text-align: left;
   outline: none;
@@ -25,7 +23,6 @@
   font-size: 15px;
   font-family: sans-serif;
 }
-
 #statistic {
   position: relative;
   background-color: #2a658d;
@@ -124,7 +121,7 @@ h1 {
   color: #2a658d;
   text-align: center;
   margin: 5px;
-}
+} 
 
 .dropbtn {
   background-color: #2a658d;

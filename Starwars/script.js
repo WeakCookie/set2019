@@ -14,6 +14,7 @@ return new Promise( function (resolve,reject) {
   }  
  })
 }
+let checkboxInfor = {}
 
 function display(url) {
   requestInfo(url)
@@ -32,7 +33,8 @@ function display(url) {
     } 
     }
     if (data.previous !== null) {
-      list.innerHTML += '<button id="previous-page" onclick="display(' + "'" + data.previous + "'" +')">previous</button>'
+      objectDetail.innerHTML += '<button id="previous-page" onclick="display(' + "'" + data.previous + "'" +')">previous</button>'
+      list.appendChild(objectDetail)
     }
     if (data.next !== null) {
     list.innerHTML += '<button id="next-page" onclick="display(' + "'" + data.next + "'" +')">Next</button>'
@@ -67,9 +69,16 @@ function detailsRequest(url, event) {
 function displayDetails(data, currentElement) {
   detailsContent = currentElement.nextElementSibling
   detailsContent.innerHTML= ""
+  let objectDetail = document.createElement('div')
+  objectDetail.setAttribute('class', 'title-detail-tag')
+  let tickButton = createCheckBox({
+    'class': 'checkbox-to-combine',
+    'onclick': getCombineDetails
+  })
   for ( var key in data) {
     if(data[key].length === 0) {
-      detailsContent.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": none</p>"
+      objectDetail.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": none</p>"
+      detailsContent.appendChild(objectDetail)
     }
     else if(key !== 'url' && key !== 'episode_id' && data[key].indexOf('https') === 0 ) {
       detailsContent.innerHTML += "<button id='inner-collapsible' onclick = 'displaymore("+ '"' + data[key] + '"' + ", event)'> <i class='fas fa-chevron-right'></i> " + key + "</button>"
@@ -80,7 +89,8 @@ function displayDetails(data, currentElement) {
       detailsContent.innerHTML += "<div id='details'></div>"
     } 
     else {
-      detailsContent.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": " + data[key] +"</p>"
+      objectDetail.innerHTML += "<p>"+ "<strong>" + key + "</strong>" + ": " + data[key] +"</p>"
+      detailsContent.appendChild(objectDetail)
     }
   }
   collapseAnimation (detailsContent)
