@@ -8,14 +8,14 @@ const hostName = '127.0.0.1'
 let server = http.createServer((request, response) => {
     let router = new Router(request, response)
 
-    router.getResources('/script.js', () => {
+    router.get('/script.js', 'text/javascript', () => {
         fs.readFile('script.js', 'utf8', (error, data) => {
             if(error) {throw error}
             response.end(data)
         })
     })
 
-    router.getResources('/style.css', () => {
+    router.get('/style.css', 'text/css', () => {
         fs.readFile('style.css', 'utf8', (error, data) => {
             if(error) {throw error}
             response.end(data)
