@@ -45,10 +45,12 @@ let server = http.createServer((request, response) => {
     }
     let fileExtension = getFileExtension(outputFiles)
     fileReader.readFile(outputFiles, null, (error, data) => {
-        response.statusCode = 200
-        response.setHeader('content-type', fileType[fileExtension])
-        response.write(data)
-        response.end()
+        if (!error) {    
+            response.statusCode = 200
+            response.setHeader('content-type', fileType[fileExtension])
+            response.write(data)
+            response.end()
+        }
     })
     
 })
