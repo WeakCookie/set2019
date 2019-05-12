@@ -2,8 +2,7 @@ var http = require('http')
 var fileReader = require('fs')
 let port = 3000
 let host = '127.0.0.1'
-let pageDirectory = './src'
-let currentPage = '/todolist'
+let pageDirectory = '.'
 let fileType = {
     'css' : 'text/css',
     'mp4' : 'video/mp4',
@@ -38,36 +37,20 @@ let server = http.createServer((request, response) => {
     const {method, url} = request
     let pathToFile = url
     let fileDirectory = '.'
-    let htmlExtension = '.html'
-    if (isPageFile(pathToFile)) {
-        debugger
-        let fileExtension = getFileExtension(pathToFile)
-        if (fileExtension == undefined){
-            response.setHeader('content-type', fileType.html)
-        } else {
-            htmlExtension = ''
-            response.setHeader('content-type', fileType[fileExtension])
-        }
-        fileReader.readFile(pageDirectory + currentPage + pathToFile + htmlExtension, null, (error, data) => {
-            if (error) {
-                throw error
-            }
-            console.log(pageDirectory + pathToFile + pathToFile)
-            response.write(data)
-            response.end()
-        })
+    let outputFiles
+     if (isPageFile(pathToFile)) {
+        outputFiles = fileDirectory + pathToFile + '/index.html'
     } else {
-        fileReader.readFile(fileDirectory + pathToFile, null, (error, data) => {
-            console.log (pathToFile)
-            let fileExtension = getFileExtension(pathToFile)
-            response.setHeader('content-type', fileType[fileExtension])
-            if(error) {
-                throw error
-            }
-            response.write(data)
-            response.end()
-        })
+        outputFiles = fileDirectory + pathToFile
     }
+    let fileExtension = getFileExtension(outputFiles)
+    fileReader.readFile(outputFiles, null, (error, data) => {
+        response.statusCode = 200
+        response.setHeader('content-type', fileType[fileExtension])
+        response.write(data)
+        response.end()
+    })
+    
 })
 
 server.listen(port, host, ()=> {
