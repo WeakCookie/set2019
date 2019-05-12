@@ -35,6 +35,10 @@ let server = http.createServer((request, response) => {
             response.end(data)
         })
     })
+
+    if(!router.found) {
+        response.end('page not found')
+    }
 })
 
 server.listen(port, hostName, () => {
