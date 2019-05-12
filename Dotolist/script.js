@@ -12,6 +12,7 @@ var stringCheck = ''
 var counting2 = 0
 var initialUndone = 0
 var initialDone = 0
+var oldName
 
 function add() {
 
@@ -240,6 +241,21 @@ function saveTask() {
         document.getElementById('save-edit').style.display = 'none'
         document.getElementById('valid-edit').style.display = 'none'
         alert.popSuccess("Edit successfully!!")
+
+        var request = new XMLHttpRequest()
+        var data = {
+            originalName : oldName,
+            replaceName  : checkValidate.value
+        }
+        request.onreadystatechange = function() {
+            if (this.readyState == 4) {
+                alert.popSuccess("Edit successfully!!")
+                console.log(this.response)
+            }
+        }
+        
+        request.open('POST','http://localhost:3000/todolist')  
+        request.send(JSON.stringify(data))
     }
 }
 
@@ -278,6 +294,7 @@ function editTaskName(event) {
         var transit = document.getElementById('header-taskname-edit')
         var saveIndex = document.getElementById('save')
         transit.value = item.childNodes[0].innerText
+        oldName = transit.value
         var item2 = event.currentTarget
         item2.innerHTML += 'hello'
         document.getElementById('header').style.display = 'none'
