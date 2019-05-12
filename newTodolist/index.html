@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>To Do List</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>To Do List</title>
+    <link href='./style.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <div id="to-do-list">
+        <div id="header">
+            <input id='header-taskname' placeholder='Task name...' onfocus='deleteAttention()'required/>
+            <button id="add" onclick="getTaskList()">Add</button>
+            <div id="valid"></div>
+        </div>
+        <div id="body">
+            <ul id="task-list"></ul>
+        </div>
+    </div>
+
+</body>
+<script src='./script.js'></script>
+</html>
