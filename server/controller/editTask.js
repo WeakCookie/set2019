@@ -1,4 +1,4 @@
-if(req.url == '/editTask') {
+if(req.url == '/api/editTask') {
     getStream((data) => {
         for(let i = 0; i < taskList.length; i++ ) {
             if(taskList[i].taskName == data.originalName) {
