@@ -3,6 +3,10 @@ function calculate(data) {
         done : 0,
         undone : 0
     }
+    let resultPercentage = {
+        donePercent: 0 ,
+        undonePercent:0 
+    }
     for(var i = 0 ; i < data.length ; i++) {
         if ( data[i].checked === true ) {
             result.done++
@@ -11,7 +15,9 @@ function calculate(data) {
             result.undone++
         }
     }
-    return result
+    resultPercentage.donePercent = result.done * 100/ (result.done+result.undone)
+    resultPercentage.undonePercent = 100 - resultPercentage.donePercent
+    return resultPercentage
 }
 
 module.exports = calculate
