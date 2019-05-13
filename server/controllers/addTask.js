@@ -1,4 +1,4 @@
-function addTask(method, url, task) {
+function addTask(method, url, response, task) {
     if (method == "POST" && url == "localhost:3000/todolist") {  
         var data = {}
         data.name = response.name
