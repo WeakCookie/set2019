@@ -5,8 +5,6 @@ function requestDelete (currentIndex) {
     reqDelete.onload = function() {
         if (this.status == 200){
             alert.popSuccess('Delete successfully!')
-            let tasks = taskList.querySelectorAll('li')
-            tasks[currentIndex].remove() 
         }
     }
     reqDelete.onerror = function() {
