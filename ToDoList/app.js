@@ -6,28 +6,7 @@ const port = 3000
 const hostName = '127.0.0.1'
 var token = []
 
-var taskList = [
-    {
-       taskName : 'do sth 1',
-       checked: false
-    }, 
-    {
-        taskName : 'do sth 2',
-        checked: false
-    }, 
-    {
-        taskName : 'do sth 3',
-        checked: false
-    },
-    {
-        taskName : 'do sth 4',
-        checked: true
-    },
-    {
-        taskName : 'do sth 5',
-        checked: true
-    }
-]
+var taskList = []
 
 function checkLogin(cookie) {
     if (cookie == undefined)
@@ -82,7 +61,7 @@ let server = http.createServer((request, response) => {
     })
     router.get('/todolist', 'text/html', () => {
         if (checkLogin(request.headers.cookie))
-            readToDoList()  
+            readToDoList(response)  
         else {
             response.writeHead(302, { Location : "http://localhost:3000/login"})
             response.end();
@@ -137,6 +116,15 @@ let server = http.createServer((request, response) => {
         response.writeHead(200,{'Content-Type':'text/plain'})
         response.end(JSON.stringify(taskList))
     })
+    router.getResources('/add-task', () => {
+        request.on('data', reqData => {
+            const newTask = { taskName: JSON.parse(reqData.toString()), checked: false }
+            taskList.push(newTask)
+            response.statusCode = 200
+            response.end()
+        })
+    })
+    
     router.getResources('/favicon.ico', () => {
         response.statusCode = 200
         response.end()
@@ -159,17 +147,12 @@ let server = http.createServer((request, response) => {
         })
     })
     router.get('/', 'text/html', () => {
-        if (checkLogin(request.headers.cookie))
-            readToDoList()  
-         else {
-            response.writeHead(302, { Location : "http://localhost:3000/login"})
-            response.end();
-        }  
+            readToDoList(response)
     })
 })
 
 function readToDoList(response) {
-    fs.readFile('todolist.html', null, (error, data) => {
+    fs.readFile('./todolist.html', null, (error, data) => {
         if(error) {throw error}
         response.end(data)
     })

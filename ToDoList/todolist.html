@@ -28,13 +28,13 @@
     </div>
     <div id="to-do-list">
         <div id="header">
-            <input id='header-taskname' placeholder='Task name...' onfocus='deleteAttention()'required/>
-            <button id="add" onclick="validate();add()">Add</button>
+            <input id='header-taskname' placeholder='Task name...' required/>
+            <button id="add" onclick="add()">Add</button>
             <div id="valid"></div>
         </div>
         <div id="save-edit">
             <input id='header-taskname-edit' placeholder='Task name...' onfocus='deleteAttentionEdit()'required/>
-            <button id="save" onclick="validateEdit();saveTask();">Edit</button>
+            <button id="save" onclick="saveTask();">Edit</button>
             <div id="valid-edit" ></div>
         </div>
         <div id="body">

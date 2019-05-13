@@ -21,18 +21,50 @@ request.onerror = function() {
 }
 
 
+function add() {
+    var check = document.getElementById('header-taskname')
+    if (check.value.trim() != '') {
+        var add = document.getElementById('header-taskname')
+        var item = document.createElement('li')
+        var currentValue = add.value.trim()
+        item.innerHTML += '<label><input type="checkbox" onclick="checkTask(event)"/>' + currentValue + '</label>'
+        item.innerHTML += '<button class="delete-button" onclick="deleteItem(event)">Delete</button>'
+        item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
+        taskList.append(item)
+        console.log(item)
+        requestAdd(currentValue)
+    }
+    else {
+        alert.popError('failed')
+    }
+    
+}
+
+function requestAdd (currentValue) {
+    let reqAdd = new XMLHttpRequest()
+    reqAdd.open('POST','http://localhost:3000/add-task')
+    reqAdd.send(JSON.stringify(currentValue))
+    reqAdd.onload = function() {
+        if (this.status == 200) {
+            alert.popSuccess('Add successfully!')
+            getStatistic()
+            document.getElementById('header-taskname').value = ''
+        }
+    }
+}
+
 function loadAvailableTasks(data) {
     for( let i = 0 ; i < data.length ; i++) {
         if(data[i].checked === false) {
             var item = document.createElement('li')
-            item.innerHTML += '<label><input type="checkbox" onclick="checkTask()"/>' + data[i].taskName + '</label>'
+            item.innerHTML += '<label><input type="checkbox" onclick="checkTask(event)"/>' + data[i].taskName + '</label>'
             item.innerHTML += '<button class="delete-button" onclick="deleteItem(event)">Delete</button>'
             item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
             taskList.append(item)
         }
         else {
             var item = document.createElement('li')
-            item.innerHTML += '<label><input type="checkbox" onclick="checkTask()" checked/><strike>'+ data[i].taskName  +'</strike></label>'
+            item.innerHTML += '<label><input type="checkbox" onclick="checkTask(event)" checked/><strike>'+ data[i].taskName  +'</strike></label>'
             taskList.append(item)
         }
     }
@@ -43,7 +75,7 @@ function loadUndoneTasks(data) {
     for( let i = 0 ; i < data.length ; i++) {
         if(data[i].checked === false) {
             var item = document.createElement('li')
-            item.innerHTML += '<label><input type="checkbox" onclick="checkTask()"/>' + data[i].taskName + '</label>'
+            item.innerHTML += '<label><input type="checkbox" onclick="checkTask(event)"/>' + data[i].taskName + '</label>'
             item.innerHTML += '<button class="delete-button" onclick="deleteItem(event)">Delete</button>'
             item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
             taskList.append(item)
@@ -56,7 +88,7 @@ function loadDoneTasks(data) {
     for( let i = 0 ; i < data.length ; i++) {
        if(data[i].checked === true) {
             var item = document.createElement('li')
-            item.innerHTML += '<label><input type="checkbox" onclick="checkTask()" checked/><strike>'+ data[i].taskName  +'</strike></label>'
+            item.innerHTML += '<label><input type="checkbox" onclick="checkTask(event)" checked/><strike>'+ data[i].taskName  +'</strike></label>'
             taskList.append(item)
         }
     }
@@ -133,15 +165,21 @@ function deleteAnimation(currentIndex) {
     }, 0);
 }
 
-function checkTask() {
-    let taskCheckBoxs = taskList.querySelectorAll('input')
-    let checkedTasks = []
-    for( let i = 0 ; i < taskCheckBoxs.length ; i++) {
-        if(taskCheckBoxs[i].checked === true) {
-            checkedTasks.push(i)
-        }
+function checkTask(event) {
+    if (currentPage == 'done' || currentPage == 'undone') {
+        event.currentTarget.checked = !event.currentTarget.checked
+        alert.popError('Return all page before checking')  
     }
-    requestCheck(checkedTasks)
+    else { 
+        let taskCheckBoxs = taskList.querySelectorAll('input')
+        let checkedTasks = []
+        for( let i = 0 ; i < taskCheckBoxs.length ; i++) {
+            if(taskCheckBoxs[i].checked === true) {
+                checkedTasks.push(i)
+            }
+        }
+        requestCheck(checkedTasks)
+    }
 }
 
 function requestCheck(checkedTasks) {
