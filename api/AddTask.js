@@ -1,4 +1,6 @@
-function add() {
+var post = require ('POST')
+
+function addTask() {
     var check = document.getElementById('header-taskname')
     if (check.value.trim() != '') {
         var add = document.getElementById('header-taskname')
@@ -8,24 +10,17 @@ function add() {
         item.innerHTML += '<button class="delete-button" onclick="deleteItem(event)">Delete</button>'
         item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
         taskList.append(item)
-        console.log(item)
+        var data = {
+            name : check,
+            done : false
+        }
+        post ("localhost:3000/todolist", data, response => {
+            console.log(response.responseText)
+        })
     }
     else {
         console.log('failed')
     }
-    
 }
 
-function requestAdd (currentValue, url) {
-    let requestAdd = new XMLHttpRequest()
-    requestAdd.open('POST', url)
-    requestAdd.send(JSON.stringify(currentValue))
-    requestAdd.onload = function() {
-        if (this.status == 200) {
-            var data = document.getElementById('header-taskname').value
-            console.log('Add successfully!')
-            add(data)
-            data = ''
-        }
-    }
-}
+module.exports = addTask
