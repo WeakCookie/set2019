@@ -9,7 +9,6 @@ function add() {
         item.innerHTML += '<button class="edit-button" onclick="editTaskName(event)">Edit</button>'
         taskList.append(item)
         console.log(item)
-        requestAdd(currentValue)
     }
     else {
         console.log('failed')
