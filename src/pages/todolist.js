@@ -7,6 +7,6 @@ function deleteRequest(reqData, url, callback) {
         callback(data)
     }
     reqDelete.onerror = function(){
-       console.error('failed')
+       alert('failed')
     }
 }
