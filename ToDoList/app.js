@@ -7,13 +7,29 @@ const hostName = '127.0.0.1'
 var token = []
 
 var taskList = []
+var obj1 = {
+    user: 'Cnam',
+    password: 'Cnam'
+}
+var users = []
+users.push(obj1)
+
+
+function collectDataFromPost(request, response, callback) {
+    let body = ''
+    request.on('data', chunk => {
+        body += chunk.toString()
+    })
+    request.on('end', () => {
+        callback(response,JSON.parse(body))
+    })
+}
 
 function checkLogin(cookie) {
     if (cookie == undefined)
         return false
     else {
-        var checkCookie = cookie.replace('token=','')
-        return checkToken(checkCookie, token)
+        return checkToken(cookie,token)
     }
 }
 
@@ -25,11 +41,16 @@ function checkToken(checkCookie, token) {
 }
 
 let server = http.createServer((request, response) => {
-    console.log(request.url)
     let router = new Router(request, response)
 
     router.getResources('/script.js', () => {
         fs.readFile('script.js', 'utf8', (error, data) => {
+            if(error) {throw error}
+            response.end(data)
+        })
+    })
+    router.getResources('/scriptLogin.js', () => {
+        fs.readFile('scriptLogin.js', 'utf8', (error, data) => {
             if(error) {throw error}
             response.end(data)
         })
@@ -47,10 +68,17 @@ let server = http.createServer((request, response) => {
     })
 
     router.get('/login', 'text/html', () => {
-        fs.readFile('login.html', null, (error, data) => {
+
+
+        if (checkLogin(request.headers.cookie))
+            readToDoList(response)  
+        else {   
+            fs.readFile('login.html', null, (error, data) => {
             if(error) {throw error}
             response.end(data)
         })
+        }
+
     })
 
     router.get('/signup', 'text/html', () => {
@@ -58,7 +86,33 @@ let server = http.createServer((request, response) => {
             if(error) {throw error}
             response.end(data)
         })
-    })
+    })    
+    router.getResources('/check', () => {
+        collectDataFromPost(request, response, (response, result) => {
+            var detect = true
+            console.log(result)
+            var checkUser = result.user
+            var checkPassword = result.password
+            for ( var count = 0; count < users.length; count++) {
+                var userCheck = users[count].user
+                var passwordCheck = users[count].password
+                if ((checkUser == userCheck) && (checkPassword == passwordCheck) && (checkPassword!= '') && (checkUser!= '')) {
+                    var cookie = Math.random()
+                    detect = false
+                    token.push(cookie.toString())
+                    response.statusCode = 200
+                    response.write(cookie.toString())
+                    response.end();
+                }
+             }
+             if(detect){
+                response.statusCode = 200
+                response.setHeader('Content-type','application/json')
+                response.write('false')
+                response.end();
+             }
+        }) 
+     })
     router.get('/todolist', 'text/html', () => {
         if (checkLogin(request.headers.cookie))
             readToDoList(response)  
@@ -147,7 +201,12 @@ let server = http.createServer((request, response) => {
         })
     })
     router.get('/', 'text/html', () => {
-            readToDoList(response)
+        if (checkLogin(request.headers.cookie))
+            readToDoList(response)  
+        else {
+            response.writeHead(302, { Location : "http://localhost:3000/login"})
+            response.end();
+        }
     })
 })
 
