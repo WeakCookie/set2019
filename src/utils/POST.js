@@ -8,6 +8,6 @@ function postResource (path, body, callback) {
         }
     }
     request.onerror = function () {
-        alert('POST request falied')
+        console.error('POST request falied')
     }
 }
