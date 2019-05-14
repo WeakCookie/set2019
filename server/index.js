@@ -1,40 +1,30 @@
 http = require('http')
 fs = require('fs')
-login = require('./controllers/login.js')
 port = 3000
 url = 'http://localhost:'
 
-usersList = {hieu:'1234'}
-tokensList = {hieu:'123'}
-
-let server = http.createServer((request, response) => {
-    const { method,url } = request
-
-    let promise = new Promise ((resolve, reject) => {
-        let body = ''
-        request.on('data', chunk => {
-            body += chunk.toString()
-        })
-        request.on('end', () => {
-            resolve(JSON.parse(body))
-        })
-    })
-
-    if(url == '/login' && method == 'POST') {
-        promise.then(requestContent => {
-            login(requestContent, usersList, tokensList, data => {
-                response.end(JSON.stringify(data))
-            })
-        })
+let server = http.createServer((req, res) => {
+    const {method, url} = req
+    if(req.url === '/') {
+        res.writeHead(200,{'Content-Type':'text/html'})
+        fs.createReadStream('../src/pages/loginPage/index.html').pipe(res)
     }
-
-var task = []
-require('./controllers/addTask.js')
-
-let server = http.createServer((request, response) => {
-    const { method, url } = request
-    response.end()
+    else if(req.url ==='/style.css') {
+        res.writeHead(200,{'Content-Type':'text/css'})
+        fs.createReadStream('../src/pages/loginPage/style.css').pipe(res)
+    }
+    if (url == '/home') {
+        res.writeHead(200,{'Content-Type':'text/html'})
+        fs.createReadStream('../src/pages/ToDoList/todolist.html').pipe(res)
+    }
+    if (url == '/todolist.css') {
+        res.writeHead(200,{'Content-Type':'text/css'})
+        fs.createReadStream('../src/pages/ToDoList/todolist.css').pipe(res)
+    }
+    if (url == '/todolist.mp4') {
+        res.writeHead(200,{'Content-Type':'video/mp4'})
+        fs.createReadStream('./assets/videos/todolist.mp4').pipe(res)
+    }
 })
-server.listen(port)
-
+server.listen(3000)
 console.log('server is now running on ' + url + port)
