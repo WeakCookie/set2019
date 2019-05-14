@@ -1,40 +1,16 @@
 http = require('http')
 fs = require('fs')
-login = require('./controllers/login.js')
 port = 3000
 url = 'http://localhost:'
-
-usersList = {hieu:'1234'}
-tokensList = {hieu:'123'}
-
-let server = http.createServer((request, response) => {
-    const { method,url } = request
-
-    let promise = new Promise ((resolve, reject) => {
-        let body = ''
-        request.on('data', chunk => {
-            body += chunk.toString()
-        })
-        request.on('end', () => {
-            resolve(JSON.parse(body))
-        })
-    })
-
-    if(url == '/login' && method == 'POST') {
-        promise.then(requestContent => {
-            login(requestContent, usersList, tokensList, data => {
-                response.end(JSON.stringify(data))
-            })
-        })
+let server = http.createServer((req, res) => {
+    if(req.url === '/') {
+        res.writeHead(200,{'Content-Type':'text/html'})
+        fs.createReadStream('../src/pages/loginPage/index.html').pipe(res)
     }
-
-var task = []
-require('./controllers/addTask.js')
-
-let server = http.createServer((request, response) => {
-    const { method, url } = request
-    response.end()
+    else if(req.url ==='/style.css') {
+        res.writeHead(200,{'Content-Type':'text/css'})
+        fs.createReadStream('../src/pages/loginPage/style.css').pipe(res)
+    }
 })
-server.listen(port)
-
+server.listen(3000)
 console.log('server is now running on ' + url + port)
