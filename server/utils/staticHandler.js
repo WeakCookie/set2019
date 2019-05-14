@@ -1,5 +1,5 @@
 function getVideo (url, response, fileReader) {
-    let videoPath = 'c:\\Users\\Bui D Anh\\Desktop\\set2019\\server\\assets\\videos\\todoist.mp4'
+    let videoPath = 'c:\\Users\\Bui D Anh\\Desktop\\set2019\\server\\assets\\videos\\todolist.mp4'
     if (url != '/api/video') {
         return
     }
