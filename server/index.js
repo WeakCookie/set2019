@@ -27,6 +27,13 @@ let server = http.createServer((request, response) => {
             })
         })
     }
+
+var task = []
+require('./controllers/addTask.js')
+
+let server = http.createServer((request, response) => {
+    const { method, url } = request
+    response.end()
 })
 server.listen(port)
 
