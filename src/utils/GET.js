@@ -10,3 +10,4 @@ let getRequest = function (path, callback) {
    request.open("GET",path)
    request.send()
 }
+module.exports = getRequest
