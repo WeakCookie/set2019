@@ -10,4 +10,4 @@ function putRequest(url, options,callback){
     request.open(options.method || "PUT",url)
     request.send
 }
-module.export = putRequest
+module.exports = putRequest
