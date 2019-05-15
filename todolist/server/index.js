@@ -7,6 +7,10 @@ url = 'http://localhost:'
 
 usersList = {hieu:'1234'}
 tokensList = {hieu:'123'}
+tasksList = [
+    {name:'wash dish', done:false},
+    {name:'clean', done:false}
+]
 
 let server = http.createServer((request, response) => {
     const { method,url } = request
@@ -25,6 +29,24 @@ let server = http.createServer((request, response) => {
         })
     }
 
+    if(url == '/api/renderList.js') {
+        response.writeHead(200, {'Content-Type': 'text/javascript'})
+        fs.readFile('../src/api/renderList.js', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/renderList' && method == 'GET') {
+        response.end(JSON.stringify(tasksList))
+    }
+
+    if(url == '/assets/videos/instruction.mp4') {
+        response.writeHead(200, {'Content-Type': 'video/mp4'})
+        fs.readFile('../assets/videos/instruction.mp4', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
     if(url == '/api/API-Login.js') {
         response.writeHead(200, {'Content-Type': 'text/javascript'})
         fs.readFile('../src/api/API-Login.js', null, (error,data) => {
@@ -35,6 +57,13 @@ let server = http.createServer((request, response) => {
     if(url == '/utils/POST.js') {
         response.writeHead(200, {'Content-Type': 'text/javascript'})
         fs.readFile('../src/utils/POST.js', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/utils/GET.js') {
+        response.writeHead(200, {'Content-Type': 'text/javascript'})
+        fs.readFile('../src/utils/GET.js', null, (error,data) => {
             response.end(data)
         })
     }

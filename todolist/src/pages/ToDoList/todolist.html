@@ -22,7 +22,7 @@
             <div id="valid-edit" ></div>
         </div>
         <div id="body">
-            <ul id="task-list"></ul>
+            <ul id="task-list" ></ul>
         </div>
         <div id = 'footer'>
             <div class="dropdown">
@@ -45,7 +45,7 @@
     <div id="pop-up"></div> 
     <div id='instruction-video'>
         <div id='video-container'>
-            <video class="videoplayer" src="./instruction.mp4" autoplay muted></video>
+            <video class="videoplayer" src="../../../assets/videos/instruction.mp4" autoplay muted></video>
             <div id="control-container">
                 <button id="play-pause" onclick="playOrPause()"><i class="fas fa-pause"></i></button>
                 <div id="timeline" onclick="timeChooser(event)">
@@ -56,7 +56,8 @@
             </div>
         </div>
     </div>
+    <script src="../../utils/GET.js"></script>
+    <script src="../../api/renderList.js"></script>
 </body>
-<script src="./script.js"></script>
 
 </html>
