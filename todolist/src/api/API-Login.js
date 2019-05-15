@@ -11,3 +11,7 @@ function login () {
         }
     })
 }
+
+function switchSignup() {
+    window.location = 'http://localhost:3000/signup'
+}

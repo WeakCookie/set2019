@@ -2,6 +2,7 @@ http = require('http')
 fs = require('fs')
 readStream = require('./utils/readStream.js')
 login = require('./controllers/login.js')
+validate = require('./controllers/validate.js')
 port = 3000
 url = 'http://localhost:'
 
@@ -31,7 +32,6 @@ let server = http.createServer((request, response) => {
 
     if(url == '/todolist' && method == 'POST') {
         readStream(request, data => {
-            console.log(data)
             tasksList.push({
                 name: data.name,
                 done: data.done
@@ -84,6 +84,40 @@ let server = http.createServer((request, response) => {
         response.writeHead(200, {'Content-Type': 'text/javascript'})
         fs.readFile('../src/utils/GET.js', null, (error,data) => {
             response.end(data)
+        })
+    }
+    
+    if(url == '/signup') {
+        response.writeHead(200, {'Content-Type': 'text/html'})
+        fs.readFile('../src/pages/signup/index.html', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/style.css') {
+        response.writeHead(200, {'Content-Type': 'text/css'})
+        fs.readFile('../src/pages/signup/style.css', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/api/signup.js') {
+        response.writeHead(200, {'Content-Type': 'text/javascript'})
+        fs.readFile('../src/api/signup.js', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/signup' && method == 'POST') {
+        readStream(request, data => {
+            console.log(data)
+            if(validate(data)) {
+                usersList[data.username] = data.password
+                console.log(usersList)
+                response.end(JSON.stringify({validate:true}))
+            } else {
+                response.end(JSON.stringify({validate:false}))
+            }
         })
     }
 
