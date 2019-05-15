@@ -13,7 +13,7 @@
     <div id="to-do-list">
         <div id="header">
             <input id='taskname' placeholder='Task name...' onfocus='deleteAttention()'required/>
-            <button id="add" onclick="validate();add()">Add</button>
+            <button id="add" onclick="addTask()">Add</button>
             <div id="valid"></div>
         </div>
         <div id="save-edit">
@@ -56,8 +56,10 @@
             </div>
         </div>
     </div>
+    <script src="../../utils/POST.js"></script>
     <script src="../../utils/GET.js"></script>
     <script src="../../api/renderList.js"></script>
+    <script src="../../api/AddTask.js"></script>
 </body>
 
 </html>

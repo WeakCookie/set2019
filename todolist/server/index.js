@@ -9,7 +9,7 @@ usersList = {hieu:'1234'}
 tokensList = {hieu:'123'}
 tasksList = [
     {name:'wash dish', done:false},
-    {name:'clean', done:false}
+    {name:'clean', done:false},
 ]
 
 let server = http.createServer((request, response) => {
@@ -29,9 +29,28 @@ let server = http.createServer((request, response) => {
         })
     }
 
+    if(url == '/todolist' && method == 'POST') {
+        readStream(request, data => {
+            console.log(data)
+            tasksList.push({
+                name: data.name,
+                done: data.done
+            })
+            console.log(tasksList)
+            response.end(JSON.stringify({validate:true}))
+        })
+    }
+
     if(url == '/api/renderList.js') {
         response.writeHead(200, {'Content-Type': 'text/javascript'})
         fs.readFile('../src/api/renderList.js', null, (error,data) => {
+            response.end(data)
+        })
+    }
+
+    if(url == '/api/AddTask.js') {
+        response.writeHead(200, {'Content-Type': 'text/javascript'})
+        fs.readFile('../src/api/AddTask.js', null, (error,data) => {
             response.end(data)
         })
     }
